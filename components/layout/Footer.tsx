@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -7,10 +8,12 @@ export default function Footer() {
         <div className={styles.grid}>
           <div className={styles.coluna}>
             <div className={styles.logo} aria-label="Governo do Estado do Paraná">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                <circle cx="24" cy="24" r="23" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" />
-                <text x="24" y="30" textAnchor="middle" fontFamily="Montserrat" fontSize="18" fontWeight="700" fill="white">PR</text>
-              </svg>
+              <Image
+                src="/govpr.jpg"
+                alt="Governo do Estado do Paraná"
+                width={48}
+                height={48}
+              />
             </div>
             <p className={styles.orgNome}>SECID — Secretaria de Estado das Cidades</p>
             <address className={styles.endereco} aria-label="Endereço da SECID">
