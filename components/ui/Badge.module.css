@@ -1,0 +1,66 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.6;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.noPrazo {
+  background: var(--status-no-prazo-bg);
+  color: var(--status-no-prazo-cor);
+}
+
+.atencao {
+  background: var(--status-atencao-bg);
+  color: var(--status-atencao-cor);
+}
+
+.atrasado {
+  background: var(--status-atrasado-bg);
+  color: var(--status-atrasado-cor);
+}
+
+.devolvido {
+  background: var(--status-devolvido-bg);
+  color: var(--status-devolvido-cor);
+}
+
+.emAndamento {
+  background: var(--status-em-andamento-bg);
+  color: var(--status-em-andamento-cor);
+}
+
+.concluido {
+  background: var(--status-concluido-bg);
+  color: var(--status-concluido-cor);
+}
+
+.pendente {
+  background: var(--status-pendente-bg);
+  color: var(--status-pendente-cor);
+}
+
+.convenios {
+  background: var(--area-convenios-bg);
+  color: var(--area-convenios-cor);
+}
+
+.obras {
+  background: var(--area-obras-bg);
+  color: var(--area-obras-cor);
+}
+
+.urbanismo {
+  background: var(--area-urbanismo-bg);
+  color: var(--area-urbanismo-cor);
+}
+
+.administrativo {
+  background: var(--area-administrativo-bg);
+  color: var(--area-administrativo-cor);
+}

@@ -1,0 +1,222 @@
+.pagina {
+  max-width: var(--largura-maxima);
+  margin: 0 auto;
+  padding: var(--espaco-8) var(--padding-lateral);
+}
+
+.titulo {
+  font-size: var(--texto-3xl);
+  font-weight: var(--peso-negrito);
+  color: var(--cor-azul-principal);
+  margin: 0 0 var(--espaco-8);
+}
+
+/* Métricas */
+.metricas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--espaco-4);
+  margin-bottom: var(--espaco-8);
+}
+
+@media (max-width: 1024px) {
+  .metricas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .metricas {
+    grid-template-columns: 1fr;
+  }
+}
+
+.metricaCard {
+  background: var(--cor-branco);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--borda-radius-lg);
+  padding: var(--espaco-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+}
+
+.metricaValor {
+  font-size: var(--texto-3xl);
+  font-weight: var(--peso-negrito);
+  color: var(--cor-cinza-escuro);
+  line-height: 1;
+}
+
+.metricaLabel {
+  font-size: var(--texto-sm);
+  color: var(--cor-cinza-medio);
+}
+
+.metricaDestaque {
+  border-left: 4px solid var(--cor-azul-claro);
+}
+
+.metricaDestaque .metricaValor {
+  color: var(--cor-azul-claro);
+}
+
+.metricaAtencao {
+  border-left: 4px solid var(--cor-amarelo-atencao);
+}
+
+.metricaAtencao .metricaValor {
+  color: var(--cor-amarelo-atencao);
+}
+
+.metricaPerigo {
+  border-left: 4px solid var(--cor-vermelho-alerta);
+}
+
+.metricaPerigo .metricaValor {
+  color: var(--cor-vermelho-alerta);
+}
+
+/* Filtros */
+.filtros {
+  margin-bottom: var(--espaco-6);
+}
+
+.filtrosCampos {
+  display: flex;
+  gap: var(--espaco-4);
+  flex-wrap: wrap;
+}
+
+.filtroLabel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-semi);
+  color: var(--cor-cinza-medio);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.filtroInput {
+  padding: var(--espaco-2) var(--espaco-3);
+  border: 1px solid #d1d5db;
+  border-radius: var(--borda-radius);
+  font-size: var(--texto-sm);
+  color: var(--cor-cinza-escuro);
+  background: var(--cor-branco);
+  min-width: 200px;
+  transition: border-color var(--transicao-rapida);
+}
+
+.filtroInput:focus {
+  outline: 2px solid var(--cor-azul-claro);
+  outline-offset: 0;
+  border-color: var(--cor-azul-claro);
+}
+
+/* Tabela */
+.tabelaWrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--borda-radius-lg);
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--cor-branco);
+  font-size: var(--texto-sm);
+}
+
+.th {
+  padding: var(--espaco-3) var(--espaco-4);
+  text-align: left;
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-semi);
+  color: var(--cor-cinza-medio);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--cor-cinza-claro);
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.tr {
+  transition: background var(--transicao-rapida);
+}
+
+.tr:hover {
+  background: #f8faff;
+}
+
+.tr + .tr {
+  border-top: 1px solid #f0f2f5;
+}
+
+.td {
+  padding: var(--espaco-3) var(--espaco-4);
+  vertical-align: middle;
+  color: var(--cor-cinza-escuro);
+}
+
+.numero {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-semi);
+  color: var(--cor-azul-principal);
+  white-space: nowrap;
+}
+
+.objeto {
+  display: block;
+  font-weight: var(--peso-medio);
+  color: var(--cor-cinza-escuro);
+  margin-bottom: var(--espaco-1);
+  max-width: 260px;
+}
+
+.municipio {
+  display: block;
+  font-size: var(--texto-xs);
+  color: var(--cor-cinza-medio);
+}
+
+.valor {
+  white-space: nowrap;
+  font-size: var(--texto-sm);
+}
+
+.exercicio {
+  font-size: var(--texto-sm);
+  color: var(--cor-cinza-medio);
+}
+
+.responsavel {
+  font-size: var(--texto-xs);
+  color: var(--cor-cinza-medio);
+  white-space: nowrap;
+}
+
+.vencimentoAlerta {
+  color: var(--cor-vermelho-alerta);
+  font-weight: var(--peso-semi);
+}
+
+.tdVazio {
+  text-align: center;
+  padding: var(--espaco-16) var(--espaco-4);
+  color: var(--cor-cinza-medio);
+  font-size: var(--texto-base);
+}
+
+@media (max-width: 640px) {
+  .pagina {
+    padding: var(--espaco-6) var(--espaco-4);
+  }
+
+  .titulo {
+    font-size: var(--texto-2xl);
+  }
+}

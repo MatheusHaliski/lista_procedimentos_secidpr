@@ -1,0 +1,89 @@
+.footer {
+  background-color: var(--cor-azul-principal);
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: auto;
+}
+
+.inner {
+  max-width: var(--largura-maxima);
+  margin: 0 auto;
+  padding: 32px var(--padding-lateral) 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: var(--espaco-8);
+  padding-bottom: var(--espaco-8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.logo {
+  margin-bottom: var(--espaco-3);
+}
+
+.orgNome {
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-semi);
+  color: white;
+  margin-bottom: var(--espaco-3);
+  line-height: 1.4;
+}
+
+.endereco {
+  font-size: var(--texto-xs);
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.8;
+  font-style: normal;
+}
+
+.endereco a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+}
+
+.endereco a:hover {
+  text-decoration: underline;
+  color: white;
+}
+
+.colunaTitle {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-semi);
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--espaco-3);
+}
+
+.linksList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+}
+
+.footerLink {
+  font-size: var(--texto-xs);
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color var(--transicao-rapida);
+}
+
+.footerLink:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.rodape {
+  padding: var(--espaco-4) 0;
+  text-align: center;
+  font-size: var(--texto-xs);
+  color: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--espaco-6);
+  }
+}

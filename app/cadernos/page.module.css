@@ -1,0 +1,353 @@
+/* ===== Página Cadernos Orientativos ===== */
+
+.pagina {
+  max-width: var(--largura-maxima);
+  margin: 0 auto;
+  padding: var(--espaco-8) var(--padding-lateral);
+}
+
+.cabecalho {
+  margin-bottom: var(--espaco-8);
+}
+
+.tituloPagina {
+  font-size: var(--texto-3xl);
+  font-weight: var(--peso-negrito);
+  color: var(--cor-azul-principal);
+  margin: 0 0 var(--espaco-2) 0;
+}
+
+.subtituloPagina {
+  font-size: var(--texto-base);
+  color: var(--cor-cinza-medio);
+  margin: 0;
+}
+
+/* ===== Grid de cadernos ===== */
+
+.gridCadernos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--espaco-6);
+}
+
+@media (max-width: 768px) {
+  .gridCadernos {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Card de capa ===== */
+
+.cardCapa {
+  background: var(--cor-branco);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--borda-radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow var(--transicao), transform var(--transicao);
+  display: flex;
+  flex-direction: column;
+}
+
+.cardCapa:hover,
+.cardCapa:focus-visible {
+  box-shadow: var(--sombra-md);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.cardCapa:focus-visible {
+  outline: 3px solid var(--cor-azul-claro);
+  outline-offset: 2px;
+}
+
+.cardHeader {
+  padding: var(--espaco-8) var(--espaco-6);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 140px;
+}
+
+.cardHeaderTitulo {
+  font-size: var(--texto-xl);
+  font-weight: var(--peso-negrito);
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.3;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.cardBody {
+  padding: var(--espaco-5) var(--espaco-6);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+}
+
+.cardDescricao {
+  font-size: var(--texto-sm);
+  color: var(--cor-cinza-medio);
+  margin: 0;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--espaco-3);
+  border-top: 1px solid var(--cor-cinza-claro);
+  font-size: var(--texto-xs);
+  color: var(--cor-cinza-medio);
+}
+
+.cardMetaCapitulos {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-1);
+}
+
+/* ===== Visualizador de Caderno (dentro do Modal) ===== */
+
+.visualizadorCaderno {
+  display: flex;
+  flex-direction: column;
+  height: 65vh;
+  min-height: 420px;
+}
+
+.capaCaderno {
+  padding: var(--espaco-6);
+  border-radius: var(--borda-radius-lg) var(--borda-radius-lg) 0 0;
+  margin-bottom: var(--espaco-6);
+  flex-shrink: 0;
+}
+
+.capaTitulo {
+  font-size: var(--texto-2xl);
+  font-weight: var(--peso-negrito);
+  color: #ffffff;
+  margin: 0 0 var(--espaco-2) 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.capaArea {
+  font-size: var(--texto-sm);
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.layoutVisualizar {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: var(--espaco-6);
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sumário */
+
+.sumario {
+  border-right: 1px solid #e5e7eb;
+  padding-right: var(--espaco-6);
+  overflow-y: auto;
+}
+
+.sumarioTitulo {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-semi);
+  color: var(--cor-cinza-medio);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 var(--espaco-3) 0;
+}
+
+.sumarioLista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+}
+
+.sumarioLink {
+  display: block;
+  padding: var(--espaco-2) var(--espaco-3);
+  font-size: var(--texto-sm);
+  color: var(--cor-cinza-medio);
+  text-decoration: none;
+  border-radius: var(--borda-radius);
+  line-height: 1.4;
+  transition: background var(--transicao-rapida), color var(--transicao-rapida);
+}
+
+.sumarioLink:hover {
+  background: var(--cor-cinza-claro);
+  color: var(--cor-azul-principal);
+}
+
+.sumarioLinkAtivo {
+  background: var(--status-em-andamento-bg);
+  color: var(--cor-azul-claro);
+  font-weight: var(--peso-medio);
+}
+
+/* Conteúdo */
+
+.conteudoCaderno {
+  overflow-y: auto;
+  padding-right: var(--espaco-2);
+}
+
+.capitulo {
+  margin-bottom: var(--espaco-8);
+  scroll-margin-top: var(--espaco-4);
+}
+
+.capituloTitulo {
+  font-size: var(--texto-lg);
+  font-weight: var(--peso-semi);
+  color: var(--cor-azul-principal);
+  margin: 0 0 var(--espaco-4) 0;
+}
+
+.capituloTexto {
+  font-size: var(--texto-base);
+  color: var(--cor-cinza-escuro);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Blocos especiais do caderno */
+
+.blocosCaderno {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+  margin-top: var(--espaco-4);
+}
+
+.blocoCaderno {
+  border-radius: var(--borda-radius);
+  overflow: hidden;
+}
+
+.blocoCabecalho {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  padding: var(--espaco-3) var(--espaco-4);
+}
+
+.blocoNomeTipo {
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-semi);
+  margin: 0;
+}
+
+.blocoConteudoTexto {
+  padding: 0 var(--espaco-4) var(--espaco-4);
+  font-size: var(--texto-sm);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* caso_pratico: fundo azul escuro, texto branco */
+.blocoCasoPratico {
+  background: var(--cor-azul-principal);
+}
+
+.blocoCasoPratico .blocoCabecalho {
+  color: #ffffff;
+}
+
+.blocoCasoPratico .blocoNomeTipo {
+  color: #ffffff;
+}
+
+.blocoCasoPratico .blocoConteudoTexto {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* erro_comum: fundo vermelho claro, texto vermelho */
+.blocoErroComum {
+  background: #FDECEA;
+  border: 1px solid #FECACA;
+}
+
+.blocoErroComum .blocoCabecalho {
+  color: var(--cor-vermelho-alerta);
+}
+
+.blocoErroComum .blocoNomeTipo {
+  color: var(--cor-vermelho-alerta);
+}
+
+.blocoErroComum .blocoConteudoTexto {
+  color: #991B1B;
+}
+
+/* referencia_legal: fundo cinza */
+.blocoReferenciaLegal {
+  background: #F5F5F5;
+  border: 1px solid #e5e7eb;
+}
+
+.blocoReferenciaLegal .blocoCabecalho {
+  color: var(--cor-cinza-escuro);
+}
+
+.blocoReferenciaLegal .blocoNomeTipo {
+  color: var(--cor-cinza-escuro);
+}
+
+.blocoReferenciaLegal .blocoConteudoTexto {
+  color: var(--cor-cinza-escuro);
+}
+
+/* glossario: fundo verde claro */
+.blocoGlossario {
+  background: #E6F7F1;
+  border: 1px solid #A7F3D0;
+}
+
+.blocoGlossario .blocoCabecalho {
+  color: var(--cor-verde-sucesso);
+}
+
+.blocoGlossario .blocoNomeTipo {
+  color: var(--cor-verde-sucesso);
+}
+
+.blocoGlossario .blocoConteudoTexto {
+  color: var(--cor-cinza-escuro);
+}
+
+/* ===== Responsividade ===== */
+
+@media (max-width: 640px) {
+  .pagina {
+    padding: var(--espaco-6) var(--espaco-4);
+  }
+
+  .layoutVisualizar {
+    grid-template-columns: 1fr;
+  }
+
+  .sumario {
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+    padding-right: 0;
+    padding-bottom: var(--espaco-4);
+  }
+
+  .conteudoCaderno {
+    max-height: 45vh;
+    overflow-y: auto;
+  }
+}

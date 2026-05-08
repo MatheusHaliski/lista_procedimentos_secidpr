@@ -1,0 +1,105 @@
+/* Tokens de design do Governo do Paraná — GovPR */
+
+:root {
+  /* Cores institucionais */
+  --cor-azul-principal: #003876;
+  --cor-verde-secundario: #007A3D;
+  --cor-azul-claro: #0077C8;
+  --cor-cinza-escuro: #333333;
+  --cor-cinza-medio: #666666;
+  --cor-cinza-claro: #F0F2F5;
+  --cor-branco: #FFFFFF;
+  --cor-vermelho-alerta: #CC0000;
+  --cor-amarelo-atencao: #F5A623;
+  --cor-verde-sucesso: #1D9E75;
+
+  /* Status */
+  --status-no-prazo-bg: #E6F7F1;
+  --status-no-prazo-cor: #1D9E75;
+  --status-atencao-bg: #FFF3E0;
+  --status-atencao-cor: #F57C00;
+  --status-atrasado-bg: #FDECEA;
+  --status-atrasado-cor: #CC0000;
+  --status-em-andamento-bg: #E3F0FB;
+  --status-em-andamento-cor: #0077C8;
+  --status-concluido-bg: #E6F7F1;
+  --status-concluido-cor: #1D9E75;
+  --status-pendente-bg: #F5F5F5;
+  --status-pendente-cor: #666666;
+  --status-devolvido-bg: #FDECEA;
+  --status-devolvido-cor: #CC0000;
+
+  /* Áreas dos macrofluxos */
+  --area-convenios-bg: #E3F0FB;
+  --area-convenios-cor: #0077C8;
+  --area-obras-bg: #FFF3E0;
+  --area-obras-cor: #F57C00;
+  --area-urbanismo-bg: #E6F7F1;
+  --area-urbanismo-cor: #1D9E75;
+  --area-administrativo-bg: #F0F2F5;
+  --area-administrativo-cor: #666666;
+
+  /* Tipografia */
+  --fonte-primaria: 'Montserrat', 'Open Sans', sans-serif;
+  --fonte-mono: 'Courier New', Courier, monospace;
+
+  /* Tamanhos de fonte */
+  --texto-xs: 0.75rem;   /* 12px */
+  --texto-sm: 0.875rem;  /* 14px */
+  --texto-base: 1rem;    /* 16px */
+  --texto-lg: 1.125rem;  /* 18px */
+  --texto-xl: 1.25rem;   /* 20px */
+  --texto-2xl: 1.5rem;   /* 24px */
+  --texto-3xl: 1.875rem; /* 30px */
+
+  /* Pesos */
+  --peso-normal: 400;
+  --peso-medio: 500;
+  --peso-semi: 600;
+  --peso-negrito: 700;
+
+  /* Espaçamento */
+  --espaco-1: 0.25rem;
+  --espaco-2: 0.5rem;
+  --espaco-3: 0.75rem;
+  --espaco-4: 1rem;
+  --espaco-6: 1.5rem;
+  --espaco-8: 2rem;
+  --espaco-10: 2.5rem;
+  --espaco-12: 3rem;
+  --espaco-16: 4rem;
+  --espaco-24: 6rem;
+
+  /* Bordas */
+  --borda-radius-sm: 4px;
+  --borda-radius: 6px;
+  --borda-radius-lg: 8px;
+  --borda-radius-xl: 12px;
+
+  /* Sombras */
+  --sombra-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --sombra: 0 2px 8px rgba(0, 0, 0, 0.10);
+  --sombra-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --sombra-lg: 0 8px 32px rgba(0, 0, 0, 0.14);
+
+  /* Layout */
+  --largura-maxima: 1280px;
+  --padding-lateral: 24px;
+
+  /* Alturas dos elementos de layout */
+  --altura-instbar: 36px;
+  --altura-header: 64px;
+  --altura-navbar: 48px;
+  --altura-breadcrumb: 36px;
+
+  /* Transições */
+  --transicao-rapida: 150ms ease;
+  --transicao: 250ms ease;
+  --transicao-lenta: 400ms ease;
+
+  /* Z-index */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+}

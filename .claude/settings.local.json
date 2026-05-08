@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(mkdir -p /Users/matheushaliski/lista_de_procedimentos_secidpr/styles)",
+      "Bash(mkdir -p /Users/matheushaliski/lista_de_procedimentos_secidpr/types)",
+      "Bash(mkdir -p /Users/matheushaliski/lista_de_procedimentos_secidpr/components/layout)",
+      "Bash(mkdir -p /Users/matheushaliski/lista_de_procedimentos_secidpr/components/ui)",
+      "Bash(mkdir -p /Users/matheushaliski/lista_de_procedimentos_secidpr/components/shared)",
+      "Bash(mkdir -p /Users/matheushaliski/lista_de_procedimentos_secidpr/app/macrofluxos/\\\\[id\\\\])",
+      "Bash(mkdir -p /Users/matheushaliski/lista_de_procedimentos_secidpr/app/workflows/\\\\[id\\\\])",
+      "Bash(npx tsc *)",
+      "Bash(npx next *)"
+    ]
+  }
+}

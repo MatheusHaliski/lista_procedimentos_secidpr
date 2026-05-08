@@ -1,0 +1,16 @@
+import type { Convenio } from '@/types';
+
+export const CONVENIOS: Convenio[] = [
+  { id: 'cv-001', numero: 'CONV-2024/001', objeto: 'Pavimentação e drenagem pluvial — Maringá', municipio: 'Maringá', valor: 2800000, exercicio: 2024, status: 'em_execucao', vencimento: '2026-08-30', tipo: 'Infraestrutura', responsavelId: 'u4', responsavelNome: 'Mariana Santos' },
+  { id: 'cv-002', numero: 'CONV-2024/002', objeto: 'Construção de CRAS — Londrina', municipio: 'Londrina', valor: 1500000, exercicio: 2024, status: 'em_execucao', vencimento: '2026-07-15', tipo: 'Equipamento Social', responsavelId: 'u4', responsavelNome: 'Mariana Santos' },
+  { id: 'cv-003', numero: 'CONV-2023/015', objeto: 'Esgotamento sanitário — Cascavel', municipio: 'Cascavel', valor: 4200000, exercicio: 2023, status: 'prestacao_contas', vencimento: '2026-06-30', tipo: 'Saneamento', responsavelId: 'u5', responsavelNome: 'Pedro Técnico' },
+  { id: 'cv-004', numero: 'CONV-2024/007', objeto: 'Revitalização da orla — Foz do Iguaçu', municipio: 'Foz do Iguaçu', valor: 3600000, exercicio: 2024, status: 'em_execucao', vencimento: '2026-05-31', tipo: 'Urbanismo', responsavelId: 'u5', responsavelNome: 'Pedro Técnico' },
+  { id: 'cv-005', numero: 'CONV-2023/008', objeto: 'Abastecimento de água — Guarapuava', municipio: 'Guarapuava', valor: 5000000, exercicio: 2023, status: 'concluido', vencimento: '2025-12-31', tipo: 'Saneamento', responsavelId: 'u4', responsavelNome: 'Mariana Santos' },
+  { id: 'cv-006', numero: 'CONV-2024/011', objeto: 'Habitação de Interesse Social — Paranaguá', municipio: 'Paranaguá', valor: 3900000, exercicio: 2024, status: 'analise', vencimento: '2027-06-30', tipo: 'Habitação', responsavelId: 'u4', responsavelNome: 'Mariana Santos' },
+  { id: 'cv-007', numero: 'CONV-2023/019', objeto: 'Parque linear — Ponta Grossa', municipio: 'Ponta Grossa', valor: 1800000, exercicio: 2023, status: 'inadimplente', vencimento: '2026-03-31', tipo: 'Urbanismo', responsavelId: 'u5', responsavelNome: 'Pedro Técnico' },
+  { id: 'cv-008', numero: 'CONV-2024/003', objeto: 'Parque linear Curitiba — Córrego do Sal', municipio: 'Curitiba', valor: 3200000, exercicio: 2024, status: 'em_execucao', vencimento: '2026-10-30', tipo: 'Urbanismo', responsavelId: 'u4', responsavelNome: 'Mariana Santos' },
+  { id: 'cv-009', numero: 'CONV-2024/022', objeto: 'Escola municipal — Apucarana', municipio: 'Apucarana', valor: 2400000, exercicio: 2024, status: 'aprovado', vencimento: '2026-12-31', tipo: 'Educação', responsavelId: 'u5', responsavelNome: 'Pedro Técnico' },
+  { id: 'cv-010', numero: 'CONV-2024/028', objeto: 'Pavimentação rural — Irati', municipio: 'Irati', valor: 960000, exercicio: 2024, status: 'analise', vencimento: '2026-11-30', tipo: 'Infraestrutura', responsavelId: 'u4', responsavelNome: 'Mariana Santos' },
+  { id: 'cv-011', numero: 'CONV-2023/041', objeto: 'UBS — Campo Mourão', municipio: 'Campo Mourão', valor: 1350000, exercicio: 2023, status: 'suspenso', vencimento: '2026-05-15', tipo: 'Saúde', responsavelId: 'u5', responsavelNome: 'Pedro Técnico' },
+  { id: 'cv-012', numero: 'CONV-2024/015', objeto: 'Drenagem urbana — São José dos Pinhais', municipio: 'São José dos Pinhais', valor: 2750000, exercicio: 2024, status: 'em_execucao', vencimento: '2026-09-30', tipo: 'Infraestrutura', responsavelId: 'u4', responsavelNome: 'Mariana Santos' },
+];

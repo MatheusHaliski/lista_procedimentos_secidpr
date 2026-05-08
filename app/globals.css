@@ -1,26 +1,77 @@
-@import "tailwindcss";
+@import '../styles/govpr.css';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap');
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--fonte-primaria);
+  font-size: var(--texto-base);
+  color: var(--cor-cinza-escuro);
+  background-color: var(--cor-branco);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--peso-semi);
+  line-height: 1.3;
+  color: var(--cor-cinza-escuro);
+}
+
+h1 { font-size: var(--texto-3xl); }
+h2 { font-size: var(--texto-2xl); }
+h3 { font-size: var(--texto-xl); }
+h4 { font-size: var(--texto-lg); }
+h5, h6 { font-size: var(--texto-base); }
+
+p { line-height: 1.7; }
+
+a {
+  color: var(--cor-azul-claro);
+  text-decoration: none;
+}
+
+a:hover { text-decoration: underline; }
+
+:focus-visible {
+  outline: 2px solid var(--cor-azul-claro);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+button {
+  font-family: var(--fonte-primaria);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, select, textarea {
+  font-family: var(--fonte-primaria);
+  font-size: var(--texto-base);
+  color: var(--cor-cinza-escuro);
+}
+
+img { max-width: 100%; height: auto; display: block; }
+ul, ol { list-style: none; }
+table { border-collapse: collapse; width: 100%; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--cor-cinza-claro); }
+::-webkit-scrollbar-thumb { background: #C5C5C5; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #AAAAAA; }
+
+@media (max-width: 768px) {
+  :root { --padding-lateral: 16px; }
 }

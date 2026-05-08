@@ -1,0 +1,40 @@
+.wrapper {
+  width: 100%;
+}
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.label {
+  font-size: var(--texto-xs);
+  color: var(--cor-cinza-medio);
+}
+
+.pct {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-semi);
+  color: var(--cor-cinza-escuro);
+}
+
+.trilha {
+  width: 100%;
+  height: 8px;
+  background: #E8EAED;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.barra {
+  height: 100%;
+  border-radius: 4px;
+  transition: width var(--transicao-lenta);
+}
+
+.barPadrao  { background: var(--cor-azul-claro); }
+.barSucesso { background: var(--cor-verde-sucesso); }
+.barAtencao { background: var(--cor-amarelo-atencao); }
+.barPerigo  { background: var(--cor-vermelho-alerta); }
