@@ -8,6 +8,19 @@ import Alert from '@/components/ui/Alert';
 import { formatarData } from '@/utils/formatters';
 import styles from './page.module.css';
 
+const MAPEAMENTO_MACROFLUXO_TIPO: Record<string, string> = {
+  'conv-analise-proposta': 'analise-proposta-convenio',
+  'conv-liberacao-parcela': 'liberacao-parcela',
+  'conv-prestacao-contas': 'prestacao-contas-tecnica',
+  'obras-vistoria-andamento': 'parecer-vistoria-andamento',
+  'obras-recebimento-definitivo': 'parecer-recebimento-obra',
+  'obras-aditivo': 'parecer-aditivo',
+  'urb-plano-diretor': 'analise-plano-diretor',
+  'urb-reurb': 'analise-reurb',
+  'adm-parecer-tecnico': 'parecer-analise-projeto',
+  'adm-certidao-tecnica': 'parecer-simplificado',
+};
+
 function calcularPrazoPrevistoStr(prazoDias: number): string {
   const hoje = new Date();
   const prazo = new Date(hoje);
@@ -31,6 +44,8 @@ export default function NovoWorkflowForm() {
     if (!tipoParam) return '';
     const direto = TIPOS_WORKFLOW.find((t) => t.id === tipoParam);
     if (direto) return direto.id;
+    const porMacrofluxo = MAPEAMENTO_MACROFLUXO_TIPO[tipoParam];
+    if (porMacrofluxo) return porMacrofluxo;
     const parcial = TIPOS_WORKFLOW.find((t) =>
       tipoParam.includes(t.id.split('-')[0])
     );
