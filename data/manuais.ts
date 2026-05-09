@@ -103,16 +103,47 @@ export const MANUAIS: Manual[] = [
   },
   {
     id: 'manual-sistema-workflow',
-    titulo: 'Manual de Uso do Sistema de Workflow',
-    versao: '1.0',
+    titulo: 'Manual SGPO e E-Protocolo — Fluxo de Faturas',
+    versao: '2024.R03',
     area: 'Sistemas',
-    paginas: 10,
-    descricao: 'Orientações para uso do Portal SAP SECID — sistema de gestão por processos.',
+    paginas: 28,
+    descricao: 'Consolidação operacional do procedimento de faturas, com etapas SGPO (1 a 8), protocolos e modelos de documentos.',
     perfisAlvo: ['ADMINISTRADOR', 'GESTOR', 'COORDENADOR', 'TECNICO', 'FISCAL', 'CONSULTA'],
     secoes: [
-      { id: 's1', titulo: '1. Acesso ao sistema', conteudo: 'O acesso é feito com login e senha da rede CELEPAR. O perfil de acesso é definido pelo administrador do sistema conforme a função do servidor.' },
-      { id: 's2', titulo: '2. Abertura de procedimentos', conteudo: 'Para abrir um novo procedimento, acesse o módulo Procedimentos > Novo. Selecione o tipo de procedimento, preencha os dados obrigatórios e clique em Abrir.' },
-      { id: 's3', titulo: '3. Tramitação e conclusão de etapas', conteudo: 'O responsável pela etapa ativa recebe notificação por e-mail. Para concluir a etapa, acesse o procedimento, preencha o comentário e clique em Concluir etapa. Para devolver, utilize o botão Devolver com ressalvas.', blocos: [{ tipo: 'dica', conteudo: 'Preencha sempre o campo de comentário ao concluir ou devolver etapas — isso facilita o entendimento do histórico do processo.' }] },
+      {
+        id: 's1',
+        titulo: '1. Base documental e escopo do procedimento',
+        conteudo: 'Este manual consolida os documentos da pasta de procedimento de faturas: fluxo do processo SECID, procedimentos para cadastramento de faturas no SGPO (revisão 2024), resolução de designação de gestores e os modelos por tarefa (SGPO 1 a 8 e protocolos associados).',
+        blocos: [
+          { tipo: 'destaque', conteudo: 'A sequência de execução deve respeitar o fluxo oficial: SGPO (fiscal/contratada) + E-Protocolo (gestor, coordenações e financeiro) até confirmação do órgão demandante.' },
+        ],
+      },
+      {
+        id: 's2',
+        titulo: '2. Etapas SGPO 1 a 3 (Fiscal e Contratada)',
+        conteudo: 'SGPO 1 (Fiscal): organizar documentação técnica, incluindo checklist de fatura digital e evidências de execução (ex.: RVO/medição). SGPO 2 (Contratada): cadastrar a fatura no sistema conforme o roteiro de telas (1-5 a 5-5). SGPO 3 (Fiscal): validar o cadastro e, quando aplicável, instruir autorização de uso de serviço terceirizado por modelo padrão.',
+        blocos: [
+          { tipo: 'alerta', conteudo: 'Checklist e anexos comprobatórios devem estar completos antes do envio ao protocolo; pendências nesta fase propagam retrabalho nas etapas seguintes.' },
+        ],
+      },
+      {
+        id: 's3',
+        titulo: '3. Etapas SGPO 4 a 6 (Gestor, Coordenação e Núcleo Financeiro)',
+        conteudo: 'SGPO 4 (Protocolo 1 - Gestor): selecionar fatura, verificar documentos, analisar e enviar com informação padrão do gestor. SGPO 5 (Protocolo 3 - Coord. de Fiscalização): selecionar, analisar e encaminhar. SGPO 6 (Protocolo 5 - Núcleo Financeiro Setorial): selecionar, analisar e emitir despacho financeiro (NFS) no E-Protocolo.',
+        blocos: [
+          { tipo: 'dica', conteudo: 'Padronize os despachos e informações com os modelos da pasta para reduzir devoluções e acelerar conferência.' },
+        ],
+      },
+      {
+        id: 's4',
+        titulo: '4. Etapas SGPO 7 e 8 (Diretor Geral e Órgão Demandante)',
+        conteudo: 'SGPO 7 (Diretor Geral): selecionar e analisar a fatura para deliberação final da unidade. SGPO 8 (Protocolo 6 - Órgão Demandante): confirmar recebimento no fluxo, concluindo a tramitação prevista para o processo de pagamento.',
+      },
+      {
+        id: 's5',
+        titulo: '5. Modelos e anexos obrigatórios por etapa',
+        conteudo: 'Devem ser utilizados, conforme a etapa, os modelos disponíveis na base documental: checklist de fatura digital, autorização de serviço terceirizado, informação padrão do gestor, exemplos de informação/lista de verificação da coordenação de gestão de contratos e despacho do núcleo financeiro setorial.',
+      },
     ],
   },
 ];
