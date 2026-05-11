@@ -2,6 +2,35 @@
   display: flex;
   gap: var(--espaco-8);
   align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.acoesFluxo {
+  width: 100%;
+}
+
+.btnPassoAPasso {
+  border: 1px solid var(--cor-azul-principal);
+  color: var(--cor-azul-principal);
+  background: var(--cor-branco);
+  border-radius: var(--borda-radius);
+  padding: var(--espaco-2) var(--espaco-4);
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-semi);
+  cursor: pointer;
+}
+
+.listaPassos {
+  margin: 0;
+  padding-left: var(--espaco-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+}
+
+.itemPasso {
+  color: var(--cor-cinza-escuro);
+  font-size: var(--texto-sm);
 }
 
 /* Fluxograma */
@@ -135,7 +164,7 @@
 
 .losangoOuter {
   width: 100%;
-  max-width: 280px;
+  max-width: 200px;
   aspect-ratio: 1;
   background: #fffbeb;
   border: 2px solid var(--cor-amarelo-atencao);

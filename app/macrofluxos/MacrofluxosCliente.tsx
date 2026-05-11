@@ -2,9 +2,11 @@
 
 import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import type { Macrofluxo, AreaMacrofluxo } from '@/types';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
+import Modal from '@/components/ui/Modal';
 import { useAuth } from '@/contexts/AuthContext';
 import { truncarTexto } from '@/utils/formatters';
 import styles from './page.module.css';
@@ -33,6 +35,7 @@ export default function MacrofluxosCliente({ macrofluxos }: Props) {
   const { temAcesso } = useAuth();
   const [busca, setBusca] = useState('');
   const [areaFiltro, setAreaFiltro] = useState('');
+  const [macrofluxoModal, setMacrofluxoModal] = useState<Macrofluxo | null>(null);
 
   const resultados = useMemo(() => {
     const termo = busca.toLowerCase().trim();
@@ -95,17 +98,7 @@ export default function MacrofluxosCliente({ macrofluxos }: Props) {
       ) : (
         <div className={styles.grid} aria-label={`${resultados.length} macrofluxos encontrados`}>
           {resultados.map((m) => (
-            <article
-              key={m.id}
-              className={styles.card}
-              onClick={() => router.push(`/macrofluxos/${m.id}`)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') router.push(`/macrofluxos/${m.id}`);
-              }}
-              role="button"
-              tabIndex={0}
-              aria-label={`Ver macrofluxo: ${m.titulo}`}
-            >
+            <article key={m.id} className={styles.card}>
               <div className={styles.cardTopo}>
                 <Badge label={LABELS_AREA[m.area]} variante={m.area} />
                 <span className={styles.versao}>v{m.versao}</span>
@@ -122,20 +115,45 @@ export default function MacrofluxosCliente({ macrofluxos }: Props) {
                   {m.prazoTipico} dias úteis
                 </span>
               </div>
+              <div className={styles.cardAcoes}>
+                <Button tamanho="sm" variante="secundario" onClick={() => router.push(`/macrofluxos/${m.id}`)}>
+                  Ver fluxograma
+                </Button>
+                <Button tamanho="sm" variante="fantasma" onClick={() => setMacrofluxoModal(m)}>
+                  Ver passo a passo
+                </Button>
+              </div>
             </article>
           ))}
         </div>
       )}
 
       {temAcesso('workflows') && (
-        <a
+        <Link
           href="/workflows/novo"
           className={styles.fab}
           aria-label="Novo procedimento"
         >
           + Novo procedimento
-        </a>
+        </Link>
       )}
+
+      <Modal
+        aberto={Boolean(macrofluxoModal)}
+        onFechar={() => setMacrofluxoModal(null)}
+        titulo={macrofluxoModal ? `Passo a passo: ${macrofluxoModal.titulo}` : 'Passo a passo'}
+      >
+        {macrofluxoModal && (
+          <ol className={styles.listaPassos}>
+            {macrofluxoModal.nos.map((no, idx) => (
+              <li key={no.id} className={styles.itemPasso}>
+                {idx + 1}. {no.titulo}
+              </li>
+            ))}
+            <li className={styles.itemPasso}>Fim.</li>
+          </ol>
+        )}
+      </Modal>
     </section>
   );
 }
