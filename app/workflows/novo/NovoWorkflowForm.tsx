@@ -6,6 +6,8 @@ import { TIPOS_WORKFLOW } from '@/data/workflows';
 import type { TipoWorkflow } from '@/types';
 import Alert from '@/components/ui/Alert';
 import { formatarData } from '@/utils/formatters';
+import { criarWorkflow } from '@/utils/workflowsStore';
+import { useAuth } from '@/contexts/AuthContext';
 import styles from './page.module.css';
 
 const MAPEAMENTO_MACROFLUXO_TIPO: Record<string, string> = {
@@ -37,6 +39,7 @@ function agruparPorArea(tipos: TipoWorkflow[]): Record<string, TipoWorkflow[]> {
 }
 
 export default function NovoWorkflowForm() {
+  const { usuario } = useAuth();
   const searchParams = useSearchParams();
   const tipoParam = searchParams.get('tipo') ?? '';
 
@@ -76,6 +79,16 @@ export default function NovoWorkflowForm() {
       return;
     }
     setErros({});
+    if (tipoObj && usuario) {
+      criarWorkflow({
+        titulo,
+        tipo: tipoObj.titulo,
+        tipoId: tipoObj.id,
+        prazoDias: tipoObj.prazoDias,
+        iniciadoPorId: usuario.id,
+        iniciadoPorNome: usuario.nome,
+      });
+    }
     setSubmetido(true);
   }
 
