@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { WORKFLOWS_MOCK } from '@/data/workflows';
 import type { StatusWorkflow, Workflow } from '@/types';
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import Badge from '@/components/ui/Badge';
 import ProgressBar from '@/components/ui/ProgressBar';
 import { calcularProgresso } from '@/utils/workflow';
 import { formatarData, diasRestantes } from '@/utils/formatters';
+import { getWorkflows } from '@/utils/workflowsStore';
 import styles from './page.module.css';
 
 const LABELS_STATUS: Record<StatusWorkflow, string> = {
@@ -49,16 +49,17 @@ function etapaAtivaResponsavel(workflow: Workflow): string {
 export default function WorkflowsPage() {
   const router = useRouter();
   const [filtro, setFiltro] = useState<FiltroPainel>('todos');
+  const [workflows] = useState<Workflow[]>(() => getWorkflows());
 
-  const totalEmTramitacao = WORKFLOWS_MOCK.filter((w) => w.status !== 'concluido').length;
-  const aguardandoAcao = WORKFLOWS_MOCK.filter((w) => w.status === 'aguardando_acao').length;
-  const atrasadosDevolvidos = WORKFLOWS_MOCK.filter(
+  const totalEmTramitacao = workflows.filter((w) => w.status !== 'concluido').length;
+  const aguardandoAcao = workflows.filter((w) => w.status === 'aguardando_acao').length;
+  const atrasadosDevolvidos = workflows.filter(
     (w) => w.status === 'atrasado' || w.status === 'devolvido'
   ).length;
-  const concluidosMes = WORKFLOWS_MOCK.filter((w) => w.status === 'concluido').length;
+  const concluidosMes = workflows.filter((w) => w.status === 'concluido').length;
 
   const listaFiltrada =
-    filtro === 'todos' ? WORKFLOWS_MOCK : WORKFLOWS_MOCK.filter((w) => w.status === filtro);
+    filtro === 'todos' ? workflows : workflows.filter((w) => w.status === filtro);
 
   return (
     <main id="conteudo-principal">
