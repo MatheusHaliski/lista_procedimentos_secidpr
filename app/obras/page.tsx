@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import { OBRAS } from '@/data/obras';
 import type { Obra, StatusObra } from '@/types';
 import Breadcrumb from '@/components/layout/Breadcrumb';
@@ -50,9 +51,10 @@ const FILTROS_STATUS: { value: StatusObra | 'todos'; label: string }[] = [
 interface ModalDetalheProps {
   obra: Obra;
   onFechar: () => void;
+  onRegistrarVistoria: (obra: Obra) => void;
 }
 
-function ModalDetalhe({ obra, onFechar }: ModalDetalheProps) {
+function ModalDetalhe({ obra, onFechar, onRegistrarVistoria }: ModalDetalheProps) {
   const [alertaVistoria, setAlertaVistoria] = useState(false);
   const atrasado = vencimentoAtrasado(obra.vencimento);
 
@@ -133,7 +135,10 @@ function ModalDetalhe({ obra, onFechar }: ModalDetalheProps) {
         <div className={styles.modalRodape}>
           <Button
             variante="primario"
-            onClick={() => setAlertaVistoria(true)}
+            onClick={() => {
+              setAlertaVistoria(true);
+              onRegistrarVistoria(obra);
+            }}
             disabled={alertaVistoria}
           >
             Registrar vistoria
@@ -148,6 +153,7 @@ function ModalDetalhe({ obra, onFechar }: ModalDetalheProps) {
 }
 
 export default function ObrasPage() {
+  const router = useRouter();
   const [filtroStatus, setFiltroStatus] = useState<StatusObra | 'todos'>('todos');
   const [filtroTipo, setFiltroTipo] = useState('');
   const [filtroRegiao, setFiltroRegiao] = useState('');
@@ -320,6 +326,12 @@ export default function ObrasPage() {
         <ModalDetalhe
           obra={obraSelecionada}
           onFechar={() => setObraSelecionada(null)}
+          onRegistrarVistoria={(obra) => {
+            setTimeout(() => {
+              setObraSelecionada(null);
+              router.push(`/workflows/novo?tipo=obras-vistoria-andamento&obraId=${obra.id}`);
+            }, 700);
+          }}
         />
       )}
     </main>

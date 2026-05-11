@@ -156,10 +156,12 @@ export default function MacrofluxosCliente({ macrofluxos }: Props) {
                 </div>
               </li>
             ))}
-            <li className={`${styles.itemPasso} ${styles.itemFim}`}>
-              <span className={styles.numeroPasso}>✓</span>
-              <strong className={styles.tituloPasso}>Fim.</strong>
-            </li>
+            {!macrofluxoModal.nos.some((no) => no.tipo === 'fim') && (
+              <li className={`${styles.itemPasso} ${styles.itemFim}`}>
+                <span className={styles.numeroPasso}>✓</span>
+                <strong className={styles.tituloPasso}>Fim.</strong>
+              </li>
+            )}
           </ol>
         )}
       </Modal>

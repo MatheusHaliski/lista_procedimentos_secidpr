@@ -172,10 +172,12 @@ export default function FluxogramaInterativo({ nos }: Props) {
               </div>
             </li>
           ))}
-          <li className={`${styles.itemPasso} ${styles.itemFim}`}>
-            <span className={styles.numeroPasso}>✓</span>
-            <strong className={styles.tituloPasso}>Fim.</strong>
-          </li>
+          {!nos.some((no) => no.tipo === 'fim') && (
+            <li className={`${styles.itemPasso} ${styles.itemFim}`}>
+              <span className={styles.numeroPasso}>✓</span>
+              <strong className={styles.tituloPasso}>Fim.</strong>
+            </li>
+          )}
         </ol>
       </Modal>
     </div>
