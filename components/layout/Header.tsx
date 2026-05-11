@@ -3,14 +3,29 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Search, User, ChevronDown, LogOut, Settings } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import Modal from '@/components/ui/Modal';
 import styles from './Header.module.css';
 
 export default function Header() {
-  const { usuario, logout } = useAuth();
+  const { usuario, logout, atualizarUsuario } = useAuth();
+  const router = useRouter();
   const [busca, setBusca] = useState('');
   const [menuAberto, setMenuAberto] = useState(false);
+  const [modalBoasVindas, setModalBoasVindas] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('perfil_preenchido') !== '1';
+  });
+  const [nome, setNome] = useState(usuario?.nome ?? '');
+  const [setor, setSetor] = useState(usuario?.setor ?? '');
+
+  function salvarPrimeiroAcesso() {
+    atualizarUsuario({ nome, setor });
+    localStorage.setItem('perfil_preenchido', '1');
+    setModalBoasVindas(false);
+  }
 
   return (
     <header className={styles.header} role="banner">
@@ -69,7 +84,14 @@ export default function Header() {
 
               {menuAberto && (
                 <div className={styles.dropdown} role="menu" aria-label="Opções do usuário">
-                  <button className={styles.dropdownItem} role="menuitem">
+                  <button
+                    className={styles.dropdownItem}
+                    role="menuitem"
+                    onClick={() => {
+                      setMenuAberto(false);
+                      router.push('/perfil');
+                    }}
+                  >
                     <Settings size={14} aria-hidden="true" />
                     Configurações
                   </button>
@@ -84,6 +106,23 @@ export default function Header() {
           )}
         </div>
       </div>
+
+      <Modal
+        aberto={modalBoasVindas}
+        onFechar={() => {}}
+        titulo="Bem-vindo ao Portal SECID-PR"
+        rodape={<button className={styles.salvarBoasVindas} onClick={salvarPrimeiroAcesso}>Salvar dados</button>}
+      >
+        <p className={styles.boasVindasTexto}>Para continuar no primeiro acesso, confirme seus dados de perfil.</p>
+        <div className={styles.campo}>
+          <label htmlFor="nome-boas-vindas">Nome</label>
+          <input id="nome-boas-vindas" value={nome} onChange={(e) => setNome(e.target.value)} />
+        </div>
+        <div className={styles.campo}>
+          <label htmlFor="setor-boas-vindas">Setor</label>
+          <input id="setor-boas-vindas" value={setor} onChange={(e) => setSetor(e.target.value)} />
+        </div>
+      </Modal>
     </header>
   );
 }

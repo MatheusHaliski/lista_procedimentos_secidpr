@@ -147,10 +147,19 @@ export default function MacrofluxosCliente({ macrofluxos }: Props) {
           <ol className={styles.listaPassos}>
             {macrofluxoModal.nos.map((no, idx) => (
               <li key={no.id} className={styles.itemPasso}>
-                {idx + 1}. {no.titulo}
+                <span className={styles.numeroPasso}>{idx + 1}</span>
+                <div className={styles.conteudoPasso}>
+                  <strong className={styles.tituloPasso}>{no.titulo}</strong>
+                  <span className={styles.tipoPasso}>
+                    {no.tipo === 'inicio' ? 'Início' : no.tipo === 'fim' ? 'Fim' : no.tipo === 'decisao' ? 'Decisão' : 'Etapa'}
+                  </span>
+                </div>
               </li>
             ))}
-            <li className={styles.itemPasso}>Fim.</li>
+            <li className={`${styles.itemPasso} ${styles.itemFim}`}>
+              <span className={styles.numeroPasso}>✓</span>
+              <strong className={styles.tituloPasso}>Fim.</strong>
+            </li>
           </ol>
         )}
       </Modal>

@@ -202,15 +202,60 @@
 
 .listaPassos {
   margin: 0;
-  padding-left: var(--espaco-5);
+  padding: 0;
+  list-style: none;
   display: flex;
   flex-direction: column;
-  gap: var(--espaco-2);
+  gap: var(--espaco-3);
 }
 
 .itemPasso {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--espaco-3);
+  padding: var(--espaco-3);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--borda-radius);
+  background: #f8fafc;
+}
+
+.numeroPasso {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-negrito);
+  color: var(--cor-branco);
+  background: var(--cor-azul-principal);
+}
+
+.conteudoPasso {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+}
+
+.tituloPasso {
   color: var(--cor-cinza-escuro);
   font-size: var(--texto-sm);
+}
+
+.tipoPasso {
+  font-size: var(--texto-xs);
+  color: var(--cor-cinza-medio);
+}
+
+.itemFim {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+
+.itemFim .numeroPasso {
+  background: var(--cor-verde-secundario);
 }
 
 /* FAB */
