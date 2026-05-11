@@ -49,6 +49,7 @@ interface AuthContextValue {
   carregando: boolean;
   login: (usuario: Usuario) => void;
   logout: () => void;
+  atualizarUsuario: (dados: Partial<Usuario>) => void;
   temAcesso: (modulo: string) => boolean;
 }
 
@@ -69,13 +70,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     dispatch({ type: 'LOGOUT' });
   }
 
+  function atualizarUsuario(dados: Partial<Usuario>) {
+    if (!state.usuario) return;
+    dispatch({ type: 'LOGIN', payload: { ...state.usuario, ...dados } });
+  }
+
   function temAcesso(modulo: string): boolean {
     if (!state.usuario) return false;
     return MODULOS_POR_PERFIL[state.usuario.perfil].includes(modulo);
   }
 
   return (
-    <AuthContext.Provider value={{ ...state, login, logout, temAcesso }}>
+    <AuthContext.Provider value={{ ...state, login, logout, atualizarUsuario, temAcesso }}>
       {children}
     </AuthContext.Provider>
   );

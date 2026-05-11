@@ -195,6 +195,40 @@
   margin: 4px 0;
 }
 
+.boasVindasTexto {
+  margin: 0 0 var(--espaco-4);
+  color: var(--cor-cinza-escuro);
+  font-size: var(--texto-sm);
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  margin-bottom: var(--espaco-3);
+}
+
+.campo label {
+  font-size: var(--texto-xs);
+  color: var(--cor-cinza-medio);
+  font-weight: var(--peso-semi);
+}
+
+.campo input {
+  border: 1px solid #d1d5db;
+  border-radius: var(--borda-radius);
+  padding: var(--espaco-2) var(--espaco-3);
+}
+
+.salvarBoasVindas {
+  background: var(--cor-azul-principal);
+  color: var(--cor-branco);
+  border: none;
+  border-radius: var(--borda-radius);
+  padding: var(--espaco-2) var(--espaco-4);
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .buscaInput { width: 160px; }
   .usuarioInfo { display: none; }
