@@ -22,6 +22,15 @@ const FILTROS_AREA = [
   'Sistemas',
 ];
 
+
+const MANUAIS_COM_PDF = new Set([
+  'manual-fiscal-obras',
+  'manual-gestao-convenios',
+  'manual-analise-urbanistica',
+  'manual-reurb',
+  'manual-sistema-workflow',
+]);
+
 function BlocoEspecialManual({ bloco }: { bloco: BlocoEspecial }) {
   if (bloco.tipo === 'destaque') {
     return (
@@ -190,7 +199,14 @@ function AbaManuals() {
                 tamanho="sm"
                 icone={<Download size={14} />}
                 aria-label="Baixar PDF do manual"
-                onClick={() => setMostrarAlertaPdf(true)}
+                onClick={() => {
+                  if (!manualAberto || !MANUAIS_COM_PDF.has(manualAberto.id)) {
+                    setMostrarAlertaPdf(true);
+                    return;
+                  }
+                  setMostrarAlertaPdf(false);
+                  window.open(`/api/manuais/${manualAberto.id}/pdf`, '_blank', 'noopener,noreferrer');
+                }}
               >
                 Baixar PDF
               </Button>
