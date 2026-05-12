@@ -3,9 +3,12 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { TIPOS_WORKFLOW } from '@/data/workflows';
+import { OBRAS } from '@/data/obras';
 import type { TipoWorkflow } from '@/types';
 import Alert from '@/components/ui/Alert';
 import { formatarData } from '@/utils/formatters';
+import { criarWorkflow } from '@/utils/workflowsStore';
+import { useAuth } from '@/contexts/AuthContext';
 import styles from './page.module.css';
 
 const MAPEAMENTO_MACROFLUXO_TIPO: Record<string, string> = {
@@ -37,8 +40,10 @@ function agruparPorArea(tipos: TipoWorkflow[]): Record<string, TipoWorkflow[]> {
 }
 
 export default function NovoWorkflowForm() {
+  const { usuario } = useAuth();
   const searchParams = useSearchParams();
   const tipoParam = searchParams.get('tipo') ?? '';
+  const obraIdParam = searchParams.get('obraId') ?? '';
 
   const tipoInicial = useMemo(() => {
     if (!tipoParam) return '';
@@ -52,8 +57,14 @@ export default function NovoWorkflowForm() {
     return parcial?.id ?? '';
   }, [tipoParam]);
 
+  const tituloInicial = useMemo(() => {
+    if (!obraIdParam) return '';
+    const obra = OBRAS.find((o) => o.id === obraIdParam);
+    return obra ? obra.titulo : '';
+  }, [obraIdParam]);
+
   const [tipoSelecionado, setTipoSelecionado] = useState(tipoInicial);
-  const [titulo, setTitulo] = useState('');
+  const [titulo, setTitulo] = useState(tituloInicial);
   const [submetido, setSubmetido] = useState(false);
   const [erros, setErros] = useState<Record<string, string>>({});
 
@@ -76,6 +87,16 @@ export default function NovoWorkflowForm() {
       return;
     }
     setErros({});
+    if (tipoObj && usuario) {
+      criarWorkflow({
+        titulo,
+        tipo: tipoObj.titulo,
+        tipoId: tipoObj.id,
+        prazoDias: tipoObj.prazoDias,
+        iniciadoPorId: usuario.id,
+        iniciadoPorNome: usuario.nome,
+      });
+    }
     setSubmetido(true);
   }
 

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import type { NoFluxograma } from '@/types';
 import Badge from '@/components/ui/Badge';
+import Modal from '@/components/ui/Modal';
 import styles from './FluxogramaInterativo.module.css';
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 
 export default function FluxogramaInterativo({ nos }: Props) {
   const [noSelecionado, setNoSelecionado] = useState<NoFluxograma | null>(null);
+  const [modalPassosAberto, setModalPassosAberto] = useState(false);
 
   function selecionarNo(no: NoFluxograma) {
     setNoSelecionado((prev) => (prev?.id === no.id ? null : no));
@@ -18,6 +20,11 @@ export default function FluxogramaInterativo({ nos }: Props) {
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.acoesFluxo}>
+        <button type="button" className={styles.btnPassoAPasso} onClick={() => setModalPassosAberto(true)}>
+          Ver passo a passo
+        </button>
+      </div>
       <div className={styles.fluxograma} role="list" aria-label="Etapas do fluxograma">
         {nos.map((no, idx) => (
           <div key={no.id} className={styles.noWrapper} role="listitem">
@@ -146,6 +153,33 @@ export default function FluxogramaInterativo({ nos }: Props) {
           </div>
         )}
       </aside>
+
+      <Modal
+        aberto={modalPassosAberto}
+        onFechar={() => setModalPassosAberto(false)}
+        titulo="Passo a passo do fluxo"
+        tamanho="md"
+      >
+        <ol className={styles.listaPassos}>
+          {nos.map((no, idx) => (
+            <li key={no.id} className={styles.itemPasso}>
+              <span className={styles.numeroPasso}>{idx + 1}</span>
+              <div className={styles.conteudoPasso}>
+                <strong className={styles.tituloPasso}>{no.titulo}</strong>
+                <span className={styles.tipoPasso}>
+                  {no.tipo === 'inicio' ? 'Início' : no.tipo === 'fim' ? 'Fim' : no.tipo === 'decisao' ? 'Decisão' : 'Etapa'}
+                </span>
+              </div>
+            </li>
+          ))}
+          {!nos.some((no) => no.tipo === 'fim') && (
+            <li className={`${styles.itemPasso} ${styles.itemFim}`}>
+              <span className={styles.numeroPasso}>✓</span>
+              <strong className={styles.tituloPasso}>Fim.</strong>
+            </li>
+          )}
+        </ol>
+      </Modal>
     </div>
   );
 }

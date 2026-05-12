@@ -1,13 +1,13 @@
 'use client';
 
 import { use, useState } from 'react';
-import { WORKFLOWS_MOCK } from '@/data/workflows';
 import type { Workflow, EtapaWorkflow, StatusWorkflow } from '@/types';
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import Badge from '@/components/ui/Badge';
 import { useAuth } from '@/contexts/AuthContext';
 import { avancarEtapa, devolverEtapa } from '@/utils/workflow';
 import { formatarData, formatarDataHora } from '@/utils/formatters';
+import { getWorkflows, atualizarWorkflow } from '@/utils/workflowsStore';
 import styles from './page.module.css';
 
 const LABELS_STATUS: Record<StatusWorkflow, string> = {
@@ -36,9 +36,12 @@ export default function WorkflowDetalhePage({ params }: Props) {
   const { id } = use(params);
   const { usuario } = useAuth();
 
-  const wfInicial = WORKFLOWS_MOCK.find((w) => w.id === id);
+  const wfInicial = getWorkflows().find((w) => w.id === id);
   const [workflow, setWorkflow] = useState<Workflow | undefined>(wfInicial);
   const [comentario, setComentario] = useState('');
+  const [tituloEdit, setTituloEdit] = useState(wfInicial?.titulo ?? '');
+  const [prazoEdit, setPrazoEdit] = useState(wfInicial?.prazo ?? '');
+  const [statusEdit, setStatusEdit] = useState<StatusWorkflow>(wfInicial?.status ?? 'em_andamento');
 
   if (!workflow) {
     return (
@@ -62,6 +65,7 @@ export default function WorkflowDetalhePage({ params }: Props) {
     if (!workflow || !etapaAtiva || !usuario) return;
     const atualizado = avancarEtapa(workflow, etapaAtiva.id, usuario.id, usuario.nome, comentario);
     setWorkflow(atualizado);
+    atualizarWorkflow(atualizado);
     setComentario('');
   }
 
@@ -69,7 +73,15 @@ export default function WorkflowDetalhePage({ params }: Props) {
     if (!workflow || !etapaAtiva || !usuario || !comentario.trim()) return;
     const atualizado = devolverEtapa(workflow, etapaAtiva.id, usuario.id, usuario.nome, comentario);
     setWorkflow(atualizado);
+    atualizarWorkflow(atualizado);
     setComentario('');
+  }
+
+  function salvarEdicao() {
+    if (!workflow) return;
+    const atualizado: Workflow = { ...workflow, titulo: tituloEdit, prazo: prazoEdit, status: statusEdit };
+    setWorkflow(atualizado);
+    atualizarWorkflow(atualizado);
   }
 
   return (
@@ -112,6 +124,20 @@ export default function WorkflowDetalhePage({ params }: Props) {
 
         <div className={styles.layout}>
           <div className={styles.colEsquerda}>
+            <div className={styles.formularioAcao}>
+              <h3 className={styles.formularioTitulo}>Editar procedimento</h3>
+              <label className={styles.formularioLabel}>Título</label>
+              <input className={styles.textarea} value={tituloEdit} onChange={(e) => setTituloEdit(e.target.value)} />
+              <label className={styles.formularioLabel}>Prazo</label>
+              <input type="date" className={styles.textarea} value={prazoEdit} onChange={(e) => setPrazoEdit(e.target.value)} />
+              <label className={styles.formularioLabel}>Status</label>
+              <select className={styles.textarea} value={statusEdit} onChange={(e) => setStatusEdit(e.target.value as StatusWorkflow)}>
+                {Object.entries(LABELS_STATUS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+              </select>
+              <div className={styles.formularioBotoes}>
+                <button type="button" className={styles.btnConcluir} onClick={salvarEdicao}>Salvar dados</button>
+              </div>
+            </div>
             <h2 className={styles.secaoTitulo}>Linha do tempo</h2>
             <ol className={styles.timeline} aria-label="Etapas do procedimento">
               {workflow.etapas.map((etapa) => (

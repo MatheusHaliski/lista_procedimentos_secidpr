@@ -1,0 +1,5 @@
+.pagina { max-width: 720px; margin: 0 auto; padding: var(--espaco-8) var(--padding-lateral); }
+.form { display: flex; flex-direction: column; gap: var(--espaco-3); }
+.form label { display: flex; flex-direction: column; gap: var(--espaco-1); font-size: var(--texto-sm); }
+.form input { border: 1px solid #d1d5db; border-radius: var(--borda-radius); padding: var(--espaco-2) var(--espaco-3); }
+.form button { width: fit-content; background: var(--cor-azul-principal); color: white; border: none; border-radius: var(--borda-radius); padding: var(--espaco-2) var(--espaco-4); }
