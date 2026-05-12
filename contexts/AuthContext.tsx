@@ -4,12 +4,12 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import type { Usuario, Perfil } from '@/types';
 
 const MODULOS_POR_PERFIL: Record<Perfil, string[]> = {
-  ADMINISTRADOR: ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras', 'convenios', 'admin'],
-  GESTOR:        ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras', 'convenios'],
-  COORDENADOR:   ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras', 'convenios'],
-  TECNICO:       ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras'],
-  FISCAL:        ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras'],
-  CONSULTA:      ['macrofluxos', 'manuais', 'cadernos'],
+  ADMINISTRADOR: ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras', 'convenios', 'perguntas-frequentes', 'admin'],
+  GESTOR:        ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras', 'convenios', 'perguntas-frequentes'],
+  COORDENADOR:   ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras', 'convenios', 'perguntas-frequentes'],
+  TECNICO:       ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras', 'perguntas-frequentes'],
+  FISCAL:        ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras', 'perguntas-frequentes'],
+  CONSULTA:      ['macrofluxos', 'manuais', 'cadernos', 'perguntas-frequentes'],
 };
 
 // Usuário demo para desenvolvimento
