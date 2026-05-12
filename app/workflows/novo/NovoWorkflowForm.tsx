@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { TIPOS_WORKFLOW } from '@/data/workflows';
+import { OBRAS } from '@/data/obras';
 import type { TipoWorkflow } from '@/types';
 import Alert from '@/components/ui/Alert';
 import { formatarData } from '@/utils/formatters';
@@ -42,6 +43,7 @@ export default function NovoWorkflowForm() {
   const { usuario } = useAuth();
   const searchParams = useSearchParams();
   const tipoParam = searchParams.get('tipo') ?? '';
+  const obraIdParam = searchParams.get('obraId') ?? '';
 
   const tipoInicial = useMemo(() => {
     if (!tipoParam) return '';
@@ -55,8 +57,14 @@ export default function NovoWorkflowForm() {
     return parcial?.id ?? '';
   }, [tipoParam]);
 
+  const tituloInicial = useMemo(() => {
+    if (!obraIdParam) return '';
+    const obra = OBRAS.find((o) => o.id === obraIdParam);
+    return obra ? obra.titulo : '';
+  }, [obraIdParam]);
+
   const [tipoSelecionado, setTipoSelecionado] = useState(tipoInicial);
-  const [titulo, setTitulo] = useState('');
+  const [titulo, setTitulo] = useState(tituloInicial);
   const [submetido, setSubmetido] = useState(false);
   const [erros, setErros] = useState<Record<string, string>>({});
 
