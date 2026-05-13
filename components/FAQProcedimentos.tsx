@@ -11,49 +11,225 @@ type FAQItem = {
   tags: string[];
 };
 
-// Base de dados completa das perguntas frequentes por categoria
 const FAQ_DATA: FAQItem[] = [
-  { id: 1, categoria: 'Estrutura Institucional', pergunta: 'O que é a SEIA e qual é a sua missão no governo do Paraná?', resposta: 'A SEIA é a Secretaria da Inovação e Inteligência Artificial do Paraná, criada oficialmente em abril de 2025 pela Lei 22.324. É a evolução da antiga Secretaria da Inovação, Modernização e Transformação Digital. Sua missão central é coordenar as políticas públicas de IA e inovação no Estado, estabelecer diretrizes para o uso de tecnologias emergentes no setor público e fomentar parcerias com universidades, startups e o setor privado.', dica: '“Na prática, somos o motor da transformação digital do governo. O nome mudou, mas o desafio continua o mesmo: fazer o Estado funcionar melhor usando tecnologia. A diferença agora é que IA saiu do discurso e virou diretriz oficial.”', tags: ['Lei 22.324/2025', 'hub de inovação'] },
-  { id: 2, categoria: 'Estrutura Institucional', pergunta: 'Qual é a relação entre SEIA, CELEPAR e Fundação Araucária?', resposta: 'São três pilares complementares. A SEIA define as políticas e diretrizes de inovação e IA. A CELEPAR é o braço técnico executor — hospeda sistemas, desenvolve soluções e mantém a infraestrutura de TI do Estado. A Fundação Araucária administra o Fundo Paraná e financia pesquisa científica e projetos de inovação nas universidades. Para projetos de TI, a SEIA define a estratégia, a CELEPAR hospeda e opera, e a Fundação Araucária pode ser parceira de financiamento.', dica: '“Quem não entende essa tríade perde tempo mandando projeto para o lugar errado. Proposta técnica vai para a CELEPAR. Proposta de pesquisa vai para a Araucária. Proposta de política pública vai para a SEIA.”', tags: ['governança', 'infraestrutura'] },
-  { id: 3, categoria: 'Estrutura Institucional', pergunta: 'O que é o Programa Conecta IA e por que ele é relevante?', resposta: 'É o programa oficial da SEIA para mapear gargalos operacionais internos e desenvolver soluções de IA. Lançado em março de 2026, já identificou oportunidades nas equipes e iniciou o desenvolvimento de 11 soluções tecnológicas. É a iniciativa operacional que executa o Plano de Diretrizes de IA do Paraná.', dica: '“Isso é uma janela de oportunidade rara. Quando a direção está ativamente buscando soluções de IA e alguém da equipe técnica já tem uma pronta, o timing é perfeito para apresentar. Não espere ser chamado.”', tags: ['oportunidade estratégica', 'Conecta IA'] },
-  { id: 4, categoria: 'Processos Internos de TI', pergunta: 'Como funciona o fluxo de abertura e tramitação de processos no SEI?', resposta: 'O SEI é o sistema oficial de gestão documental do governo do Paraná. Todo processo administrativo precisa ser aberto com tipo correto, unidade responsável e documento inicial. A tramitação acontece digitalmente entre unidades. Quem não domina a classificação correta dos tipos de processo perde horas reabrindo ou corrigindo.', dica: '“O SEI resolveu o papel, mas criou um novo problema: cada unidade usa tipos de processo diferentes para a mesma coisa. A primeira coisa que aprendi foi decorar os tipos que uso todo dia e nunca improvisar — processo com tipo errado volta na sua mesa três vezes.”', tags: ['processo crítico', 'candidato à automação'] },
-  { id: 5, categoria: 'Processos Internos de TI', pergunta: 'Qual é o processo para contratar um serviço ou fornecedor de TI no governo?', resposta: 'Depende do valor. Abaixo de R$ 57.900 pode usar dispensa de licitação. Acima disso, precisa de processo licitatório formal — pregão eletrônico para serviços comuns de TI. O fluxo envolve: Termo de Referência → aprovação jurídica → publicação → sessão de pregão → contrato → ordem de serviço. O TR é o documento mais crítico e mais subestimado.', dica: '“Já vi projeto de inovação morrer no TR. Você tem a ideia, tem o recurso, mas o Termo de Referência fica na fila do jurídico por não estar no formato certo. Aprenda a escrever TR antes de propor qualquer projeto.”', tags: ['gargalo clássico', 'licitação'] },
-  { id: 6, categoria: 'Processos Internos de TI', pergunta: 'Como funciona o processo de homologação de sistemas na CELEPAR?', resposta: 'Todo sistema que roda na infraestrutura do Estado precisa passar pela homologação da CELEPAR — verificação de segurança, conformidade com LGPD, análise de dependências e aprovação da arquitetura. O processo pode levar de 30 a 90 dias.', dica: '“Entre na CELEPAR com a documentação completa desde o primeiro dia. Cada ida e volta na fila de homologação custa em média duas semanas. Arquitetura, fluxo de dados, mapeamento de APIs — tudo documentado antes de submeter.”', tags: ['homologação', 'LGPD', '30–90 dias'] },
-  { id: 7, categoria: 'Processos Internos de TI', pergunta: 'O que é o Inova Hub e como um projeto pode participar?', resposta: 'O Inova Hub conecta problemas reais do governo com soluções de startups e equipes internas. Funciona por ciclos com editais. O Hub GovTech Paraná é a vertente focada em GovTechs. Para participar, submeta o problema — não a solução — ao edital.', dica: '“O erro de quem quer entrar no Inova Hub é chegar com a solução pronta. O programa quer o problema. Apresente a dor, não o remédio — isso aumenta muito a chance de aprovação.”', tags: ['Inova Hub', 'GovTech', 'edital'] },
-  { id: 8, categoria: 'IA, Automação e Tendências', pergunta: 'Quais são os limites legais do uso de IA para tomar decisões no setor público?', resposta: 'A LGPD, a Lei 14.129/2021 e as diretrizes da SEIA são claras: decisões que afetam direitos de cidadãos ou servidores precisam de validação humana. IA pode sugerir, classificar e recomendar, mas não pode decidir de forma autônoma em contextos de interesse público.', dica: '“Quando apresentar qualquer projeto de IA para gestores, deixe isso explícito logo de início: a IA sugere, o servidor decide. Isso elimina 80% da resistência. O medo não é da tecnologia — é da responsabilização.”', tags: ['responsabilidade do servidor', 'LGPD', 'Lei 14.129/2021'] },
-  { id: 9, categoria: 'IA, Automação e Tendências', pergunta: 'Como a LGPD afeta projetos de IA que processam dados de servidores?', resposta: 'A LGPD exige que todo dado pessoal processado tenha base legal, finalidade definida e registro de operação. Para projetos internos de IA, os cuidados principais são: não enviar dados pessoais identificáveis para APIs externas sem DPA, manter logs de processamento e garantir que o titular possa exercer seus direitos.', dica: '“LGPD não é obstáculo — é checklist. Resolva antes de apresentar o projeto, não depois. Chegar com o DPA assinado mostra maturidade e derruba a principal objeção do jurídico.”', tags: ['risco jurídico', 'DPA', 'dados pessoais'] },
-  { id: 10, categoria: 'IA, Automação e Tendências', pergunta: 'O que é o Plano de Diretrizes de IA da SEIA?', resposta: 'É o documento estratégico que define como o governo do Paraná deve adotar, governar e escalar o uso de IA na administração pública. Estabelece princípios como transparência, explicabilidade e supervisão humana. Projetos que seguem essas diretrizes têm mais facilidade de aprovação.', dica: '“Leia o Plano de Diretrizes antes de apresentar qualquer projeto de IA. Use os mesmos termos que ele usa. Quando seu projeto fala a língua da direção, ele avança. Quando fala técnico demais, fica na gaveta.”', tags: ['alinhamento estratégico', 'aprovação'] },
-  { id: 11, categoria: 'IA, Automação e Tendências', pergunta: 'Qual a diferença prática entre RPA e IA generativa para automação?', resposta: 'RPA automatiza tarefas com regras fixas — clicar em botões, copiar dados, preencher formulários. É determinístico e auditável. IA generativa entende linguagem natural, raciocina sobre contexto ambíguo e produz conteúdo novo. RPA é ideal para processos 100% estruturados; IA generativa é ideal para processos que envolvem interpretação, redação ou decisão com múltiplas variáveis.', dica: '“Não tente usar IA generativa para fazer o que RPA faz melhor e mais barato. E não tente usar RPA para o que só IA consegue resolver. A confusão entre os dois atrasa projetos e queima orçamento.”', tags: ['RPA', 'IA generativa', 'automação'] },
-  { id: 12, categoria: 'Dificuldades Clássicas', pergunta: 'Por que projetos de inovação no governo morrem antes de chegar à produção?', resposta: 'As causas mais comuns são: mudança de gestão, falta de dono técnico após remanejamento, documentação insuficiente, dependência de fornecedor sem suporte contratual e falta de métrica de sucesso definida. O projeto morre não por falha técnica, mas por falta de institucionalização.', dica: '“Já vi cinco projetos excelentes morrerem quando o servidor que os criou foi transferido. Documente tudo. Faça o projeto sobreviver sem você. Se só você sabe como funciona, ele não é institucional — é um hobby.”', tags: ['risco crítico', 'documentação', 'institucionalização'] },
-  { id: 13, categoria: 'Dificuldades Clássicas', pergunta: 'Como lidar com resistência cultural a novas tecnologias?', resposta: 'A resistência raramente é à tecnologia — é ao esforço de aprender e ao medo de errar. A estratégia mais eficaz é começar com quem já quer, mostrar resultado concreto e deixar a pressão de pares fazer o trabalho. Uma demonstração de 10 minutos que economiza 2 horas convence mais do que qualquer apresentação.', dica: '“Inovação no serviço público é opt-in. Você não convence pela lógica, convence pelo exemplo. Quando a pessoa ao lado economiza duas horas, o cérebro do resistente faz o cálculo sozinho.”', tags: ['mudança cultural', 'piloto voluntário'] },
-  { id: 14, categoria: 'Dificuldades Clássicas', pergunta: 'Como o proxy corporativo impacta projetos de IA na SEIA?', resposta: 'O proxy da rede estadual (proxy01.pred.parana:8080) bloqueia APIs externas por padrão. A solução estrutural é solicitar à CELEPAR a liberação das URLs específicas via chamado formal com justificativa técnica. Para projetos internos, a alternativa mais robusta é hospedar o servidor dentro da rede da CELEPAR.', dica: '“O proxy não é burocracia à toa — é segurança. Mas tem uma porta de entrada: você formaliza um chamado na CELEPAR com a URL, a finalidade e a justificativa técnica. Demora uns 5 dias úteis, mas resolve definitivamente.”', tags: ['proxy corporativo', 'CELEPAR', 'segurança de rede'] },
-  { id: 15, categoria: 'Dificuldades Clássicas', pergunta: 'Como priorizar qual problema resolver primeiro?', resposta: 'Use dois critérios cruzados: impacto (quantas pessoas afeta e com que frequência) e esforço de implementação. O quadrante de maior impacto com menor esforço é sempre o ponto de entrada correto. Evite começar pelos processos mais complexos para impressionar — eles atrasam e queimam credibilidade.', dica: '“Entrega pequena e rápida vale mais do que projeto grande que nunca sai. Um script que economiza 30 minutos por dia para 10 pessoas é mais valioso para a sua carreira do que um sistema que demora 6 meses para ficar pronto.”', tags: ['priorização', 'impacto × esforço'] },
-  { id: 16, categoria: 'Carreira e Estratégia', pergunta: 'Como apresentar um projeto de inovação para a gestão sem ser ignorado?', resposta: 'Gestores públicos respondem a três coisas: economia de recursos, redução de risco e cumprimento de metas do Plano de Governo. Apresente o projeto nessa linguagem. Nunca comece pela tecnologia — comece pelo problema que o gestor já sabe que existe. Depois mostre piloto, métrica, custo baixo e alinhamento com o Conecta IA.', dica: '“Nunca entre na sala do secretário falando de API, token ou bot. Entre falando de redução de X horas por semana e alinhamento com o Conecta IA. A tecnologia é o como — o gestor quer saber o quê e o quanto.”', tags: ['linguagem do gestor', 'piloto + métrica'] },
-  { id: 17, categoria: 'Carreira e Estratégia', pergunta: 'O que é o Fundo Paraná e como ele pode financiar projetos de tecnologia?', resposta: 'É a dotação constitucional administrada pela Seti para financiar ciência, tecnologia e inovação. Em 2025 foram aplicados R$ 609,7 milhões. Projetos de TI com base científica ou em parceria com universidades podem ser financiados via editais da Fundação Araucária.', dica: '“O Fundo Paraná passou de R$ 80 milhões em 2019 para R$ 609 milhões em 2025. Mas tem prazo e edital. Quem não acompanha os editais perde o ciclo e espera mais um ano.”', tags: ['financiamento', 'R$ 609 mi', 'editais'] },
-  { id: 18, categoria: 'Carreira e Estratégia', pergunta: 'Como o Paraná se posiciona em inovação e IA frente a outros estados?', resposta: 'O Paraná está entre os estados mais avançados do Brasil, ao lado de Minas Gerais e São Paulo. Diferenciais: primeiro Hub GovTech estadual do país, Paraná Anjo Inovador (maior programa público de incentivo a startups do país), Carreta da Inovação (60 mil pessoas em 70 municípios) e SEIA com foco explícito em IA.', dica: '“O Paraná não está apenas falando de inovação — está executando. Isso é raro no setor público brasileiro. Aproveite enquanto o vento está favorável. Janelas como essa fecham quando muda o governo.”', tags: ['referência nacional', 'hub de inovação'] },
-  { id: 19, categoria: 'Carreira e Estratégia', pergunta: 'Quais habilidades um analista de TI da SEIA precisará ter em 2026–2028?', resposta: 'Engenharia de prompt, integração de APIs, LGPD aplicada a IA, documentação de processos e comunicação com não-técnicos. Python e SQL continuam essenciais. O diferencial será combinar habilidade técnica com visão de processo público.', dica: '“O servidor de TI que só sabe programar vai perder espaço para o que sabe programar E explicar o que fez E documentar E convencer a gestão. A IA já faz bastante do código. O que ela não faz é a articulação institucional.”', tags: ['engenharia de prompt', 'APIs', 'carreira'] },
-  { id: 20, categoria: 'Carreira e Estratégia', pergunta: 'Como formalizar um projeto de IA desenvolvido internamente na SEIA?', resposta: 'O caminho mais estratégico é: 1) resolver infraestrutura (proxy/CELEPAR), 2) rodar piloto de 30 dias com a equipe, 3) documentar métricas, 4) submeter ao Conecta IA como solução interna, 5) apresentar ao Inova Hub para escalar para outras secretarias.', dica: '“Você não está inventando a roda — está construindo a roda que a própria secretaria disse que precisa. Com dados de piloto e alinhamento ao Conecta IA, qualquer projeto tem tudo para virar oficial. Mas precisa sair do chat e entrar no SEI.”', tags: ['Conecta IA', 'Inova Hub', 'formalização'] },
+  {
+    id: 1,
+    categoria: 'Identidade e Missão',
+    pergunta: 'O que é a SECID e qual é a sua natureza jurídica?',
+    resposta:
+      'A Secretaria de Estado das Cidades — SECID é um órgão auxiliar do Governador do Estado do Paraná, a ele direta e imediatamente subordinado, nos termos do inciso II do art. 33 da Lei nº 21.352, de 1º de janeiro de 2023. Seu regulamento foi aprovado pelo Decreto nº 4.497, de 20 de dezembro de 2023.',
+    dica:
+      "Veterano: 'Não confunda a SECID com a SEIA nem com a SEIL. A SECID cuida de cidades, urbanismo, habitação e edificações públicas. Se o assunto for inovação digital, é outra pasta. Se for rodovias, é outra. Cada secretaria tem seu campo — errar o encaminhamento custa semanas.'",
+    tags: ['Lei 21.352/2023', 'Decreto 4.497/2023', 'órgão auxiliar do Governador'],
+  },
+  {
+    id: 2,
+    categoria: 'Identidade e Missão',
+    pergunta: 'Quais são as principais competências da SECID?',
+    resposta:
+      'A SECID tem 21 competências definidas no art. 1º do Regulamento. As principais são: formular políticas públicas para desenvolvimento urbano, regional, metropolitano e integrado; prestar assistência técnica aos municípios; promover infraestrutura urbana; coordenar a política habitacional do Estado; planejar e fiscalizar obras e serviços de engenharia de edificações de interesse estadual; gerir Fundos Estaduais de Desenvolvimento Urbano e Metropolitano; e gerenciar o Sistema de Financiamento de Ações nos Municípios — SFM.',
+    dica:
+      "Veterano: 'Quando um município vem com demanda de urbanismo, convênio de infraestrutura ou obra de prédio público estadual — é SECID. Decore esse escopo. Tudo que é edificação pública do Estado passa por aqui, independente de qual secretaria vai usar o prédio.'",
+    tags: ['art. 1º do Regulamento', '21 competências', 'desenvolvimento urbano', 'habitação', 'edificações públicas'],
+  },
+  {
+    id: 3,
+    categoria: 'Identidade e Missão',
+    pergunta: 'Quais entidades estão vinculadas ou relacionadas à SECID?',
+    resposta:
+      'A SECID possui duas entidades no nível de atuação descentralizada: a Agência de Assuntos Metropolitanos do Paraná — AMEP e a Companhia de Habitação do Paraná — COHAPAR. Além disso, o serviço social autônomo PARANACIDADE vincula-se à SECID por cooperação, nos termos da Lei nº 15.211/2006. A Superintendência Geral de Apoio aos Municípios — SAM também se subordina à SECID conforme Decreto nº 138/2023.',
+    dica:
+      "Veterano: 'AMEP cuida da governança metropolitana. COHAPAR cuida de habitação social. PARANACIDADE apoia tecnicamente os municípios. São entidades distintas com orçamentos próprios — não trate como se fossem departamentos internos da Secretaria.'",
+    tags: ['AMEP', 'COHAPAR', 'PARANACIDADE', 'SAM', 'entidades vinculadas'],
+  },
+  {
+    id: 4,
+    categoria: 'Estrutura Organizacional',
+    pergunta: 'Como é composta a estrutura organizacional básica da SECID?',
+    resposta:
+      'A estrutura da SECID, definida no art. 2º do Regulamento, compreende 8 níveis: (I) Direção Superior — Secretário de Estado; (II) Decisão Colegiada — Concidades Paraná; (III) Assessoramento — Gabinete do Secretário e Assessoria Técnica; (IV) Gerência — Diretor-Geral, Diretores de área e Unidades Técnicas; (V) Atuação Sistêmica — 6 Núcleos Setoriais; (VI) Execução Programática — Coordenações subordinadas às Diretorias; (VII) Atuação Regional — Núcleos Regionais das Cidades; (VIII) Atuação Descentralizada — AMEP e COHAPAR.',
+    dica:
+      "Veterano: 'Antes de encaminhar qualquer demanda, saiba em qual nível ela se resolve. Assunto estratégico vai para o Secretário ou Diretor-Geral. Execução técnica vai para as Coordenações. Demanda regional vai para o NRC da sua área. Errar o nível é perder tempo.'",
+    tags: ['art. 2º', '8 níveis hierárquicos', 'organograma', 'Decreto 4.497/2023'],
+  },
+  {
+    id: 5,
+    categoria: 'Estrutura Organizacional',
+    pergunta: 'Quais são as diretorias da SECID e suas áreas de atuação?',
+    resposta:
+      'A SECID possui quatro diretorias no nível de gerência: (1) Diretor-Geral — DG: integração interna e gestão administrativa da pasta; (2) Diretor de Desenvolvimento e Integração — DDI: políticas de desenvolvimento urbano, regional e metropolitano, gestão do SFM e dos Fundos Urbanos; (3) Diretor de Apoio aos Municípios — DAM: assistência técnica, convênios e repasses aos municípios; (4) Diretor de Edificações Públicas — DEP: planejamento, fiscalização e gestão de contratos de obras de edificações públicas estaduais.',
+    dica:
+      "Veterano: 'DDI pensa o território e a política. DAM opera o relacionamento com os 399 municípios. DEP constrói e fiscaliza prédios públicos. São mundos distintos dentro da mesma secretaria. Quem confunde as competências das diretorias atrasa qualquer processo.'",
+    tags: ['DG', 'DDI', 'DAM', 'DEP', 'diretorias', 'competências'],
+  },
+  {
+    id: 6,
+    categoria: 'Estrutura Organizacional',
+    pergunta: 'O que são os Núcleos Setoriais e quais existem na SECID?',
+    resposta:
+      'Os Núcleos Setoriais compõem o nível de atuação sistêmica e realizam atividades estruturais vinculadas aos sistemas estaduais. Na SECID existem 6 núcleos: Núcleo de Planejamento Setorial — NPS (vinculado à SEPL); Núcleo Fazendário Setorial — NFS (vinculado à SEFA); Núcleo Administrativo Setorial — NAS (vinculado à SEAP); Núcleo de Recursos Humanos Setorial — NRHS (vinculado à SEAP); Núcleo de Integridade e Compliance Setorial — NICS (vinculado à CGE); Núcleo de Comunicação Setorial — NCS (vinculado à SECOM).',
+    dica:
+      "Veterano: 'Os núcleos setoriais parecem internos mas seguem as regras das secretarias-mãe. RH segue a SEAP, finanças segue a SEFA. Quando surgir dúvida sobre processo de pessoal ou orçamento, consulte o regulamento da secretaria responsável pelo sistema — não só o regulamento da SECID.'",
+    tags: ['NPS', 'NFS', 'NAS', 'NRHS', 'NICS', 'NCS', 'núcleos setoriais', 'atuação sistêmica'],
+  },
+  {
+    id: 7,
+    categoria: 'Processos e Competências Técnicas',
+    pergunta: 'O que é o Sistema de Financiamento de Ações nos Municípios — SFM e quem o administra?',
+    resposta:
+      'O SFM é o Sistema de Financiamento de Ações nos Municípios do Estado do Paraná, instituído pela Lei nº 17.655, de 07 de agosto de 2013. Sua administração compete à SECID, especificamente por meio da Coordenação de Desenvolvimento Urbano e Regional — CDUR, subordinada ao Diretor de Desenvolvimento e Integração. O SFM é um dos instrumentos de financiamento de infraestrutura urbana e desenvolvimento institucional dos municípios paranaenses.',
+    dica:
+      "Veterano: 'O SFM é dinheiro real para municípios. Mas para acessar, o município precisa ter toda a documentação em ordem — certidões, plano de trabalho, sem inadimplência. A CCOR cuida da tramitação. Municípios que chegam sem documentação perdem a janela de repasse.'",
+    tags: ['SFM', 'Lei 17.655/2013', 'CDUR', 'financiamento municipal', 'infraestrutura urbana'],
+  },
+  {
+    id: 8,
+    categoria: 'Processos e Competências Técnicas',
+    pergunta: 'Qual é o papel da SECID nas obras de edificações públicas estaduais?',
+    resposta:
+      'A SECID é o órgão central responsável por planejar, coordenar, fiscalizar e receber obras e serviços de engenharia de edificações de interesse estadual para toda a Administração Direta, Autárquica e Fundacional do Poder Executivo do Paraná. Isso inclui: elaborar Termos de Referência, definir parâmetros de BDI, manter a Tabela de Custos de Obras, credenciar profissionais e empresas, gerir contratos e fiscalizar a execução. Outros órgãos só podem realizar as próprias obras sem a SECID se houver autorização expressa do Governador.',
+    dica:
+      "Veterano: 'Se algum órgão do Estado quiser construir ou reformar sem passar pela SECID, precisa de autorização do Governador. Isso é letra da lei. Projetos que tentam contornar esse fluxo enfrentam problemas jurídicos na licitação. A SECID não é burocracia — é o guardião da legalidade das obras públicas.'",
+    tags: ['edificações públicas', 'BDI', 'Tabela de Custos', 'fiscalização', 'TED', 'obras estaduais'],
+  },
+  {
+    id: 9,
+    categoria: 'Processos e Competências Técnicas',
+    pergunta: 'O que é BDI e qual é o papel da SECID na sua definição?',
+    resposta:
+      'BDI — Bonificações e Despesas Indiretas — é o percentual que incide sobre os custos diretos de obras para cobrir despesas como administração central, seguros, garantias e lucro. Compete à SECID definir os parâmetros aceitáveis de BDI para os projetos, obras e serviços de engenharia dos órgãos da administração direta e autárquica do Estado do Paraná, determinando os preços máximos admissíveis nas licitações públicas.',
+    dica:
+      "Veterano: 'BDI mal calculado é licitação impugnada. Já vi contratos inteiros serem questionados no TCE por BDI fora do padrão SECID. Antes de assinar qualquer orçamento de obra pública, confira se o BDI está dentro dos parâmetros vigentes da Tabela da SECID. Isso não é detalhe — é critério de validade.'",
+    tags: ['BDI', 'Tabela de Custos', 'orçamento de obras', 'preço máximo', 'licitação'],
+  },
+  {
+    id: 10,
+    categoria: 'Processos e Competências Técnicas',
+    pergunta: 'O que são os Termos de Execução Descentralizada — TEDs e como funcionam?',
+    resposta:
+      'Os TEDs são instrumentos pelos quais a SECID firma com outros órgãos da administração estadual a descentralização da execução de obras e serviços de engenharia de edificações públicas. A Coordenação de Planejamento e Orçamento de Edificações Públicas — CPOE é responsável por coordenar, monitorar e controlar atividades relacionadas ao planejamento de contratos vinculados aos TEDs, acompanhando o andamento das demandas junto aos fiscais designados.',
+    dica:
+      "Veterano: 'TED é o instrumento que formaliza quem faz o quê numa obra estadual. Sem TED assinado, não há fiscal designado. Sem fiscal, não há medição. Sem medição, não há pagamento. O TED é o ponto de partida de qualquer obra — não começa nada sem ele estar registrado no sistema.'",
+    tags: ['TED', 'CPOE', 'descentralização', 'fiscalização', 'obras públicas estaduais'],
+  },
+  {
+    id: 11,
+    categoria: 'Apoio aos Municípios e Convênios',
+    pergunta: 'Como a SECID presta assistência técnica aos municípios paranaenses?',
+    resposta:
+      'A assistência técnica aos municípios é coordenada pelo Diretor de Apoio aos Municípios — DAM, por meio de duas unidades: a Coordenação de Convênios e Repasses — CCOR (que administra a celebração e manutenção de convênios, instrui processos e avalia prestações de contas) e a Coordenação de Suporte Técnico aos Municípios — CSTM (que formula a política estadual de apoio municipal, organiza materiais técnicos, monitora convênios e realiza eventos técnicos junto aos municípios).',
+    dica:
+      "Veterano: 'Município que quer apoio técnico procura a CSTM. Município que quer assinar convênio ou receber repasse procura a CCOR. São portas diferentes. Levar demanda de convênio para a CSTM, ou dúvida técnica para a CCOR, gera retrabalho para todos os lados.'",
+    tags: ['DAM', 'CCOR', 'CSTM', 'assistência técnica', 'convênios municipais'],
+  },
+  {
+    id: 12,
+    categoria: 'Apoio aos Municípios e Convênios',
+    pergunta: 'Quais são os Núcleos Regionais das Cidades e como estão distribuídos no Paraná?',
+    resposta:
+      'Os Núcleos Regionais das Cidades — NRCs compõem o nível de atuação regional da SECID. Existem 11 núcleos, cada um com um município-sede: Campo Mourão, Cascavel, Curitiba, Guarapuava, Londrina, Maringá, Pato Branco, Ponta Grossa, Santo Antônio da Platina, Umuarama e União da Vitória. Cada NRC é responsável por promover e executar as atividades da Secretaria em sua região, fiscalizar obras locais, levantar necessidades de manutenção de prédios públicos e coletar informações regionais de interesse da SECID.',
+    dica:
+      "Veterano: 'O NRC é a SECID presente na região. Prefeitura com dúvida sobre obra, convênio ou edificação pública deve primeiro contatar o NRC da sua área, não ligar direto para Curitiba. O NRC tem a proximidade e o conhecimento local. Só escale para a sede quando o NRC não conseguir resolver.'",
+    tags: ['NRCs', '11 núcleos regionais', 'atuação regional', 'Campo Mourão', 'Cascavel', 'Curitiba', 'Londrina', 'Maringá'],
+  },
+  {
+    id: 13,
+    categoria: 'Apoio aos Municípios e Convênios',
+    pergunta: 'O que é o Concidades Paraná e qual é o seu papel?',
+    resposta:
+      'O Conselho Estadual das Cidades do Paraná — Concidades Paraná é um órgão colegiado de natureza permanente, caráter consultivo e fiscalizatório, criado pela Lei nº 19.228/2017. É composto por 41 Conselheiros Titulares, com 60% de representantes da sociedade civil e 40% do poder público. Compete ao Concidades propor diretrizes de desenvolvimento urbano, acompanhar políticas públicas, propor normas de direito urbanístico, promover cooperação intergovernamental e convocar a Conferência Estadual das Cidades.',
+    dica:
+      "Veterano: 'O Concidades não é decorativo. Ele fiscaliza, propõe e emite resoluções que orientam a política urbana do Estado. Resolução do Concidades tem peso. Quando surgir questão sobre política habitacional ou desenvolvimento urbano, vale pesquisar o que o Conselho já deliberou sobre o tema.'",
+    tags: ['Concidades Paraná', 'Lei 19.228/2017', 'conselho estadual', 'desenvolvimento urbano', '41 conselheiros'],
+  },
+  {
+    id: 14,
+    categoria: 'Licitações, Contratos e Inovação',
+    pergunta: 'O que faz a Unidade Técnica de Licitações — UTL da SECID?',
+    resposta:
+      'A UTL, subordinada ao Diretor-Geral, é responsável por coordenar e realizar os processos licitatórios da SECID, incluindo obras, serviços de engenharia e projetos de edificações públicas. Suas atribuições incluem: orientar outros órgãos da administração direta e autárquica em suas licitações de engenharia, dar apoio técnico às comissões de licitação, avaliar previamente os editais, analisar o desempenho das contratadas e propor sanções contratuais quando cabível.',
+    dica:
+      "Veterano: 'UTL não é só formalidade. Edital com vício jurídico ou técnico volta impugnado e atrasa meses o projeto. Leve o edital para a UTL ANTES de publicar, não depois. Revisão prévia da UTL é proteção para o gestor — qualquer questionamento posterior cai no colo de quem publicou sem validar.'",
+    tags: ['UTL', 'licitações', 'editais', 'obras públicas', 'sanções contratuais'],
+  },
+  {
+    id: 15,
+    categoria: 'Licitações, Contratos e Inovação',
+    pergunta: 'O que faz a Unidade Técnica de Inovação e Sustentabilidade — UTS?',
+    resposta:
+      'A UTS coordena as iniciativas da SECID em tecnologia e sustentabilidade aplicadas ao campo de atuação da pasta. Suas principais atribuições são: buscar e difundir novas tecnologias construtivas; coordenar a implantação da metodologia BIM (Modelagem de Informação da Construção) nas obras de edificações públicas estaduais; desenvolver planos e pesquisas em desenvolvimento urbano e regional; e promover eventos de capacitação interna e externa em qualidade, sustentabilidade e inovação construtiva.',
+    dica:
+      "Veterano: 'BIM não é opcional — é a direção para onde todas as obras públicas estão indo. A UTS lidera essa transição na SECID. Engenheiros e arquitetos que não dominam BIM vão ter dificuldade crescente nos processos da Secretaria. Qualificação em BIM hoje é investimento profissional obrigatório.'",
+    tags: ['UTS', 'BIM', 'Modelagem de Informação da Construção', 'inovação construtiva', 'sustentabilidade'],
+  },
+  {
+    id: 16,
+    categoria: 'Licitações, Contratos e Inovação',
+    pergunta: 'O que é a Coordenação de Gestão de Contratos de Edificações — CGCE e o que ela faz?',
+    resposta:
+      'A CGCE, subordinada ao Diretor de Edificações Públicas, é responsável por coordenar, monitorar e controlar a gestão de contratos de obras e serviços de engenharia de edificações públicas. Suas atribuições incluem: incluir contratos nos sistemas de gestão, registrar a evolução de execução contratual, adotar providências para corrigir irregularidades identificadas e gerar informações gerenciais especializadas sobre os contratos.',
+    dica:
+      "Veterano: 'Contrato de obra sem registro atualizado no sistema é passivo para o gestor. TCE cruza execução física com execução financeira. Se o sistema mostrar divergência, o fiscal responde. Manter o registro da CGCE em dia não é burocracia — é proteção jurídica do servidor.'",
+    tags: ['CGCE', 'gestão de contratos', 'fiscalização', 'edificações públicas', 'DEP'],
+  },
+  {
+    id: 17,
+    categoria: 'Gestão e Responsabilidades',
+    pergunta: 'Quais são as responsabilidades fundamentais de todos os chefes de unidade na SECID?',
+    resposta:
+      'O art. 27 do Regulamento estabelece 7 responsabilidades fundamentais para todos os ocupantes de chefia: propiciar formação e conhecimento dos objetivos da unidade; promover treinamento e aperfeiçoamento dos subordinados; treinar permanentemente o substituto e praticar rodízio entre subordinados; incentivar criatividade e participação crítica; conhecer custos operacionais e combater desperdício; incutir a filosofia do bem servir ao público; e desenvolver o espírito de participação construtiva e responsável.',
+    dica:
+      "Veterano: 'Art. 27 é o padrão de conduta esperado de qualquer chefe na SECID. Em avaliação de desempenho ou processo disciplinar, esse artigo é referência. Treinar o substituto é obrigação legal — não é generosidade. Quem nunca treinou ninguém está descumprindo o regulamento.'",
+    tags: ['art. 27', 'responsabilidades de chefia', 'treinamento', 'gestão de pessoas', 'regulamento'],
+  },
+  {
+    id: 18,
+    categoria: 'Gestão e Responsabilidades',
+    pergunta: 'Como funciona a substituição do Secretário de Estado das Cidades em caso de ausência?',
+    resposta:
+      'O Secretário de Estado das Cidades é substituído em casos de vacância, ausência ou impedimento pelo Diretor-Geral — DG, conforme previsto no art. 12 do Regulamento. O DG, por sua vez, será substituído por um dos Diretores a ser designado por resolução do próprio Secretário de Estado das Cidades. A escala de substituições deve ser elaborada e aprovada pelo Secretário para todos os níveis de chefia.',
+    dica:
+      "Veterano: 'A escala de substituições tem que existir e estar publicada em resolução. Não é informal. Decisão assinada por quem não está na escala pode ser questionada administrativamente. Toda unidade deve ter seu substituto designado formalmente — isso vale desde o Secretário até o Chefe de Setor.'",
+    tags: ['substituição', 'Secretário', 'Diretor-Geral', 'resolução', 'escala de substituições'],
+  },
+  {
+    id: 19,
+    categoria: 'Gestão e Responsabilidades',
+    pergunta: 'Como a SECID pode firmar contratos de gestão para execução de suas atividades?',
+    resposta:
+      'Nos termos do art. 28 do Regulamento, para a execução de suas atividades-fim, complementares e correlatas, a SECID pode firmar contratos de gestão que fixem atribuições, responsabilidades e obrigações. Esses contratos devem ter como anexo obrigatório o Plano Anual de Trabalho, contendo metas técnicas, indicadores de desempenho e demais informações que possibilitem a mensuração e avaliação do cumprimento das obrigações assumidas.',
+    dica:
+      "Veterano: 'Contrato de gestão sem plano de trabalho anexo não tem validade. O plano com metas e indicadores é parte inseparável do instrumento — não é documento opcional. Sem ele, não há como medir resultado nem responsabilizar quem descumpriu o contrato.'",
+    tags: ['contrato de gestão', 'Plano Anual de Trabalho', 'metas', 'indicadores', 'art. 28'],
+  },
+  {
+    id: 20,
+    categoria: 'Gestão e Responsabilidades',
+    pergunta: 'O que garante a integração entre as unidades da SECID?',
+    resposta:
+      'O art. 32 do Regulamento determina que, para garantir o bom desempenho das atribuições legais da SECID, todas as suas unidades devem atuar de forma integrada e articulada para consolidar a permanente sinergia interna. Os casos omissos e dúvidas na execução do Regulamento são resolvidos pelo Secretário de Estado das Cidades, que pode expedir os atos necessários para tanto (art. 33).',
+    dica:
+      "Veterano: 'Sinergia interna não é poesia de regulamento — é obrigação legal. Quando uma unidade retém informação ou não articula com as demais, está descumprindo o art. 32. Em qualquer conflito intersetorial dentro da SECID, esse artigo é o fundamento para exigir cooperação. Use-o.'",
+    tags: ['art. 32', 'integração', 'sinergia interna', 'art. 33', 'casos omissos'],
+  },
 ];
 
 const CATEGORY_COLORS: Record<string, string> = {
-  'Estrutura Institucional': 'bg-blue-100 text-blue-800 border-blue-200',
-  'Processos Internos de TI': 'bg-cyan-100 text-cyan-800 border-cyan-200',
-  'IA, Automação e Tendências': 'bg-violet-100 text-violet-800 border-violet-200',
-  'Dificuldades Clássicas': 'bg-amber-100 text-amber-800 border-amber-200',
-  'Carreira e Estratégia': 'bg-emerald-100 text-emerald-800 border-emerald-200',
+  'Identidade e Missão': 'bg-blue-100 text-blue-800 border-blue-200',
+  'Estrutura Organizacional': 'bg-cyan-100 text-cyan-800 border-cyan-200',
+  'Processos e Competências Técnicas': 'bg-violet-100 text-violet-800 border-violet-200',
+  'Apoio aos Municípios e Convênios': 'bg-amber-100 text-amber-800 border-amber-200',
+  'Licitações, Contratos e Inovação': 'bg-emerald-100 text-emerald-800 border-emerald-200',
+  'Gestão e Responsabilidades': 'bg-rose-100 text-rose-800 border-rose-200',
 };
 
 export default function FAQProcedimentos() {
-  // Estados principais: categoria, busca, item aberto e itens já abertos (progresso)
   const [categoriaAtiva, setCategoriaAtiva] = useState<string>('Todas');
   const [busca, setBusca] = useState('');
-  const [openId, setOpenId] = useState<number | null>(null);
-  const [openedSet, setOpenedSet] = useState<Set<number>>(new Set());
-  const [expandedAll, setExpandedAll] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<FAQItem | null>(null);
 
   const categorias = useMemo(() => ['Todas', ...new Set(FAQ_DATA.map((item) => item.categoria))], []);
 
-  // Filtragem combinada por categoria + busca textual (pergunta, resposta, dica e tags)
   const filteredFaqs = useMemo(() => {
     const termo = busca.trim().toLowerCase();
     return FAQ_DATA.filter((item) => {
@@ -68,36 +244,12 @@ export default function FAQProcedimentos() {
     });
   }, [busca, categoriaAtiva]);
 
-  const toggleItem = (id: number) => {
-    if (expandedAll) {
-      setExpandedAll(false);
-    }
-
-    setOpenId((prev) => (prev === id ? null : id));
-    setOpenedSet((prev) => new Set(prev).add(id));
-  };
-
-  const handleExpandAll = () => {
-    setExpandedAll(true);
-    setOpenId(null);
-    setOpenedSet((prev) => {
-      const next = new Set(prev);
-      filteredFaqs.forEach((item) => next.add(item.id));
-      return next;
-    });
-  };
-
-  const handleCollapseAll = () => {
-    setExpandedAll(false);
-    setOpenId(null);
-  };
-
   return (
     <section className="mx-auto w-full max-w-5xl rounded-2xl bg-white p-4 shadow-sm md:p-6">
       <header className="mb-4 flex flex-col gap-3 border-b border-gray-100 pb-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-[#1B4F8E] md:text-2xl">Perguntas Frequentes</h2>
-          <p className="text-sm text-gray-500">{openedSet.size} de 20 perguntas abertas</p>
+          <h2 className="text-xl font-semibold text-[#1B4F8E] md:text-2xl">Perguntas Frequentes — SECID</h2>
+          <p className="text-sm text-gray-500">Secretaria de Estado das Cidades do Paraná — Regulamento aprovado pelo Decreto nº 4.497/2023</p>
         </div>
 
         <div className="relative w-full md:w-80">
@@ -130,80 +282,88 @@ export default function FAQProcedimentos() {
             </button>
           );
         })}
-
-        <div className="ml-auto flex gap-2">
-          <button
-            type="button"
-            onClick={handleExpandAll}
-            className="rounded-lg bg-[#1B4F8E] px-3 py-1.5 text-xs font-medium text-white transition hover:brightness-110 md:text-sm"
-          >
-            Expandir todas
-          </button>
-          <button
-            type="button"
-            onClick={handleCollapseAll}
-            className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 transition hover:bg-gray-50 md:text-sm"
-          >
-            Recolher todas
-          </button>
-        </div>
       </div>
 
-      <div className="space-y-3">
-        {filteredFaqs.map((item) => {
-          const isOpen = expandedAll || openId === item.id;
-          return (
-            <article key={item.id} className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50/60">
-              <div
-                role="button"
-                tabIndex={0}
-                aria-expanded={isOpen}
-                aria-controls={`faq-content-${item.id}`}
-                onClick={() => toggleItem(item.id)}
-                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && toggleItem(item.id)}
-                className="flex cursor-pointer items-center justify-between gap-3 px-4 py-3"
-              >
-                <div className="space-y-2">
-                  <span className={`inline-flex rounded-full border px-2 py-0.5 text-xs ${CATEGORY_COLORS[item.categoria]}`}>
-                    {item.categoria}
+      <div className="rounded-2xl border border-[#1B4F8E]/20 bg-gradient-to-b from-blue-50 to-white p-4 md:p-6">
+        <h3 className="mb-4 text-center text-base font-semibold text-[#1B4F8E] md:text-lg">Lista de Perguntas</h3>
+
+        {filteredFaqs.length > 0 ? (
+          <ol className="grid gap-3">
+            {filteredFaqs.map((item, index) => (
+              <li key={item.id}>
+                <button
+                  type="button"
+                  onClick={() => setSelectedItem(item)}
+                  className="flex w-full items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 text-left shadow-sm transition hover:border-[#1B4F8E] hover:shadow"
+                >
+                  <span className="inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#1B4F8E] text-xs font-bold text-white">
+                    {index + 1}
                   </span>
-                  <h3 className="text-sm font-semibold text-gray-800 md:text-base">{item.pergunta}</h3>
-                </div>
-                <span className="text-lg text-[#1B4F8E]">{isOpen ? '−' : '+'}</span>
-              </div>
-
-              <div
-                id={`faq-content-${item.id}`}
-                className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
-              >
-                <div className="overflow-hidden">
-                  <div className="space-y-3 border-t border-gray-200 bg-white px-4 py-4 text-sm text-gray-700">
-                    <p>{item.resposta}</p>
-                    <blockquote className="rounded-lg border-l-4 border-[#1B4F8E] bg-blue-50 px-3 py-2 italic text-gray-700">
-                      <span className="mr-1 text-[#1B4F8E]">❝</span>
-                      {item.dica}
-                    </blockquote>
-
-                    <div className="flex flex-wrap gap-2">
-                      {item.tags.map((tag) => (
-                        <span key={`${item.id}-${tag}`} className="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-700">
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="space-y-1">
+                    <span className={`inline-flex rounded-full border px-2 py-0.5 text-xs ${CATEGORY_COLORS[item.categoria]}`}>
+                      {item.categoria}
+                    </span>
+                    <p className="text-sm font-semibold text-gray-800 md:text-base">{item.pergunta}</p>
                   </div>
-                </div>
-              </div>
-            </article>
-          );
-        })}
-
-        {filteredFaqs.length === 0 && (
+                </button>
+              </li>
+            ))}
+          </ol>
+        ) : (
           <div className="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-6 text-center text-sm text-gray-500">
             Nenhuma pergunta encontrada com os filtros atuais.
           </div>
         )}
       </div>
+
+      {selectedItem && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="faq-modal-title"
+          onClick={() => setSelectedItem(null)}
+        >
+          <div
+            className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl md:p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mb-4 flex items-start justify-between gap-3">
+              <div className="space-y-2">
+                <span className={`inline-flex rounded-full border px-2 py-0.5 text-xs ${CATEGORY_COLORS[selectedItem.categoria]}`}>
+                  {selectedItem.categoria}
+                </span>
+                <h4 id="faq-modal-title" className="text-lg font-semibold text-[#1B4F8E] md:text-xl">
+                  {selectedItem.pergunta}
+                </h4>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedItem(null)}
+                className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition hover:bg-gray-50"
+              >
+                Fechar
+              </button>
+            </div>
+
+            <div className="space-y-3 border-t border-gray-200 pt-4 text-sm text-gray-700 md:text-base">
+              <p>{selectedItem.resposta}</p>
+              <blockquote className="rounded-lg border-l-4 border-[#1B4F8E] bg-blue-50 px-3 py-2 italic text-gray-700">
+                <span className="mr-1 text-[#1B4F8E]">❝</span>
+                {selectedItem.dica}
+              </blockquote>
+
+              <div className="flex flex-wrap gap-2">
+                {selectedItem.tags.map((tag) => (
+                  <span key={`${selectedItem.id}-${tag}`} className="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-700">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
