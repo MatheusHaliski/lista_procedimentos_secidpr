@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 type FAQItem = {
   id: number;
@@ -12,7 +11,7 @@ type FAQItem = {
   tags: string[];
 };
 
-const FAQ_DATA: FAQItem[] = [
+const faqData: FAQItem[] = [
   {
     id: 1,
     categoria: 'Identidade e Missão',
@@ -215,187 +214,218 @@ const FAQ_DATA: FAQItem[] = [
   },
 ];
 
-const CATEGORY_COLORS: Record<string, string> = {
-  'Identidade e Missão': 'bg-blue-100 text-blue-800 border-blue-200',
-  'Estrutura Organizacional': 'bg-cyan-100 text-cyan-800 border-cyan-200',
-  'Processos e Competências Técnicas': 'bg-violet-100 text-violet-800 border-violet-200',
-  'Apoio aos Municípios e Convênios': 'bg-amber-100 text-amber-800 border-amber-200',
-  'Licitações, Contratos e Inovação': 'bg-emerald-100 text-emerald-800 border-emerald-200',
-  'Gestão e Responsabilidades': 'bg-rose-100 text-rose-800 border-rose-200',
-};
+const categories = [
+  'Todas',
+  'Identidade e Missão',
+  'Estrutura Organizacional',
+  'Processos e Competências Técnicas',
+  'Apoio aos Municípios e Convênios',
+  'Licitações, Contratos e Inovação',
+  'Gestão e Responsabilidades',
+] as const;
 
 export default function FAQProcedimentos() {
-  const [activeCategory, setActiveCategory] = useState<string>('Todas');
+  // Estados principais do componente
+  const [selectedId, setSelectedId] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedQuestion, setSelectedQuestion] = useState<FAQItem | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<string>('Todas');
 
-  const categorias = useMemo(() => ['Todas', ...new Set(FAQ_DATA.map((item) => item.categoria))], []);
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
-  const filteredFaqs = useMemo(() => {
-    const termo = searchTerm.trim().toLowerCase();
-    return FAQ_DATA.filter((item) => {
-      const categoriaOk = activeCategory === 'Todas' || item.categoria === activeCategory;
-      const textoOk =
-        !termo ||
-        item.pergunta.toLowerCase().includes(termo) ||
-        item.categoria.toLowerCase().includes(termo) ||
-        item.resposta.toLowerCase().includes(termo) ||
-        item.dica.toLowerCase().includes(termo) ||
-        item.tags.join(' ').toLowerCase().includes(termo);
-      return categoriaOk && textoOk;
+  // Dados filtrados por categoria e termo de busca
+  const filteredData = useMemo(() => {
+    const term = searchTerm.trim().toLowerCase();
+
+    return faqData.filter((item) => {
+      const matchCategory = activeCategory === 'Todas' || item.categoria === activeCategory;
+      const matchSearch =
+        !term ||
+        item.pergunta.toLowerCase().includes(term) ||
+        item.resposta.toLowerCase().includes(term) ||
+        item.tags.some((tag) => tag.toLowerCase().includes(term));
+
+      return matchCategory && matchSearch;
     });
-  }, [searchTerm, activeCategory]);
+  }, [activeCategory, searchTerm]);
 
-  const openQuestionModal = (item: FAQItem) => {
-    setSelectedQuestion(item);
-    setIsModalOpen(true);
-  };
+  const selectedIndex = useMemo(
+    () => filteredData.findIndex((item) => item.id === selectedId),
+    [filteredData, selectedId],
+  );
 
-  const closeQuestionModal = () => {
-    setIsModalOpen(false);
-    setSelectedQuestion(null);
-  };
+  const selectedItem = selectedIndex >= 0 ? filteredData[selectedIndex] : null;
 
+  // Fecha modal com ESC + trava scroll quando aberto
   useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') closeQuestionModal();
+    if (selectedId !== null) {
+      document.body.style.overflow = 'hidden';
+      const handleEsc = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') setSelectedId(null);
+      };
+      window.addEventListener('keydown', handleEsc);
+      return () => {
+        document.body.style.overflow = '';
+        window.removeEventListener('keydown', handleEsc);
+      };
+    }
+  }, [selectedId]);
+
+  // Focus trap no modal
+  useEffect(() => {
+    if (selectedId === null || !modalRef.current) return;
+
+    const container = modalRef.current;
+    const focusable = container.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    );
+
+    if (focusable.length > 0) {
+      focusable[0].focus();
+    }
+
+    const handleTab = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab' || focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
-  }, []);
+    container.addEventListener('keydown', handleTab);
+    return () => container.removeEventListener('keydown', handleTab);
+  }, [selectedId]);
+
+  // Navegação circular no modal
+  const goToPrevious = useCallback(() => {
+    if (filteredData.length <= 1 || selectedIndex < 0) return;
+    const prevIndex = (selectedIndex - 1 + filteredData.length) % filteredData.length;
+    setSelectedId(filteredData[prevIndex].id);
+  }, [filteredData, selectedIndex]);
+
+  const goToNext = useCallback(() => {
+    if (filteredData.length <= 1 || selectedIndex < 0) return;
+    const nextIndex = (selectedIndex + 1) % filteredData.length;
+    setSelectedId(filteredData[nextIndex].id);
+  }, [filteredData, selectedIndex]);
 
   return (
-    <section className="mx-auto w-full max-w-5xl px-4 py-8">
-      <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
-      <header className="mb-5 flex flex-col gap-4 border-b border-slate-100 pb-5 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h2 className="text-xl font-semibold text-[#1B4F8E] md:text-2xl">Perguntas Frequentes — SECID</h2>
-          <p className="text-sm text-gray-500">Secretaria de Estado das Cidades do Paraná — Regulamento aprovado pelo Decreto nº 4.497/2023</p>
-        </div>
-
-        <div className="relative w-full md:w-80">
-          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔎</span>
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Buscar por termo, tag ou pergunta..."
-            className="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-9 pr-3 text-sm text-slate-700 outline-none transition focus:border-[#1B4F8E] focus:ring-2 focus:ring-[#1B4F8E]/20"
-          />
-        </div>
+    <section className="mx-auto w-full max-w-6xl px-4 py-8">
+      {/* Header da página */}
+      <header className="border-b border-gray-200 pb-5">
+        <h1 className="text-2xl font-bold text-gray-900">Perguntas Frequentes — SECID</h1>
+        <p className="mt-1 text-sm text-gray-500">
+          Secretaria de Estado das Cidades do Paraná — Regulamento aprovado pelo Decreto nº 4.497/2023
+        </p>
       </header>
 
-      <div className="mb-6 flex flex-wrap items-center gap-2.5">
-        {categorias.map((categoria) => {
-          const isActive = categoria === activeCategory;
+      {/* Busca */}
+      <div className="relative mt-5">
+        <svg className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" /></svg>
+        <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Buscar por termo, categoria ou tag..." className="w-full rounded-xl border border-gray-200 px-4 py-3 pl-10 focus:border-transparent focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      {/* Filtros de categoria */}
+      <div className="mt-4 overflow-x-auto pb-1">
+        <div className="flex min-w-max gap-2">
+          {categories.map((category) => {
+            const active = activeCategory === category;
+            return (
+              <button key={category} type="button" onClick={() => setActiveCategory(category)} className={`rounded-full px-4 py-2 text-sm transition ${active ? 'bg-blue-900 text-white' : 'border border-gray-200 bg-white text-gray-600 hover:bg-gray-50'}`}>
+                {category}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <p className="mt-2 text-xs text-gray-400">Exibindo {filteredData.length} de {faqData.length} perguntas</p>
+
+      {/* Lista de perguntas (estilo passo a passo) */}
+      <div className="mt-4 grid grid-cols-1 gap-3">
+        {filteredData.map((item) => {
+          const visibleTags = item.tags.slice(0, 3);
+          const hiddenCount = item.tags.length - visibleTags.length;
+
           return (
-            <button
-              key={categoria}
-              type="button"
-              onClick={() => setActiveCategory(categoria)}
-              className={`rounded-full border bg-white px-4 py-2 text-xs font-medium transition hover:bg-blue-50 md:text-sm ${
-                isActive
-                  ? 'border-[#1B4F8E] bg-blue-50 text-[#1B4F8E]'
-                  : 'border-slate-200 text-slate-700'
-              }`}
-            >
-              {categoria}
+            <button key={item.id} type="button" onClick={() => setSelectedId(item.id)} className="group w-full cursor-pointer rounded-2xl border border-gray-100 bg-white p-5 text-left transition-all duration-200 hover:border-blue-200 hover:shadow-md">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 text-xs font-semibold text-gray-600">
+                    {item.id}
+                  </span>
+                  <span className="text-xs font-mono text-gray-300">Pergunta #{item.id.toString().padStart(2, '0')}</span>
+                </div>
+                <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700">{item.categoria}</span>
+              </div>
+              <p className="mt-2 line-clamp-2 text-sm font-semibold leading-snug text-gray-800">{item.pergunta}</p>
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {visibleTags.map((tag) => (
+                  <span key={`${item.id}-${tag}`} className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500">{tag}</span>
+                ))}
+                {hiddenCount > 0 && <span className="text-xs text-gray-400">+{hiddenCount}</span>}
+              </div>
             </button>
           );
         })}
       </div>
 
-      <div className="rounded-2xl border border-[#1B4F8E]/20 bg-gradient-to-b from-blue-50/70 to-white p-4 md:p-6">
-        <h3 className="mb-4 text-center text-base font-semibold text-[#1B4F8E] md:text-lg">Lista de Perguntas</h3>
+      {filteredData.length === 0 && (
+        <div className="mt-12 flex flex-col items-center justify-center text-center">
+          <svg className="h-12 w-12 text-gray-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" /></svg>
+          <p className="mt-3 text-sm text-gray-500">Nenhuma pergunta encontrada para <strong>{searchTerm || activeCategory}</strong></p>
+          <p className="mt-1 text-sm text-gray-400">Tente buscar por outro termo ou selecione outra categoria</p>
+        </div>
+      )}
 
-        {filteredFaqs.length > 0 ? (
-          <ol className="grid gap-3 md:gap-4">
-            {filteredFaqs.map((item, index) => (
-              <li key={item.id}>
-                <button
-                  type="button"
-                  onClick={() => openQuestionModal(item)}
-                  className="group flex w-full flex-col gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-left shadow-sm transition hover:shadow-md md:flex-row md:items-center"
-                >
-                  <span className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-[#0B3F79]">
-                    {index + 1}
-                  </span>
-                  <div className="flex-1 space-y-1">
-                    <p className="text-sm font-semibold text-slate-800 group-hover:text-[#0B3F79] md:text-base">{item.pergunta}</p>
-                  </div>
-                  <div>
-                    <span className={`inline-flex rounded-full border px-2 py-1 text-xs ${CATEGORY_COLORS[item.categoria]}`}>
-                    {item.categoria}
-                    </span>
-                  </div>
-                </button>
-              </li>
-            ))}
-          </ol>
-        ) : (
-          <div className="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-6 text-center text-sm text-gray-500">
-            Nenhuma pergunta encontrada com os filtros atuais.
-          </div>
-        )}
-      </div>
+      {/* Modal */}
+      {selectedItem && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm transition-opacity duration-150" onClick={() => setSelectedId(null)}>
+          <div ref={modalRef} role="dialog" aria-modal="true" aria-labelledby="faq-modal-title" className="relative flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl transition-all duration-200 ease-out" onClick={(event) => event.stopPropagation()}>
+            <button type="button" onClick={() => setSelectedId(null)} className="absolute right-4 top-4 rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600" aria-label="Fechar modal">✕</button>
 
-      {isModalOpen && selectedQuestion && typeof document !== 'undefined' &&
-        createPortal(
-          <div
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="faq-modal-title"
-            onClick={closeQuestionModal}
-          >
-            <div
-              className="max-h-[88vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4 md:px-6">
-                <h4 id="faq-modal-title" className="text-lg font-semibold text-[#1B4F8E] md:text-xl">
-                  {selectedQuestion.pergunta}
-                </h4>
+            <div className="border-b border-gray-100 p-6 pb-4">
+              <span className="mb-3 inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">{selectedItem.categoria}</span>
+              <h2 id="faq-modal-title" className="text-lg font-bold leading-snug text-gray-900">{selectedIndex + 1}. {selectedItem.pergunta}</h2>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-6">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Resposta</p>
+              <p className="text-sm leading-relaxed text-gray-700">{selectedItem.resposta}</p>
+
+              <div className="mb-4 mt-5 border-t border-gray-100" />
+              <div className="rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 p-4">
+                <div className="mb-1 flex items-center gap-2">
+                  <svg className="h-5 w-5 text-blue-300" viewBox="0 0 24 24" fill="currentColor"><path d="M7.17 6A5.001 5.001 0 0 0 2 11v7h7v-7H5a3 3 0 0 1 3-3h1V6H7.17zm10 0A5.001 5.001 0 0 0 12 11v7h7v-7h-4a3 3 0 0 1 3-3h1V6h-1.83z"/></svg>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-blue-600">Nota do veterano</p>
+                </div>
+                <p className="text-sm italic leading-relaxed text-blue-800">{selectedItem.dica}</p>
               </div>
 
-              <div className="space-y-4 px-5 py-4 md:px-6 md:py-5">
-                <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
-                  <span className={`inline-flex rounded-full border px-2 py-0.5 text-xs ${CATEGORY_COLORS[selectedQuestion.categoria]}`}>
-                    {selectedQuestion.categoria}
-                  </span>
-                </div>
-
-                <div className="space-y-3 text-sm text-gray-700 md:text-base">
-                  <p>{selectedQuestion.resposta}</p>
-                  <blockquote className="rounded-lg border-l-4 border-[#1B4F8E] bg-blue-50 px-3 py-2 italic text-gray-700">
-                    <span className="mr-1 text-[#1B4F8E]">❝</span>
-                    {selectedQuestion.dica}
-                  </blockquote>
-
-                  <div className="flex flex-wrap gap-2">
-                    {selectedQuestion.tags.map((tag) => (
-                      <span key={`${selectedQuestion.id}-${tag}`} className="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-700">
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={closeQuestionModal}
-                    className="mt-2 rounded-xl bg-[#1B4F8E] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0B3F79]"
-                  >
-                    Fechar
-                  </button>
+              <div className="mt-5 border-t border-gray-100 pt-4">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Tags</p>
+                <div className="flex flex-wrap gap-2">
+                  {selectedItem.tags.map((tag) => (<span key={`${selectedItem.id}-${tag}`} className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600">{tag}</span>))}
                 </div>
               </div>
             </div>
-          </div>,
-          document.body,
-        )}
-      </div>
+
+            <div className="flex items-center justify-between border-t border-gray-100 bg-gray-50/50 p-4">
+              <p className="text-xs text-gray-400">Pergunta {selectedIndex + 1} de {filteredData.length}</p>
+              <div className="flex items-center gap-2">
+                <button type="button" onClick={goToPrevious} disabled={filteredData.length <= 1} className="rounded-xl border border-gray-200 px-4 py-2 text-xs transition-all hover:border-blue-200 hover:bg-white hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-30">Anterior</button>
+                <button type="button" onClick={goToNext} disabled={filteredData.length <= 1} className="rounded-xl border border-gray-200 px-4 py-2 text-xs transition-all hover:border-blue-200 hover:bg-white hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-30">Próxima</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
