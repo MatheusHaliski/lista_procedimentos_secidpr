@@ -77,7 +77,7 @@ export default function Header() {
                 </div>
                 <div className={styles.usuarioInfo}>
                   <span className={styles.usuarioNome}>{usuario.nome}</span>
-                  <span className={styles.usuarioPerfil}>{usuario.perfil}</span>
+                  <span className={styles.usuarioPerfil}>{usuario.setor || usuario.perfil}</span>
                 </div>
                 <ChevronDown size={14} className={menuAberto ? styles.chevronAberto : ''} aria-hidden="true" />
               </button>
