@@ -347,8 +347,8 @@ export default function FAQProcedimentos() {
 
       <p className="mt-2 text-xs text-gray-400">Exibindo {filteredData.length} de {faqData.length} perguntas</p>
 
-      {/* Grid de cards */}
-      <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
+      {/* Lista de perguntas (estilo passo a passo) */}
+      <div className="mt-4 grid grid-cols-1 gap-3">
         {filteredData.map((item) => {
           const visibleTags = item.tags.slice(0, 3);
           const hiddenCount = item.tags.length - visibleTags.length;
@@ -356,7 +356,12 @@ export default function FAQProcedimentos() {
           return (
             <button key={item.id} type="button" onClick={() => setSelectedId(item.id)} className="group w-full cursor-pointer rounded-2xl border border-gray-100 bg-white p-5 text-left transition-all duration-200 hover:border-blue-200 hover:shadow-md">
               <div className="flex items-center justify-between gap-2">
-                <span className="text-xs font-mono text-gray-300">#{item.id.toString().padStart(2, '0')}</span>
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-100 text-xs font-semibold text-gray-600">
+                    {item.id}
+                  </span>
+                  <span className="text-xs font-mono text-gray-300">Pergunta #{item.id.toString().padStart(2, '0')}</span>
+                </div>
                 <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700">{item.categoria}</span>
               </div>
               <p className="mt-2 line-clamp-2 text-sm font-semibold leading-snug text-gray-800">{item.pergunta}</p>
@@ -365,9 +370,6 @@ export default function FAQProcedimentos() {
                   <span key={`${item.id}-${tag}`} className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500">{tag}</span>
                 ))}
                 {hiddenCount > 0 && <span className="text-xs text-gray-400">+{hiddenCount}</span>}
-              </div>
-              <div className="mt-3 flex justify-end text-gray-300 transition-colors group-hover:text-blue-500">
-                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6" /></svg>
               </div>
             </button>
           );
@@ -384,8 +386,8 @@ export default function FAQProcedimentos() {
 
       {/* Modal */}
       {selectedItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm animate-in fade-in duration-150" onClick={() => setSelectedId(null)}>
-          <div ref={modalRef} role="dialog" aria-modal="true" aria-labelledby="faq-modal-title" className="relative flex max-h-[85vh] w-full max-w-2xl scale-100 flex-col overflow-hidden rounded-3xl bg-white shadow-2xl animate-in zoom-in-95 fade-in duration-200 ease-out" onClick={(event) => event.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm transition-opacity duration-150" onClick={() => setSelectedId(null)}>
+          <div ref={modalRef} role="dialog" aria-modal="true" aria-labelledby="faq-modal-title" className="relative flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl transition-all duration-200 ease-out" onClick={(event) => event.stopPropagation()}>
             <button type="button" onClick={() => setSelectedId(null)} className="absolute right-4 top-4 rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600" aria-label="Fechar modal">✕</button>
 
             <div className="border-b border-gray-100 p-6 pb-4">
@@ -417,8 +419,8 @@ export default function FAQProcedimentos() {
             <div className="flex items-center justify-between border-t border-gray-100 bg-gray-50/50 p-4">
               <p className="text-xs text-gray-400">Pergunta {selectedIndex + 1} de {filteredData.length}</p>
               <div className="flex items-center gap-2">
-                <button type="button" onClick={goToPrevious} disabled={filteredData.length <= 1} className="rounded-xl border border-gray-200 px-4 py-2 text-xs transition-all hover:border-blue-200 hover:bg-white hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-30">← Anterior</button>
-                <button type="button" onClick={goToNext} disabled={filteredData.length <= 1} className="rounded-xl border border-gray-200 px-4 py-2 text-xs transition-all hover:border-blue-200 hover:bg-white hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-30">Próxima →</button>
+                <button type="button" onClick={goToPrevious} disabled={filteredData.length <= 1} className="rounded-xl border border-gray-200 px-4 py-2 text-xs transition-all hover:border-blue-200 hover:bg-white hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-30">Anterior</button>
+                <button type="button" onClick={goToNext} disabled={filteredData.length <= 1} className="rounded-xl border border-gray-200 px-4 py-2 text-xs transition-all hover:border-blue-200 hover:bg-white hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-30">Próxima</button>
               </div>
             </div>
           </div>
