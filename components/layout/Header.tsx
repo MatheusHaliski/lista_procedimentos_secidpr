@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Search, User, ChevronDown, LogOut, Settings } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { Search, User, ChevronDown, LogOut, Settings, CircleHelp } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import Modal from '@/components/ui/Modal';
 import styles from './Header.module.css';
@@ -12,6 +12,7 @@ import styles from './Header.module.css';
 export default function Header() {
   const { usuario, logout, atualizarUsuario } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
   const [busca, setBusca] = useState('');
   const [menuAberto, setMenuAberto] = useState(false);
   const [modalBoasVindas, setModalBoasVindas] = useState(() => {
@@ -96,6 +97,19 @@ export default function Header() {
               />
             </div>
           </form>
+
+          <Link
+            href="/perguntas-frequentes"
+            aria-current={pathname.startsWith('/perguntas-frequentes') ? 'page' : undefined}
+            className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold shadow-sm transition ${
+              pathname.startsWith('/perguntas-frequentes')
+                ? 'border-blue-300 bg-blue-100 text-blue-900'
+                : 'border-blue-100 bg-white text-blue-800 hover:border-blue-200 hover:bg-blue-50'
+            }`}
+          >
+            <CircleHelp size={16} aria-hidden="true" />
+            <span>Perguntas Frequentes</span>
+          </Link>
 
           {usuario && (
             <div className={styles.usuarioWrapper}>
