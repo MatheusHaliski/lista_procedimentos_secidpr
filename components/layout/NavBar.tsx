@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { GitBranch, GitPullRequest, BookOpen, FileText, HardHat, Handshake, CircleHelp, Menu, X, ShieldCheck } from 'lucide-react';
+import { GitBranch, GitPullRequest, BookOpen, FileText, HardHat, Handshake, Menu, X, ShieldCheck } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import styles from './NavBar.module.css';
 
@@ -14,7 +14,6 @@ const NAV_ITEMS = [
   { icon: FileText,       label: 'Cadernos',        rota: '/cadernos',     modulo: 'cadernos'    },
   { icon: HardHat,        label: 'Painel de Obras', rota: '/obras',        modulo: 'obras'       },
   { icon: Handshake,      label: 'Convênios',            rota: '/convenios',             modulo: 'convenios'             },
-  { icon: CircleHelp,     label: 'Perguntas Frequentes', rota: '/perguntas-frequentes', modulo: 'perguntas-frequentes' },
   { icon: ShieldCheck,    label: 'Administração',        rota: '/admin',                 modulo: 'admin'                 },
 ];
 

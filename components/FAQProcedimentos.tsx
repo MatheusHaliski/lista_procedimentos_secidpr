@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 type FAQItem = {
@@ -225,29 +225,51 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 export default function FAQProcedimentos() {
-  const [categoriaAtiva, setCategoriaAtiva] = useState<string>('Todas');
-  const [busca, setBusca] = useState('');
-  const [selectedItem, setSelectedItem] = useState<FAQItem | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>('Todas');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedQuestion, setSelectedQuestion] = useState<FAQItem | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const categorias = useMemo(() => ['Todas', ...new Set(FAQ_DATA.map((item) => item.categoria))], []);
 
   const filteredFaqs = useMemo(() => {
-    const termo = busca.trim().toLowerCase();
+    const termo = searchTerm.trim().toLowerCase();
     return FAQ_DATA.filter((item) => {
-      const categoriaOk = categoriaAtiva === 'Todas' || item.categoria === categoriaAtiva;
+      const categoriaOk = activeCategory === 'Todas' || item.categoria === activeCategory;
       const textoOk =
         !termo ||
         item.pergunta.toLowerCase().includes(termo) ||
+        item.categoria.toLowerCase().includes(termo) ||
         item.resposta.toLowerCase().includes(termo) ||
         item.dica.toLowerCase().includes(termo) ||
         item.tags.join(' ').toLowerCase().includes(termo);
       return categoriaOk && textoOk;
     });
-  }, [busca, categoriaAtiva]);
+  }, [searchTerm, activeCategory]);
+
+  const openQuestionModal = (item: FAQItem) => {
+    setSelectedQuestion(item);
+    setIsModalOpen(true);
+  };
+
+  const closeQuestionModal = () => {
+    setIsModalOpen(false);
+    setSelectedQuestion(null);
+  };
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') closeQuestionModal();
+    };
+
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
 
   return (
-    <section className="mx-auto w-full max-w-5xl rounded-2xl bg-white p-4 shadow-sm md:p-6">
-      <header className="mb-4 flex flex-col gap-3 border-b border-gray-100 pb-4 md:flex-row md:items-center md:justify-between">
+    <section className="mx-auto w-full max-w-5xl px-4 py-8">
+      <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
+      <header className="mb-5 flex flex-col gap-4 border-b border-slate-100 pb-5 md:flex-row md:items-center md:justify-between">
         <div>
           <h2 className="text-xl font-semibold text-[#1B4F8E] md:text-2xl">Perguntas Frequentes — SECID</h2>
           <p className="text-sm text-gray-500">Secretaria de Estado das Cidades do Paraná — Regulamento aprovado pelo Decreto nº 4.497/2023</p>
@@ -257,26 +279,26 @@ export default function FAQProcedimentos() {
           <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔎</span>
           <input
             type="text"
-            value={busca}
-            onChange={(e) => setBusca(e.target.value)}
-            placeholder="Buscar por termo, tag ou categoria..."
-            className="w-full rounded-xl border border-gray-300 bg-gray-50 py-2 pl-9 pr-3 text-sm text-gray-700 outline-none transition focus:border-[#1B4F8E] focus:bg-white"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Buscar por termo, tag ou pergunta..."
+            className="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-9 pr-3 text-sm text-slate-700 outline-none transition focus:border-[#1B4F8E] focus:ring-2 focus:ring-[#1B4F8E]/20"
           />
         </div>
       </header>
 
-      <div className="mb-4 flex flex-wrap items-center gap-2">
+      <div className="mb-6 flex flex-wrap items-center gap-2.5">
         {categorias.map((categoria) => {
-          const isActive = categoria === categoriaAtiva;
+          const isActive = categoria === activeCategory;
           return (
             <button
               key={categoria}
               type="button"
-              onClick={() => setCategoriaAtiva(categoria)}
-              className={`rounded-full border px-3 py-1.5 text-xs font-medium transition md:text-sm ${
+              onClick={() => setActiveCategory(categoria)}
+              className={`rounded-full border bg-white px-4 py-2 text-xs font-medium transition hover:bg-blue-50 md:text-sm ${
                 isActive
-                  ? 'border-[#1B4F8E] bg-[#1B4F8E] text-white'
-                  : 'border-gray-200 bg-white text-gray-700 hover:border-[#1B4F8E]/50'
+                  ? 'border-[#1B4F8E] bg-blue-50 text-[#1B4F8E]'
+                  : 'border-slate-200 text-slate-700'
               }`}
             >
               {categoria}
@@ -285,7 +307,7 @@ export default function FAQProcedimentos() {
         })}
       </div>
 
-      <div className="rounded-2xl border border-[#1B4F8E]/20 bg-gradient-to-b from-blue-50 to-white p-4 md:p-6">
+      <div className="rounded-2xl border border-[#1B4F8E]/20 bg-gradient-to-b from-blue-50/70 to-white p-4 md:p-6">
         <h3 className="mb-4 text-center text-base font-semibold text-[#1B4F8E] md:text-lg">Lista de Perguntas</h3>
 
         {filteredFaqs.length > 0 ? (
@@ -294,17 +316,19 @@ export default function FAQProcedimentos() {
               <li key={item.id}>
                 <button
                   type="button"
-                  onClick={() => setSelectedItem(item)}
-                  className="group flex w-full items-center gap-3 rounded-xl border border-gray-200 bg-gray-100/80 px-4 py-3 text-left transition hover:border-[#1B4F8E]/60 hover:bg-white"
+                  onClick={() => openQuestionModal(item)}
+                  className="group flex w-full flex-col gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-left shadow-sm transition hover:shadow-md md:flex-row md:items-center"
                 >
-                  <span className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#0B3F79] text-sm font-bold text-white">
+                  <span className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-[#0B3F79]">
                     {index + 1}
                   </span>
-                  <div className="space-y-1">
-                    <span className={`inline-flex rounded-full border px-2 py-0.5 text-xs ${CATEGORY_COLORS[item.categoria]}`}>
-                      {item.categoria}
+                  <div className="flex-1 space-y-1">
+                    <p className="text-sm font-semibold text-slate-800 group-hover:text-[#0B3F79] md:text-base">{item.pergunta}</p>
+                  </div>
+                  <div>
+                    <span className={`inline-flex rounded-full border px-2 py-1 text-xs ${CATEGORY_COLORS[item.categoria]}`}>
+                    {item.categoria}
                     </span>
-                    <p className="text-sm font-semibold text-gray-800 group-hover:text-[#0B3F79] md:text-base">{item.pergunta}</p>
                   </div>
                 </button>
               </li>
@@ -317,61 +341,61 @@ export default function FAQProcedimentos() {
         )}
       </div>
 
-      {selectedItem && typeof document !== 'undefined' &&
+      {isModalOpen && selectedQuestion && typeof document !== 'undefined' &&
         createPortal(
           <div
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/45 p-4"
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm"
             role="dialog"
             aria-modal="true"
             aria-labelledby="faq-modal-title"
-            onClick={() => setSelectedItem(null)}
+            onClick={closeQuestionModal}
           >
             <div
-              className="max-h-[88vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-gray-200 bg-white shadow-2xl"
+              className="max-h-[88vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4 md:px-6">
                 <h4 id="faq-modal-title" className="text-lg font-semibold text-[#1B4F8E] md:text-xl">
-                  Resposta da Pergunta
+                  {selectedQuestion.pergunta}
                 </h4>
-                <button
-                  type="button"
-                  onClick={() => setSelectedItem(null)}
-                  className="rounded-md p-1 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700"
-                  aria-label="Fechar modal"
-                >
-                  ✕
-                </button>
               </div>
 
               <div className="space-y-4 px-5 py-4 md:px-6 md:py-5">
                 <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
-                  <span className={`inline-flex rounded-full border px-2 py-0.5 text-xs ${CATEGORY_COLORS[selectedItem.categoria]}`}>
-                    {selectedItem.categoria}
+                  <span className={`inline-flex rounded-full border px-2 py-0.5 text-xs ${CATEGORY_COLORS[selectedQuestion.categoria]}`}>
+                    {selectedQuestion.categoria}
                   </span>
-                  <p className="mt-2 text-base font-semibold text-gray-800 md:text-lg">{selectedItem.pergunta}</p>
                 </div>
 
                 <div className="space-y-3 text-sm text-gray-700 md:text-base">
-                  <p>{selectedItem.resposta}</p>
+                  <p>{selectedQuestion.resposta}</p>
                   <blockquote className="rounded-lg border-l-4 border-[#1B4F8E] bg-blue-50 px-3 py-2 italic text-gray-700">
                     <span className="mr-1 text-[#1B4F8E]">❝</span>
-                    {selectedItem.dica}
+                    {selectedQuestion.dica}
                   </blockquote>
 
                   <div className="flex flex-wrap gap-2">
-                    {selectedItem.tags.map((tag) => (
-                      <span key={`${selectedItem.id}-${tag}`} className="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-700">
+                    {selectedQuestion.tags.map((tag) => (
+                      <span key={`${selectedQuestion.id}-${tag}`} className="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-700">
                         #{tag}
                       </span>
                     ))}
                   </div>
+
+                  <button
+                    type="button"
+                    onClick={closeQuestionModal}
+                    className="mt-2 rounded-xl bg-[#1B4F8E] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0B3F79]"
+                  >
+                    Fechar
+                  </button>
                 </div>
               </div>
             </div>
           </div>,
           document.body,
         )}
+      </div>
     </section>
   );
 }
