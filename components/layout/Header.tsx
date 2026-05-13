@@ -21,6 +21,32 @@ export default function Header() {
   const [nome, setNome] = useState(usuario?.nome ?? '');
   const [setor, setSetor] = useState(usuario?.setor ?? '');
 
+  function normalizarTexto(valor: string) {
+    return valor
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim()
+      .toLowerCase();
+  }
+
+  function navegarPorBusca(termoBusca: string) {
+    const termo = normalizarTexto(termoBusca);
+    if (!termo) return;
+
+    const atalhos: Array<{ termos: string[]; rota: string }> = [
+      { termos: ['macro', 'macrofluxo', 'macrofluxos'], rota: '/macrofluxos' },
+      { termos: ['procedimento', 'procedimentos'], rota: '/workflows' },
+      { termos: ['manual', 'manuais', 'checklist', 'checklists'], rota: '/manuais' },
+      { termos: ['caderno', 'cadernos'], rota: '/cadernos' },
+      { termos: ['obra', 'obras', 'painel'], rota: '/obras' },
+      { termos: ['convenio', 'convenios', 'convênio', 'convênios'], rota: '/convenios' },
+      { termos: ['faq', 'pergunta', 'perguntas', 'frequentes'], rota: '/perguntas-frequentes' },
+    ];
+
+    const alvo = atalhos.find(({ termos }) => termos.some((item) => termo.includes(item)));
+    router.push(alvo?.rota ?? `/macrofluxos?q=${encodeURIComponent(termoBusca.trim())}`);
+  }
+
   function salvarPrimeiroAcesso() {
     atualizarUsuario({ nome, setor });
     localStorage.setItem('perfil_preenchido', '1');
@@ -47,7 +73,15 @@ export default function Header() {
         </Link>
 
         <div className={styles.acoes}>
-          <div className={styles.buscaWrapper} id="busca-global" role="search">
+          <form
+            className={styles.buscaWrapper}
+            id="busca-global"
+            role="search"
+            onSubmit={(e) => {
+              e.preventDefault();
+              navegarPorBusca(busca);
+            }}
+          >
             <label htmlFor="busca-header" className={styles.buscaLabel}>Busca global</label>
             <div className={styles.buscaInputWrapper}>
               <Search size={16} className={styles.buscaIcone} aria-hidden="true" />
@@ -61,7 +95,7 @@ export default function Header() {
                 aria-label="Campo de busca global"
               />
             </div>
-          </div>
+          </form>
 
           {usuario && (
             <div className={styles.usuarioWrapper}>
