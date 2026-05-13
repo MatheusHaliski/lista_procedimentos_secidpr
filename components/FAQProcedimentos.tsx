@@ -226,9 +226,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 export default function FAQProcedimentos() {
   const [categoriaAtiva, setCategoriaAtiva] = useState<string>('Todas');
   const [busca, setBusca] = useState('');
-  const [openId, setOpenId] = useState<number | null>(null);
-  const [openedSet, setOpenedSet] = useState<Set<number>>(new Set());
-  const [expandedAll, setExpandedAll] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<FAQItem | null>(null);
 
   const categorias = useMemo(() => ['Todas', ...new Set(FAQ_DATA.map((item) => item.categoria))], []);
 
@@ -245,30 +243,6 @@ export default function FAQProcedimentos() {
       return categoriaOk && textoOk;
     });
   }, [busca, categoriaAtiva]);
-
-  const toggleItem = (id: number) => {
-    if (expandedAll) {
-      setExpandedAll(false);
-    }
-
-    setOpenId((prev) => (prev === id ? null : id));
-    setOpenedSet((prev) => new Set(prev).add(id));
-  };
-
-  const handleExpandAll = () => {
-    setExpandedAll(true);
-    setOpenId(null);
-    setOpenedSet((prev) => {
-      const next = new Set(prev);
-      filteredFaqs.forEach((item) => next.add(item.id));
-      return next;
-    });
-  };
-
-  const handleCollapseAll = () => {
-    setExpandedAll(false);
-    setOpenId(null);
-  };
 
   return (
     <section className="mx-auto w-full max-w-5xl rounded-2xl bg-white p-4 shadow-sm md:p-6">
@@ -308,80 +282,88 @@ export default function FAQProcedimentos() {
             </button>
           );
         })}
-
-        <div className="ml-auto flex gap-2">
-          <button
-            type="button"
-            onClick={handleExpandAll}
-            className="rounded-lg bg-[#1B4F8E] px-3 py-1.5 text-xs font-medium text-white transition hover:brightness-110 md:text-sm"
-          >
-            Expandir todas
-          </button>
-          <button
-            type="button"
-            onClick={handleCollapseAll}
-            className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 transition hover:bg-gray-50 md:text-sm"
-          >
-            Recolher todas
-          </button>
-        </div>
       </div>
 
-      <div className="space-y-3">
-        {filteredFaqs.map((item) => {
-          const isOpen = expandedAll || openId === item.id;
-          return (
-            <article key={item.id} className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50/60">
-              <div
-                role="button"
-                tabIndex={0}
-                aria-expanded={isOpen}
-                aria-controls={`faq-content-${item.id}`}
-                onClick={() => toggleItem(item.id)}
-                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && toggleItem(item.id)}
-                className="flex cursor-pointer items-center justify-between gap-3 px-4 py-3"
-              >
-                <div className="space-y-2">
-                  <span className={`inline-flex rounded-full border px-2 py-0.5 text-xs ${CATEGORY_COLORS[item.categoria]}`}>
-                    {item.categoria}
+      <div className="rounded-2xl border border-[#1B4F8E]/20 bg-gradient-to-b from-blue-50 to-white p-4 md:p-6">
+        <h3 className="mb-4 text-center text-base font-semibold text-[#1B4F8E] md:text-lg">Lista de Perguntas</h3>
+
+        {filteredFaqs.length > 0 ? (
+          <ol className="grid gap-3">
+            {filteredFaqs.map((item, index) => (
+              <li key={item.id}>
+                <button
+                  type="button"
+                  onClick={() => setSelectedItem(item)}
+                  className="flex w-full items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 text-left shadow-sm transition hover:border-[#1B4F8E] hover:shadow"
+                >
+                  <span className="inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#1B4F8E] text-xs font-bold text-white">
+                    {index + 1}
                   </span>
-                  <h3 className="text-sm font-semibold text-gray-800 md:text-base">{item.pergunta}</h3>
-                </div>
-                <span className="text-lg text-[#1B4F8E]">{isOpen ? '−' : '+'}</span>
-              </div>
-
-              <div
-                id={`faq-content-${item.id}`}
-                className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
-              >
-                <div className="overflow-hidden">
-                  <div className="space-y-3 border-t border-gray-200 bg-white px-4 py-4 text-sm text-gray-700">
-                    <p>{item.resposta}</p>
-                    <blockquote className="rounded-lg border-l-4 border-[#1B4F8E] bg-blue-50 px-3 py-2 italic text-gray-700">
-                      <span className="mr-1 text-[#1B4F8E]">❝</span>
-                      {item.dica}
-                    </blockquote>
-
-                    <div className="flex flex-wrap gap-2">
-                      {item.tags.map((tag) => (
-                        <span key={`${item.id}-${tag}`} className="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-700">
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="space-y-1">
+                    <span className={`inline-flex rounded-full border px-2 py-0.5 text-xs ${CATEGORY_COLORS[item.categoria]}`}>
+                      {item.categoria}
+                    </span>
+                    <p className="text-sm font-semibold text-gray-800 md:text-base">{item.pergunta}</p>
                   </div>
-                </div>
-              </div>
-            </article>
-          );
-        })}
-
-        {filteredFaqs.length === 0 && (
+                </button>
+              </li>
+            ))}
+          </ol>
+        ) : (
           <div className="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-6 text-center text-sm text-gray-500">
             Nenhuma pergunta encontrada com os filtros atuais.
           </div>
         )}
       </div>
+
+      {selectedItem && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="faq-modal-title"
+          onClick={() => setSelectedItem(null)}
+        >
+          <div
+            className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl md:p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mb-4 flex items-start justify-between gap-3">
+              <div className="space-y-2">
+                <span className={`inline-flex rounded-full border px-2 py-0.5 text-xs ${CATEGORY_COLORS[selectedItem.categoria]}`}>
+                  {selectedItem.categoria}
+                </span>
+                <h4 id="faq-modal-title" className="text-lg font-semibold text-[#1B4F8E] md:text-xl">
+                  {selectedItem.pergunta}
+                </h4>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedItem(null)}
+                className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition hover:bg-gray-50"
+              >
+                Fechar
+              </button>
+            </div>
+
+            <div className="space-y-3 border-t border-gray-200 pt-4 text-sm text-gray-700 md:text-base">
+              <p>{selectedItem.resposta}</p>
+              <blockquote className="rounded-lg border-l-4 border-[#1B4F8E] bg-blue-50 px-3 py-2 italic text-gray-700">
+                <span className="mr-1 text-[#1B4F8E]">❝</span>
+                {selectedItem.dica}
+              </blockquote>
+
+              <div className="flex flex-wrap gap-2">
+                {selectedItem.tags.map((tag) => (
+                  <span key={`${selectedItem.id}-${tag}`} className="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-700">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
