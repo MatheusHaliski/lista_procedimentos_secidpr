@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 type FAQItem = {
   id: number;
@@ -288,22 +289,22 @@ export default function FAQProcedimentos() {
         <h3 className="mb-4 text-center text-base font-semibold text-[#1B4F8E] md:text-lg">Lista de Perguntas</h3>
 
         {filteredFaqs.length > 0 ? (
-          <ol className="grid gap-3">
+          <ol className="grid gap-3 md:gap-4">
             {filteredFaqs.map((item, index) => (
               <li key={item.id}>
                 <button
                   type="button"
                   onClick={() => setSelectedItem(item)}
-                  className="flex w-full items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 text-left shadow-sm transition hover:border-[#1B4F8E] hover:shadow"
+                  className="group flex w-full items-center gap-3 rounded-xl border border-gray-200 bg-gray-100/80 px-4 py-3 text-left transition hover:border-[#1B4F8E]/60 hover:bg-white"
                 >
-                  <span className="inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#1B4F8E] text-xs font-bold text-white">
+                  <span className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#0B3F79] text-sm font-bold text-white">
                     {index + 1}
                   </span>
                   <div className="space-y-1">
                     <span className={`inline-flex rounded-full border px-2 py-0.5 text-xs ${CATEGORY_COLORS[item.categoria]}`}>
                       {item.categoria}
                     </span>
-                    <p className="text-sm font-semibold text-gray-800 md:text-base">{item.pergunta}</p>
+                    <p className="text-sm font-semibold text-gray-800 group-hover:text-[#0B3F79] md:text-base">{item.pergunta}</p>
                   </div>
                 </button>
               </li>
@@ -316,54 +317,61 @@ export default function FAQProcedimentos() {
         )}
       </div>
 
-      {selectedItem && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="faq-modal-title"
-          onClick={() => setSelectedItem(null)}
-        >
+      {selectedItem && typeof document !== 'undefined' &&
+        createPortal(
           <div
-            className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl md:p-6"
-            onClick={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/45 p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="faq-modal-title"
+            onClick={() => setSelectedItem(null)}
           >
-            <div className="mb-4 flex items-start justify-between gap-3">
-              <div className="space-y-2">
-                <span className={`inline-flex rounded-full border px-2 py-0.5 text-xs ${CATEGORY_COLORS[selectedItem.categoria]}`}>
-                  {selectedItem.categoria}
-                </span>
+            <div
+              className="max-h-[88vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-gray-200 bg-white shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4 md:px-6">
                 <h4 id="faq-modal-title" className="text-lg font-semibold text-[#1B4F8E] md:text-xl">
-                  {selectedItem.pergunta}
+                  Resposta da Pergunta
                 </h4>
+                <button
+                  type="button"
+                  onClick={() => setSelectedItem(null)}
+                  className="rounded-md p-1 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700"
+                  aria-label="Fechar modal"
+                >
+                  ✕
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => setSelectedItem(null)}
-                className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition hover:bg-gray-50"
-              >
-                Fechar
-              </button>
-            </div>
 
-            <div className="space-y-3 border-t border-gray-200 pt-4 text-sm text-gray-700 md:text-base">
-              <p>{selectedItem.resposta}</p>
-              <blockquote className="rounded-lg border-l-4 border-[#1B4F8E] bg-blue-50 px-3 py-2 italic text-gray-700">
-                <span className="mr-1 text-[#1B4F8E]">❝</span>
-                {selectedItem.dica}
-              </blockquote>
-
-              <div className="flex flex-wrap gap-2">
-                {selectedItem.tags.map((tag) => (
-                  <span key={`${selectedItem.id}-${tag}`} className="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-700">
-                    #{tag}
+              <div className="space-y-4 px-5 py-4 md:px-6 md:py-5">
+                <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
+                  <span className={`inline-flex rounded-full border px-2 py-0.5 text-xs ${CATEGORY_COLORS[selectedItem.categoria]}`}>
+                    {selectedItem.categoria}
                   </span>
-                ))}
+                  <p className="mt-2 text-base font-semibold text-gray-800 md:text-lg">{selectedItem.pergunta}</p>
+                </div>
+
+                <div className="space-y-3 text-sm text-gray-700 md:text-base">
+                  <p>{selectedItem.resposta}</p>
+                  <blockquote className="rounded-lg border-l-4 border-[#1B4F8E] bg-blue-50 px-3 py-2 italic text-gray-700">
+                    <span className="mr-1 text-[#1B4F8E]">❝</span>
+                    {selectedItem.dica}
+                  </blockquote>
+
+                  <div className="flex flex-wrap gap-2">
+                    {selectedItem.tags.map((tag) => (
+                      <span key={`${selectedItem.id}-${tag}`} className="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-700">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </section>
   );
 }
