@@ -1,0 +1,22 @@
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--espaco-3);
+  padding: var(--espaco-3) var(--espaco-4);
+  border-radius: var(--borda-radius);
+  border-left: 4px solid;
+  font-size: var(--texto-sm);
+}
+
+.icone { flex-shrink: 0; margin-top: 1px; }
+
+.conteudo { display: flex; flex-direction: column; gap: 2px; }
+
+.titulo { font-weight: var(--peso-semi); }
+
+.texto { line-height: 1.5; }
+
+.info    { background: #EAF4FC; color: #005A9E; border-color: var(--cor-azul-claro); }
+.sucesso { background: var(--status-concluido-bg); color: #15775A; border-color: var(--cor-verde-sucesso); }
+.atencao { background: var(--status-atencao-bg); color: #A05000; border-color: var(--cor-amarelo-atencao); }
+.erro    { background: var(--status-atrasado-bg); color: var(--cor-vermelho-alerta); border-color: var(--cor-vermelho-alerta); }

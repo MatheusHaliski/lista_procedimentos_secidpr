@@ -1,0 +1,127 @@
+.pagina {
+  max-width: var(--largura-maxima);
+  margin: 0 auto;
+  padding: var(--espaco-8) var(--padding-lateral);
+}
+
+/* Cabeçalho */
+.cabecalho {
+  margin-bottom: var(--espaco-6);
+}
+
+.cabecalhoTopo {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-3);
+  margin-bottom: var(--espaco-3);
+}
+
+.versao {
+  font-size: var(--texto-xs);
+  color: var(--cor-cinza-medio);
+  background: var(--cor-cinza-claro);
+  padding: var(--espaco-1) var(--espaco-2);
+  border-radius: var(--borda-radius-sm);
+}
+
+.titulo {
+  font-size: var(--texto-3xl);
+  font-weight: var(--peso-negrito);
+  color: var(--cor-azul-principal);
+  margin: 0 0 var(--espaco-3) 0;
+  line-height: 1.2;
+}
+
+.descricao {
+  font-size: var(--texto-base);
+  color: var(--cor-cinza-medio);
+  margin: 0 0 var(--espaco-4) 0;
+  max-width: 720px;
+  line-height: 1.6;
+}
+
+.meta {
+  display: flex;
+  gap: var(--espaco-6);
+  flex-wrap: wrap;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  font-size: var(--texto-sm);
+  color: var(--cor-cinza-medio);
+}
+
+/* Ações */
+.acoes {
+  display: flex;
+  gap: var(--espaco-3);
+  margin-bottom: var(--espaco-8);
+  flex-wrap: wrap;
+}
+
+.btnIniciar {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--espaco-3) var(--espaco-6);
+  background: var(--cor-azul-principal);
+  color: var(--cor-branco);
+  border-radius: var(--borda-radius);
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-semi);
+  text-decoration: none;
+  transition: background var(--transicao-rapida);
+  border: none;
+  cursor: pointer;
+}
+
+.btnIniciar:hover {
+  background: var(--cor-azul-claro);
+}
+
+.btnIniciar:focus-visible {
+  outline: 3px solid var(--cor-azul-claro);
+  outline-offset: 2px;
+}
+
+.btnImprimir {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--espaco-3) var(--espaco-6);
+  background: var(--cor-branco);
+  color: var(--cor-azul-principal);
+  border: 1px solid var(--cor-azul-principal);
+  border-radius: var(--borda-radius);
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-semi);
+  cursor: pointer;
+  transition: background var(--transicao-rapida), color var(--transicao-rapida);
+  font-family: var(--fonte-primaria);
+}
+
+.btnImprimir:hover {
+  background: var(--cor-cinza-claro);
+}
+
+.btnImprimir:focus-visible {
+  outline: 3px solid var(--cor-azul-claro);
+  outline-offset: 2px;
+}
+
+@media print {
+  .acoes {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .pagina {
+    padding: var(--espaco-6) var(--espaco-4);
+  }
+
+  .titulo {
+    font-size: var(--texto-2xl);
+  }
+}

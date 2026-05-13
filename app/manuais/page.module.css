@@ -1,0 +1,565 @@
+/* ===== Página Manuais & Checklists ===== */
+
+.pagina {
+  max-width: var(--largura-maxima);
+  margin: 0 auto;
+  padding: var(--espaco-8) var(--padding-lateral);
+}
+
+.cabecalho {
+  margin-bottom: var(--espaco-8);
+}
+
+.tituloPagina {
+  font-size: var(--texto-3xl);
+  font-weight: var(--peso-negrito);
+  color: var(--cor-azul-principal);
+  margin: 0 0 var(--espaco-2) 0;
+}
+
+.subtituloPagina {
+  font-size: var(--texto-base);
+  color: var(--cor-cinza-medio);
+  margin: 0;
+}
+
+/* ===== Abas ===== */
+
+.abas {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: var(--espaco-8);
+}
+
+.aba {
+  padding: var(--espaco-3) var(--espaco-6);
+  font-size: var(--texto-base);
+  font-weight: var(--peso-medio);
+  color: var(--cor-cinza-medio);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  transition: color var(--transicao-rapida), border-color var(--transicao-rapida);
+}
+
+.aba:hover {
+  color: var(--cor-azul-claro);
+}
+
+.abaAtiva {
+  color: var(--cor-azul-principal);
+  border-bottom-color: var(--cor-azul-principal);
+  font-weight: var(--peso-semi);
+}
+
+/* ===== Filtros ===== */
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-2);
+  margin-bottom: var(--espaco-6);
+}
+
+.filtroBtn {
+  padding: var(--espaco-2) var(--espaco-4);
+  border: 1px solid #d1d5db;
+  border-radius: var(--borda-radius-xl);
+  background: var(--cor-branco);
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-medio);
+  color: var(--cor-cinza-medio);
+  cursor: pointer;
+  transition: all var(--transicao-rapida);
+}
+
+.filtroBtn:hover {
+  border-color: var(--cor-azul-claro);
+  color: var(--cor-azul-claro);
+}
+
+.filtroBtnAtivo {
+  background: var(--cor-azul-principal);
+  border-color: var(--cor-azul-principal);
+  color: var(--cor-branco);
+}
+
+.filtroBtnAtivo:hover {
+  background: var(--cor-azul-principal);
+  color: var(--cor-branco);
+}
+
+/* ===== Grid de Manuais ===== */
+
+.gridManuais {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--espaco-6);
+}
+
+@media (max-width: 1024px) {
+  .gridManuais {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .gridManuais {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Card de Manual ===== */
+
+.cardManual {
+  background: var(--cor-branco);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--borda-radius-lg);
+  padding: var(--espaco-6);
+  cursor: pointer;
+  transition: box-shadow var(--transicao), transform var(--transicao), border-color var(--transicao);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+}
+
+.cardManual:hover,
+.cardManual:focus-visible {
+  box-shadow: var(--sombra-md);
+  border-color: var(--cor-azul-claro);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.cardManual:focus-visible {
+  outline: 3px solid var(--cor-azul-claro);
+  outline-offset: 2px;
+}
+
+.cardTopo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-2);
+}
+
+.cardTitulo {
+  font-size: var(--texto-lg);
+  font-weight: var(--peso-semi);
+  color: var(--cor-azul-principal);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.cardDescricao {
+  font-size: var(--texto-sm);
+  color: var(--cor-cinza-medio);
+  margin: 0;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-4);
+  padding-top: var(--espaco-3);
+  border-top: 1px solid var(--cor-cinza-claro);
+  font-size: var(--texto-xs);
+  color: var(--cor-cinza-medio);
+}
+
+.cardMetaItem {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-1);
+}
+
+.cardRodape {
+  padding-top: var(--espaco-3);
+  border-top: 1px solid var(--cor-cinza-claro);
+}
+
+/* ===== Visualizador de Manual (dentro do Modal) ===== */
+
+.visualizador {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: var(--espaco-6);
+  height: 60vh;
+  min-height: 400px;
+}
+
+.sumario {
+  border-right: 1px solid #e5e7eb;
+  padding-right: var(--espaco-6);
+  overflow-y: auto;
+}
+
+.sumarioTitulo {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-semi);
+  color: var(--cor-cinza-medio);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 var(--espaco-3) 0;
+}
+
+.sumarioLista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+}
+
+.sumarioLink {
+  display: block;
+  padding: var(--espaco-2) var(--espaco-3);
+  font-size: var(--texto-sm);
+  color: var(--cor-cinza-medio);
+  text-decoration: none;
+  border-radius: var(--borda-radius);
+  line-height: 1.4;
+  transition: background var(--transicao-rapida), color var(--transicao-rapida);
+}
+
+.sumarioLink:hover {
+  background: var(--cor-cinza-claro);
+  color: var(--cor-azul-principal);
+}
+
+.sumarioLinkAtivo {
+  background: var(--status-em-andamento-bg);
+  color: var(--cor-azul-claro);
+  font-weight: var(--peso-medio);
+}
+
+.conteudoManual {
+  overflow-y: auto;
+  padding-right: var(--espaco-2);
+}
+
+.secao {
+  margin-bottom: var(--espaco-8);
+  scroll-margin-top: var(--espaco-4);
+}
+
+.secaoTitulo {
+  font-size: var(--texto-lg);
+  font-weight: var(--peso-semi);
+  color: var(--cor-azul-principal);
+  margin: 0 0 var(--espaco-4) 0;
+}
+
+.secaoTexto {
+  font-size: var(--texto-base);
+  color: var(--cor-cinza-escuro);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Blocos especiais do manual */
+
+.blocos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+  margin-top: var(--espaco-4);
+}
+
+.blocoDestaque {
+  background: #E3F0FB;
+  border-left: 4px solid var(--cor-azul-claro);
+  border-radius: 0 var(--borda-radius) var(--borda-radius) 0;
+  padding: var(--espaco-4);
+  display: flex;
+  gap: var(--espaco-3);
+  align-items: flex-start;
+}
+
+.blocoAlerta {
+  background: #FFF3E0;
+  border-left: 4px solid #F57C00;
+  border-radius: 0 var(--borda-radius) var(--borda-radius) 0;
+  padding: var(--espaco-4);
+  display: flex;
+  gap: var(--espaco-3);
+  align-items: flex-start;
+}
+
+.blocoDica {
+  background: #E6F7F1;
+  border-left: 4px solid var(--cor-verde-sucesso);
+  border-radius: 0 var(--borda-radius) var(--borda-radius) 0;
+  padding: var(--espaco-4);
+  display: flex;
+  gap: var(--espaco-3);
+  align-items: flex-start;
+}
+
+.blocoIcone {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.blocoIconeDestaque {
+  color: var(--cor-azul-claro);
+}
+
+.blocoIconeAlerta {
+  color: #F57C00;
+}
+
+.blocoIconeDica {
+  color: var(--cor-verde-sucesso);
+}
+
+.blocoTexto {
+  font-size: var(--texto-sm);
+  color: var(--cor-cinza-escuro);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Rodapé do modal de manual */
+
+.rodapeModal {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--espaco-3);
+}
+
+.alertaPdfInline {
+  flex: 1;
+}
+
+/* ===== Checklists ===== */
+
+.layoutChecklist {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--espaco-6);
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .layoutChecklist {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sidebar de checklists */
+
+.sidebarChecklist {
+  background: var(--cor-branco);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--borda-radius-lg);
+  overflow: hidden;
+}
+
+.sidebarTitulo {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-semi);
+  color: var(--cor-cinza-medio);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: var(--espaco-4) var(--espaco-4) var(--espaco-3);
+  border-bottom: 1px solid #e5e7eb;
+  margin: 0;
+}
+
+.sidebarLista {
+  list-style: none;
+  margin: 0;
+  padding: var(--espaco-2);
+}
+
+.sidebarItem {
+  border-radius: var(--borda-radius);
+  overflow: hidden;
+}
+
+.sidebarBtn {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: var(--espaco-3) var(--espaco-3);
+  cursor: pointer;
+  border-radius: var(--borda-radius);
+  transition: background var(--transicao-rapida);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+}
+
+.sidebarBtn:hover {
+  background: var(--cor-cinza-claro);
+}
+
+.sidebarBtnAtivo {
+  background: var(--status-em-andamento-bg);
+}
+
+.sidebarBtnAtivo:hover {
+  background: var(--status-em-andamento-bg);
+}
+
+.sidebarNome {
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-medio);
+  color: var(--cor-cinza-escuro);
+  line-height: 1.3;
+}
+
+.sidebarBtnAtivo .sidebarNome {
+  color: var(--cor-azul-principal);
+}
+
+/* Área principal do checklist */
+
+.areaChecklist {
+  background: var(--cor-branco);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--borda-radius-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+.checklistCabecalho {
+  padding: var(--espaco-6) var(--espaco-6) var(--espaco-4);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.checklistTitulo {
+  font-size: var(--texto-xl);
+  font-weight: var(--peso-semi);
+  color: var(--cor-azul-principal);
+  margin: 0 0 var(--espaco-2) 0;
+}
+
+.checklistArea {
+  font-size: var(--texto-sm);
+  color: var(--cor-cinza-medio);
+  margin: 0 0 var(--espaco-4) 0;
+}
+
+.progressoInfo {
+  font-size: var(--texto-sm);
+  color: var(--cor-cinza-medio);
+  margin-bottom: var(--espaco-2);
+}
+
+.progressoDestaque {
+  font-weight: var(--peso-semi);
+  color: var(--cor-azul-principal);
+}
+
+/* Lista de itens do checklist */
+
+.listaItens {
+  list-style: none;
+  margin: 0;
+  padding: var(--espaco-4) var(--espaco-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+}
+
+.itemChecklist {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--espaco-3);
+  padding: var(--espaco-3);
+  border-radius: var(--borda-radius);
+  transition: background var(--transicao-rapida);
+}
+
+.itemChecklist:hover {
+  background: var(--cor-cinza-claro);
+}
+
+.itemMarcado {
+  background: #F0FDF4;
+}
+
+.itemMarcado:hover {
+  background: #DCFCE7;
+}
+
+.checkboxInput {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  cursor: pointer;
+  accent-color: var(--cor-verde-sucesso);
+}
+
+.itemConteudo {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--espaco-3);
+}
+
+.itemLabel {
+  font-size: var(--texto-sm);
+  color: var(--cor-cinza-escuro);
+  line-height: 1.5;
+  cursor: pointer;
+  transition: color var(--transicao-rapida);
+}
+
+.itemLabelMarcado {
+  text-decoration: line-through;
+  color: var(--cor-cinza-medio);
+}
+
+/* Footer do checklist */
+
+.rodapeChecklist {
+  padding: var(--espaco-4) var(--espaco-6);
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+}
+
+.rodapeAcoes {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ===== Responsividade geral ===== */
+
+@media (max-width: 640px) {
+  .pagina {
+    padding: var(--espaco-6) var(--espaco-4);
+  }
+
+  .visualizador {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .sumario {
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+    padding-right: 0;
+    padding-bottom: var(--espaco-4);
+    margin-bottom: var(--espaco-4);
+  }
+
+  .conteudoManual {
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+}
