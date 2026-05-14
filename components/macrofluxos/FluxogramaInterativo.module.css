@@ -81,9 +81,8 @@
 /* Fluxograma */
 .fluxograma {
   flex: 1;
-  display: grid;
-  grid-template-columns: minmax(200px, 260px) 1fr;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
   border: 1px solid #dbe4ef;
   border-radius: var(--borda-radius);
   overflow: hidden;
