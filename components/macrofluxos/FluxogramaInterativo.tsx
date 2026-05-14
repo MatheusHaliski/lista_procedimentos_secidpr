@@ -14,6 +14,8 @@ export default function FluxogramaInterativo({ nos }: Props) {
   const [noSelecionado, setNoSelecionado] = useState<NoFluxograma | null>(null);
   const [modalPassosAberto, setModalPassosAberto] = useState(false);
 
+  const atores = Array.from(new Set(nos.map((no) => no.responsavel)));
+
   function selecionarNo(no: NoFluxograma) {
     setNoSelecionado((prev) => (prev?.id === no.id ? null : no));
   }
@@ -26,6 +28,13 @@ export default function FluxogramaInterativo({ nos }: Props) {
         </button>
       </div>
       <div className={styles.fluxograma} role="list" aria-label="Etapas do fluxograma">
+        <div className={styles.colunaAtores} aria-label="Atores do processo">
+          {nos.map((no) => (
+            <div key={`${no.id}-ator`} className={styles.atorItem}>{no.responsavel}</div>
+          ))}
+        </div>
+
+        <div className={styles.colunaEtapas}>
         {nos.map((no, idx) => (
           <div key={no.id} className={styles.linhaFluxo} role="listitem">
             <div className={styles.atorItem}>{no.responsavel}</div>
@@ -87,6 +96,7 @@ export default function FluxogramaInterativo({ nos }: Props) {
             </div>
           </div>
         ))}
+        </div>
       </div>
 
       <aside className={styles.painel} aria-label="Detalhes do nó selecionado">
