@@ -81,10 +81,37 @@
 /* Fluxograma */
 .fluxograma {
   flex: 1;
+  display: grid;
+  grid-template-columns: minmax(200px, 260px) 1fr;
+  align-items: start;
+  border: 1px solid #dbe4ef;
+  border-radius: var(--borda-radius);
+  overflow: hidden;
+  background: #f8fafc;
+  min-width: 0;
+}
+
+.colunaAtores {
+  background: #eef2f7;
+  border-right: 1px solid #dbe4ef;
   display: flex;
   flex-direction: column;
+}
+
+.atorItem {
+  min-height: 110px;
+  padding: var(--espaco-3) var(--espaco-4);
+  border-bottom: 1px solid #dbe4ef;
+  display: flex;
   align-items: center;
-  min-width: 0;
+  font-size: var(--texto-sm);
+  font-weight: var(--peso-semi);
+  color: var(--cor-cinza-escuro);
+}
+
+.colunaEtapas {
+  display: flex;
+  flex-direction: column;
 }
 
 .noWrapper {
@@ -92,13 +119,14 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 520px;
+  padding: var(--espaco-4);
+  border-bottom: 1px solid #dbe4ef;
 }
 
 .setaWrapper {
   display: flex;
   justify-content: center;
-  padding: var(--espaco-1) 0;
+  padding: 0;
 }
 
 .seta {
@@ -108,12 +136,28 @@
 /* Nó base */
 .no {
   width: 100%;
+  max-width: 560px;
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
   text-align: left;
   transition: transform var(--transicao-rapida);
+}
+
+@media (max-width: 900px) {
+  .fluxograma {
+    grid-template-columns: 1fr;
+  }
+
+  .colunaAtores {
+    border-right: none;
+    border-bottom: 1px solid #dbe4ef;
+  }
+
+  .atorItem {
+    min-height: auto;
+  }
 }
 
 .no:focus-visible {
@@ -209,7 +253,7 @@
 
 .losangoOuter {
   width: 100%;
-  max-width: 240px;
+  max-width: 168px;
   aspect-ratio: 1;
   background: #fffbeb;
   border: 2px solid var(--cor-amarelo-atencao);
