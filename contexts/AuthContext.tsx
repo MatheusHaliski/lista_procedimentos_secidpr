@@ -10,7 +10,7 @@ const MODULOS_POR_PERFIL: Record<Perfil, string[]> = {
   COORDENADOR:   ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras', 'convenios', 'perguntas-frequentes'],
   TECNICO:       ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras', 'perguntas-frequentes'],
   FISCAL:        ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras', 'perguntas-frequentes'],
-  CONSULTA:      ['macrofluxos', 'manuais', 'cadernos', 'perguntas-frequentes'],
+  CONSULTA:      ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras', 'perguntas-frequentes'],
 };
 
 interface AuthState {
