@@ -99,7 +99,7 @@
 }
 
 .atorItem {
-  min-height: 88px;
+  min-height: 110px;
   padding: var(--espaco-3) var(--espaco-4);
   border-bottom: 1px solid #dbe4ef;
   display: flex;
@@ -119,7 +119,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: var(--espaco-3) var(--espaco-4);
+  padding: var(--espaco-4);
   border-bottom: 1px solid #dbe4ef;
 }
 
@@ -253,7 +253,7 @@
 
 .losangoOuter {
   width: 100%;
-  max-width: 240px;
+  max-width: 168px;
   aspect-ratio: 1;
   background: #fffbeb;
   border: 2px solid var(--cor-amarelo-atencao);
