@@ -36,61 +36,64 @@ export default function FluxogramaInterativo({ nos }: Props) {
 
         <div className={styles.colunaEtapas}>
         {nos.map((no, idx) => (
-          <div key={no.id} className={styles.noWrapper} role="listitem">
-            {idx > 0 && (
-              <div className={styles.setaWrapper} aria-hidden="true">
-                <svg width="24" height="32" viewBox="0 0 24 32" fill="none" className={styles.seta}>
-                  <line x1="12" y1="0" x2="12" y2="24" stroke="#9ca3af" strokeWidth="2" />
-                  <polygon points="6,20 12,32 18,20" fill="#9ca3af" />
-                </svg>
-              </div>
-            )}
+          <div key={no.id} className={styles.linhaFluxo} role="listitem">
+            <div className={styles.atorItem}>{no.responsavel}</div>
+            <div className={styles.noWrapper}>
+              {idx > 0 && (
+                <div className={styles.setaWrapper} aria-hidden="true">
+                  <svg width="24" height="32" viewBox="0 0 24 32" fill="none" className={styles.seta}>
+                    <line x1="12" y1="0" x2="12" y2="24" stroke="#9ca3af" strokeWidth="2" />
+                    <polygon points="6,20 12,32 18,20" fill="#9ca3af" />
+                  </svg>
+                </div>
+              )}
 
-            <button
-              type="button"
-              className={`${styles.no} ${styles[`no_${no.tipo}`]} ${noSelecionado?.id === no.id ? styles.noAtivo : ''}`}
-              onClick={() => selecionarNo(no)}
-              aria-pressed={noSelecionado?.id === no.id}
-              aria-label={`${no.tipo === 'inicio' ? 'Início' : no.tipo === 'fim' ? 'Fim' : no.tipo === 'decisao' ? 'Decisão' : `Etapa ${no.posicao ?? idx + 1}`}: ${no.titulo}`}
-            >
+              <button
+                type="button"
+                className={`${styles.no} ${styles[`no_${no.tipo}`]} ${noSelecionado?.id === no.id ? styles.noAtivo : ''}`}
+                onClick={() => selecionarNo(no)}
+                aria-pressed={noSelecionado?.id === no.id}
+                aria-label={`${no.tipo === 'inicio' ? 'Início' : no.tipo === 'fim' ? 'Fim' : no.tipo === 'decisao' ? 'Decisão' : `Etapa ${no.posicao ?? idx + 1}`}: ${no.titulo}`}
+              >
               {no.tipo === 'inicio' && (
-                <div className={styles.noConteudo}>
-                  <span className={styles.inicioCirculo} aria-hidden="true">▶</span>
-                  <span className={styles.inicioLabel}>{no.titulo}</span>
-                </div>
-              )}
-
-              {no.tipo === 'normal' && (
-                <div className={styles.noConteudo}>
-                  <span className={styles.numero} aria-hidden="true">{no.posicao ?? idx + 1}</span>
-                  <span className={styles.noTitulo}>{no.titulo}</span>
-                </div>
-              )}
-
-              {no.tipo === 'decisao' && (
-                <div className={styles.decisaoWrapper}>
-                  <div className={styles.losangoOuter}>
-                    <div className={styles.losangoInner}>
-                      <span className={styles.noTitulo}>{no.titulo}</span>
-                    </div>
+                  <div className={styles.eventoWrapper}>
+                    <span className={styles.eventoInicio} aria-hidden="true" />
+                    <span className={styles.eventoLabel}>{no.titulo}</span>
                   </div>
-                  {no.caminhos && (
-                    <div className={styles.caminhos} aria-label="Caminhos possíveis">
-                      {no.caminhos.map((c) => (
-                        <Badge key={c.label} label={c.label.toLowerCase().includes('não') ? 'Não' : 'Sim'} variante="atencao" />
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
+                )}
 
-              {no.tipo === 'fim' && (
-                <div className={styles.noConteudo}>
-                  <span className={styles.fimIcone} aria-hidden="true">✓</span>
-                  <span className={styles.noTitulo}>{no.titulo}</span>
-                </div>
-              )}
-            </button>
+                {no.tipo === 'normal' && (
+                  <div className={styles.noConteudo}>
+                    <span className={styles.numero} aria-hidden="true">{no.posicao ?? idx + 1}</span>
+                    <span className={styles.noTitulo}>{no.titulo}</span>
+                  </div>
+                )}
+
+                {no.tipo === 'decisao' && (
+                  <div className={styles.decisaoWrapper}>
+                    <div className={styles.losangoOuter}>
+                      <div className={styles.losangoInner}>
+                        <span className={styles.noTitulo}>{no.titulo}</span>
+                      </div>
+                    </div>
+                    {no.caminhos && (
+                      <div className={styles.caminhos} aria-label="Caminhos possíveis">
+                        {no.caminhos.map((c) => (
+                          <Badge key={c.label} label={c.label.toLowerCase().includes('não') ? 'Não' : 'Sim'} variante="atencao" />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {no.tipo === 'fim' && (
+                  <div className={styles.eventoWrapper}>
+                    <span className={styles.eventoFim} aria-hidden="true" />
+                    <span className={styles.eventoLabel}>{no.titulo}</span>
+                  </div>
+                )}
+              </button>
+            </div>
           </div>
         ))}
         </div>
