@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import type { Usuario, Perfil } from '@/types';
+import { carregarUsuario, limparSessao, salvarToken, salvarUsuario } from '@/utils/auth';
 
 const MODULOS_POR_PERFIL: Record<Perfil, string[]> = {
   ADMINISTRADOR: ['macrofluxos', 'workflows', 'manuais', 'cadernos', 'obras', 'convenios', 'perguntas-frequentes', 'admin'],
@@ -12,15 +13,6 @@ const MODULOS_POR_PERFIL: Record<Perfil, string[]> = {
   CONSULTA:      ['macrofluxos', 'manuais', 'cadernos', 'perguntas-frequentes'],
 };
 
-// Usuário demo para desenvolvimento
-const USUARIO_DEMO: Usuario = {
-  id: 'u1',
-  nome: 'Ana Silva',
-  email: 'ana.silva@secid.pr.gov.br',
-  perfil: 'COORDENADOR',
-  setor: 'Superintendência de Convênios',
-};
-
 interface AuthState {
   usuario: Usuario | null;
   carregando: boolean;
@@ -29,7 +21,7 @@ interface AuthState {
 type AuthAcao =
   | { type: 'LOGIN'; payload: Usuario }
   | { type: 'LOGOUT' }
-  | { type: 'CARREGADO' };
+  | { type: 'CARREGADO'; payload: Usuario | null };
 
 function authReducer(state: AuthState, acao: AuthAcao): AuthState {
   switch (acao.type) {
@@ -38,7 +30,7 @@ function authReducer(state: AuthState, acao: AuthAcao): AuthState {
     case 'LOGOUT':
       return { usuario: null, carregando: false };
     case 'CARREGADO':
-      return { ...state, carregando: false };
+      return { usuario: acao.payload, carregando: false };
     default:
       return state;
   }
@@ -47,7 +39,7 @@ function authReducer(state: AuthState, acao: AuthAcao): AuthState {
 interface AuthContextValue {
   usuario: Usuario | null;
   carregando: boolean;
-  login: (usuario: Usuario) => void;
+  login: (usuario: Usuario, token: string) => void;
   logout: () => void;
   atualizarUsuario: (dados: Partial<Usuario>) => void;
   temAcesso: (modulo: string) => boolean;
@@ -56,23 +48,28 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [state, dispatch] = useReducer(authReducer, { usuario: USUARIO_DEMO, carregando: false });
+  const [state, dispatch] = useReducer(authReducer, { usuario: null, carregando: true });
 
   useEffect(() => {
-    dispatch({ type: 'CARREGADO' });
+    dispatch({ type: 'CARREGADO', payload: carregarUsuario() });
   }, []);
 
-  function login(usuario: Usuario) {
+  function login(usuario: Usuario, token: string) {
+    salvarToken(token);
+    salvarUsuario(usuario);
     dispatch({ type: 'LOGIN', payload: usuario });
   }
 
   function logout() {
+    limparSessao();
     dispatch({ type: 'LOGOUT' });
   }
 
   function atualizarUsuario(dados: Partial<Usuario>) {
     if (!state.usuario) return;
-    dispatch({ type: 'LOGIN', payload: { ...state.usuario, ...dados } });
+    const atualizado = { ...state.usuario, ...dados };
+    salvarUsuario(atualizado);
+    dispatch({ type: 'LOGIN', payload: atualizado });
   }
 
   function temAcesso(modulo: string): boolean {
@@ -80,11 +77,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return MODULOS_POR_PERFIL[state.usuario.perfil].includes(modulo);
   }
 
-  return (
-    <AuthContext.Provider value={{ ...state, login, logout, atualizarUsuario, temAcesso }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ ...state, login, logout, atualizarUsuario, temAcesso }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
