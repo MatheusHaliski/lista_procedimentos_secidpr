@@ -181,8 +181,10 @@
 }
 
 .noAtivo .noConteudo,
-.noAtivo .losangoOuter {
+.noAtivo .losangoOuter,
+.noAtivo .eventoWrapper {
   box-shadow: 0 0 0 3px var(--cor-azul-claro);
+  border-radius: var(--borda-radius);
 }
 
 .noConteudo {
