@@ -14,6 +14,8 @@ export default function FluxogramaInterativo({ nos }: Props) {
   const [noSelecionado, setNoSelecionado] = useState<NoFluxograma | null>(null);
   const [modalPassosAberto, setModalPassosAberto] = useState(false);
 
+  const atores = Array.from(new Set(nos.map((no) => no.responsavel)));
+
   function selecionarNo(no: NoFluxograma) {
     setNoSelecionado((prev) => (prev?.id === no.id ? null : no));
   }
@@ -95,6 +97,7 @@ export default function FluxogramaInterativo({ nos }: Props) {
             </div>
           </div>
         ))}
+        </div>
       </div>
 
       <aside className={styles.painel} aria-label="Detalhes do nó selecionado">
