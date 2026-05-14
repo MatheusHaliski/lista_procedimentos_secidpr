@@ -30,9 +30,11 @@ export default function FluxogramaInterativo({ nos }: Props) {
       <div className={styles.fluxograma} role="list" aria-label="Etapas do fluxograma">
         {nos.map((no, idx) => (
           <div key={no.id} className={styles.linhaFluxo} role="listitem">
-            <div className={styles.atorItem}>
-              {idx === 0 || nos[idx - 1]?.responsavel !== no.responsavel ? no.responsavel : ''}
-            </div>
+            {idx === 0 || nos[idx - 1]?.responsavel !== no.responsavel ? (
+              <div className={styles.atorItem}>{no.responsavel}</div>
+            ) : (
+              <div className={`${styles.atorItem} ${styles.atorPlaceholder}`} aria-hidden="true" />
+            )}
             <div className={styles.noWrapper}>
               {idx > 0 && (
                 <div className={styles.setaWrapper} aria-hidden="true">
@@ -74,7 +76,11 @@ export default function FluxogramaInterativo({ nos }: Props) {
                     {no.caminhos && (
                       <div className={styles.caminhos} aria-label="Caminhos possíveis">
                         {no.caminhos.map((c) => (
-                          <Badge key={c.label} label={c.label.toLowerCase().includes('não') ? 'Não ↺' : 'Sim ↓'} variante="atencao" />
+                          <Badge
+                            key={c.label}
+                            label={c.label.toLowerCase().includes('não') ? `${c.label} ↺` : c.label}
+                            variante="atencao"
+                          />
                         ))}
                       </div>
                     )}

@@ -124,6 +124,10 @@
   writing-mode: horizontal-tb;
 }
 
+.atorPlaceholder {
+  color: transparent;
+}
+
 .noWrapper {
   display: flex;
   flex-direction: column;
@@ -167,6 +171,10 @@
   .atorItem {
     min-height: auto;
     border-right: none;
+  }
+
+  .atorPlaceholder {
+    display: none;
   }
 }
 
