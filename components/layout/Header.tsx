@@ -17,7 +17,7 @@ export default function Header() {
   const [menuAberto, setMenuAberto] = useState(false);
   const [modalBoasVindas, setModalBoasVindas] = useState(() => {
     if (typeof window === 'undefined') return false;
-    return localStorage.getItem('perfil_preenchido') !== '1';
+    return !!usuario && localStorage.getItem('perfil_preenchido') !== '1';
   });
   const [nome, setNome] = useState(usuario?.nome ?? '');
   const [setor, setSetor] = useState(usuario?.setor ?? '');
@@ -144,7 +144,7 @@ export default function Header() {
                     Configurações
                   </button>
                   <hr className={styles.dropdownDivider} />
-                  <button className={styles.dropdownItem} onClick={logout} role="menuitem">
+                  <button className={styles.dropdownItem} onClick={() => { logout(); router.push('/login'); }} role="menuitem">
                     <LogOut size={14} aria-hidden="true" />
                     Sair
                   </button>
