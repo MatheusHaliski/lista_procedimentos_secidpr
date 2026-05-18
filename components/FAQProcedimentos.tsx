@@ -415,16 +415,6 @@ export default function FAQProcedimentos() {
               <p className={styles.sectionLabel}>Resposta</p>
               <p className={styles.answerText}>{selectedItem.resposta}</p>
 
-              <hr className={styles.divider} />
-
-              <div className={styles.veteranBox}>
-                <div className={styles.veteranHeader}>
-                  <span className={styles.veteranIcon} aria-hidden="true">💬</span>
-                  <span className={styles.veteranLabel}>Nota do Veterano</span>
-                </div>
-                <p className={styles.veteranText}>{selectedItem.dica}</p>
-              </div>
-
               <div className={styles.modalTagsSection}>
                 <p className={styles.sectionLabel}>Tags</p>
                 <div className={styles.modalTagList}>
