@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -7,13 +6,11 @@ export default function Footer() {
       <div className={styles.inner}>
         <div className={styles.grid}>
           <div className={styles.coluna}>
-            <div className={styles.logo} aria-label="Governo do Estado do Paraná">
-              <Image
-                src="/govpr.jpg"
-                alt="Governo do Estado do Paraná"
-                width={48}
-                height={48}
-              />
+            <div className={styles.logo} aria-hidden="true">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" role="img" aria-label="Logotipo do portal">
+                <rect width="48" height="48" rx="8" fill="var(--cor-azul-principal)" />
+                <text x="24" y="31" textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize="18" fontWeight="700" fill="#FFFFFF">SC</text>
+              </svg>
             </div>
             <p className={styles.orgNome}>SECID — Secretaria de Estado das Cidades</p>
             <address className={styles.endereco} aria-label="Endereço da SECID">
@@ -37,8 +34,8 @@ export default function Footer() {
           </div>
 
           <div className={styles.coluna}>
-            <h3 className={styles.colunaTitle}>Governo do Paraná</h3>
-            <nav aria-label="Portais do governo">
+            <h3 className={styles.colunaTitle}>Portais Institucionais</h3>
+            <nav aria-label="Portais institucionais">
               <ul className={styles.linksList}>
                 <li><a href="https://www.parana.pr.gov.br" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>parana.pr.gov.br</a></li>
                 <li><a href="https://www.pia.pr.gov.br" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>pia.pr.gov.br</a></li>
@@ -49,7 +46,7 @@ export default function Footer() {
         </div>
 
         <div className={styles.rodape}>
-          <p>© 2026 Governo do Estado do Paraná — SECID | Desenvolvido pela <strong>CELEPAR</strong></p>
+          <p>© 2026 SECID — Secretaria de Estado das Cidades</p>
         </div>
       </div>
     </footer>

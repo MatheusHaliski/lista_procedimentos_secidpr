@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -58,14 +57,11 @@ export default function Header() {
     <header className={styles.header} role="banner">
       <div className={styles.inner}>
         <Link href="/macrofluxos" className={styles.marca} aria-label="Portal SAP SECID — página inicial">
-          <div className={styles.brasaoPlaceholder}>
-            <Image
-              src="/govpr.jpg"
-              alt="Governo do Estado do Paraná"
-              width={40}
-              height={40}
-              priority
-            />
+          <div className={styles.brasaoPlaceholder} aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" role="img" aria-label="Logotipo do portal">
+              <rect width="40" height="40" rx="8" fill="var(--cor-azul-principal)" />
+              <text x="20" y="26" textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize="16" fontWeight="700" fill="#FFFFFF">SC</text>
+            </svg>
           </div>
           <div className={styles.marcaTexto}>
             <span className={styles.marcaNome}>Secretaria de Estado das Cidades</span>
