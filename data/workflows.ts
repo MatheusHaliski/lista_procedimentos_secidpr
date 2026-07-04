@@ -22,7 +22,7 @@ export const WORKFLOWS_MOCK: Workflow[] = [
   {
     id: 'wf-001',
     numero: 'SECID-2026/001',
-    titulo: 'Parecer técnico de análise de projeto — Maringá',
+    titulo: 'Parecer técnico de análise de projeto — Município 11',
     tipo: 'Parecer técnico de análise de projeto',
     tipoId: 'parecer-analise-projeto',
     iniciadoPorId: 'u1',
@@ -44,7 +44,7 @@ export const WORKFLOWS_MOCK: Workflow[] = [
   {
     id: 'wf-002',
     numero: 'SECID-2026/002',
-    titulo: 'Análise de proposta de convênio — Pato Branco',
+    titulo: 'Análise de proposta de convênio — Município 14',
     tipo: 'Análise de proposta de convênio',
     tipoId: 'analise-proposta-convenio',
     iniciadoPorId: 'u4',
@@ -66,7 +66,7 @@ export const WORKFLOWS_MOCK: Workflow[] = [
   {
     id: 'wf-003',
     numero: 'SECID-2026/003',
-    titulo: 'Análise de plano diretor — Cascavel',
+    titulo: 'Análise de plano diretor — Município 04',
     tipo: 'Análise de plano diretor',
     tipoId: 'analise-plano-diretor',
     iniciadoPorId: 'u7',
@@ -91,7 +91,7 @@ export const WORKFLOWS_MOCK: Workflow[] = [
   {
     id: 'wf-004',
     numero: 'SECID-2026/004',
-    titulo: 'Liberação de parcela — Londrina',
+    titulo: 'Liberação de parcela — Município 10',
     tipo: 'Liberação de parcela',
     tipoId: 'liberacao-parcela',
     iniciadoPorId: 'u4',
@@ -112,7 +112,7 @@ export const WORKFLOWS_MOCK: Workflow[] = [
   {
     id: 'wf-005',
     numero: 'SECID-2026/005',
-    titulo: 'Prestação de contas técnica — Foz do Iguaçu',
+    titulo: 'Prestação de contas técnica — Município 06',
     tipo: 'Prestação de contas técnica',
     tipoId: 'prestacao-contas-tecnica',
     iniciadoPorId: 'u4',

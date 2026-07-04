@@ -110,7 +110,7 @@ export default function CadernosPage() {
         <header className={styles.cabecalho}>
           <h1 className={styles.tituloPagina}>Cadernos Orientativos</h1>
           <p className={styles.subtituloPagina}>
-            Guias temáticos com boas práticas, casos reais e referências técnicas para os processos da SECID-PR.
+            Guias temáticos com boas práticas, casos reais e referências técnicas para os processos da SECID.
           </p>
         </header>
 

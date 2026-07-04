@@ -7,13 +7,13 @@ export const MANUAIS: Manual[] = [
     versao: '2.1',
     area: 'Engenharia e Obras',
     paginas: 24,
-    descricao: 'Orientações completas para fiscalização de obras conveniadas nos municípios paranaenses.',
+    descricao: 'Orientações completas para fiscalização de obras conveniadas nos municípios.',
     perfisAlvo: ['FISCAL', 'TECNICO', 'COORDENADOR'],
     secoes: [
       {
         id: 's1',
         titulo: '1. Introdução e competências do fiscal',
-        conteudo: 'O fiscal de obras é o servidor designado pela SECID-PR responsável por acompanhar a execução das obras objeto de convênios firmados entre o Estado e os municípios. Suas atribuições incluem: realizar vistorias periódicas, emitir relatórios técnicos, verificar a conformidade com projetos aprovados e medições executivas.',
+        conteudo: 'O fiscal de obras é o servidor designado pela SECID responsável por acompanhar a execução das obras objeto de convênios firmados entre o Estado e os municípios. Suas atribuições incluem: realizar vistorias periódicas, emitir relatórios técnicos, verificar a conformidade com projetos aprovados e medições executivas.',
         blocos: [
           { tipo: 'destaque', conteudo: 'A designação formal do fiscal deve ser feita por portaria antes do início das obras, sob pena de irregularidade.' },
           { tipo: 'dica', conteudo: 'Mantenha sempre registro fotográfico datado e georreferenciado de todas as visitas.' },
@@ -48,7 +48,7 @@ export const MANUAIS: Manual[] = [
     versao: '3.0',
     area: 'Convênios',
     paginas: 38,
-    descricao: 'Guia completo para gestão do ciclo de vida dos convênios firmados pela SECID-PR.',
+    descricao: 'Guia completo para gestão do ciclo de vida dos convênios firmados pela SECID.',
     perfisAlvo: ['TECNICO', 'COORDENADOR', 'GESTOR'],
     secoes: [
       {

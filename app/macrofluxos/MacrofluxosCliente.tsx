@@ -56,7 +56,7 @@ export default function MacrofluxosCliente({ macrofluxos }: Props) {
       <div className={styles.cabecalho}>
         <h1 className={styles.titulo}>Macrofluxos dos Processos</h1>
         <p className={styles.subtitulo}>
-          Consulte os fluxos padronizados dos principais processos da SECID-PR.
+          Consulte os fluxos padronizados dos principais processos da SECID.
         </p>
       </div>
 

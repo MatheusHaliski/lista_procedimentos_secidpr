@@ -65,7 +65,7 @@ export default function Header() {
           </div>
           <div className={styles.marcaTexto}>
             <span className={styles.marcaNome}>Secretaria de Estado das Cidades</span>
-            <span className={styles.marcaSubtitulo}>SECID-PR — Portal de Gestão por Processos</span>
+            <span className={styles.marcaSubtitulo}>SECID — Portal de Gestão por Processos</span>
           </div>
         </Link>
 
@@ -154,7 +154,7 @@ export default function Header() {
       <Modal
         aberto={modalBoasVindas}
         onFechar={() => {}}
-        titulo="Bem-vindo ao Portal SECID-PR"
+        titulo="Bem-vindo ao Portal SECID"
         rodape={<button className={styles.salvarBoasVindas} onClick={salvarPrimeiroAcesso}>Salvar dados</button>}
       >
         <p className={styles.boasVindasTexto}>Para continuar no primeiro acesso, confirme seus dados de perfil.</p>

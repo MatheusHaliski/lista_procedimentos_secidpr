@@ -186,7 +186,7 @@ export default function NovoWorkflowForm() {
             className={`${styles.input} ${erros.titulo ? styles.inputErro : ''}`}
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
-            placeholder="Ex.: Análise de proposta — Município de Curitiba"
+            placeholder="Ex.: Análise de proposta — Município de Exemplo"
             aria-required="true"
             aria-describedby={erros.titulo ? 'erro-titulo' : undefined}
             maxLength={200}

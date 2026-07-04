@@ -373,7 +373,7 @@ export default function ManuaisPage() {
         <header className={styles.cabecalho}>
           <h1 className={styles.tituloPagina}>Manuais e Checklists</h1>
           <p className={styles.subtituloPagina}>
-            Consulte os manuais técnicos e utilize os checklists padronizados dos processos da SECID-PR.
+            Consulte os manuais técnicos e utilize os checklists padronizados dos processos da SECID.
           </p>
         </header>
 

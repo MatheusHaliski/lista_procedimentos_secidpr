@@ -18,7 +18,7 @@ const faqData: FAQItem[] = [
     categoria: 'Identidade e Missão',
     pergunta: 'O que é a SECID e qual é a sua natureza jurídica?',
     resposta:
-      'A Secretaria de Estado das Cidades — SECID é um órgão auxiliar do Governador do Estado do Paraná, a ele direta e imediatamente subordinado, nos termos do inciso II do art. 33 da Lei nº 21.352, de 1º de janeiro de 2023. Seu regulamento foi aprovado pelo Decreto nº 4.497, de 20 de dezembro de 2023.',
+      'A Secretaria de Estado das Cidades — SECID é um órgão auxiliar do Governador do Estado, a ele direta e imediatamente subordinado, nos termos do inciso II do art. 33 da Lei nº 21.352, de 1º de janeiro de 2023. Seu regulamento foi aprovado pelo Decreto nº 4.497, de 20 de dezembro de 2023.',
     dica:
       "Veterano: 'Não confunda a SECID com a SEIA nem com a SEIL. A SECID cuida de cidades, urbanismo, habitação e edificações públicas. Se o assunto for inovação digital, é outra pasta. Se for rodovias, é outra. Cada secretaria tem seu campo — errar o encaminhamento custa semanas.'",
     tags: ['Lei 21.352/2023', 'Decreto 4.497/2023', 'órgão auxiliar do Governador'],
@@ -38,17 +38,17 @@ const faqData: FAQItem[] = [
     categoria: 'Identidade e Missão',
     pergunta: 'Quais entidades estão vinculadas ou relacionadas à SECID?',
     resposta:
-      'A SECID possui duas entidades no nível de atuação descentralizada: a Agência de Assuntos Metropolitanos do Paraná — AMEP e a Companhia de Habitação do Paraná — COHAPAR. Além disso, o serviço social autônomo PARANACIDADE vincula-se à SECID por cooperação, nos termos da Lei nº 15.211/2006. A Superintendência Geral de Apoio aos Municípios — SAM também se subordina à SECID conforme Decreto nº 138/2023.',
+      'A SECID possui duas entidades no nível de atuação descentralizada: a Agência de Assuntos Metropolitanos — AMEP e a Companhia de Habitação — COHAPAR. Além disso, o serviço social autônomo de apoio aos municípios vincula-se à SECID por cooperação, nos termos da Lei nº 15.211/2006. A Superintendência Geral de Apoio aos Municípios — SAM também se subordina à SECID conforme Decreto nº 138/2023.',
     dica:
-      "Veterano: 'AMEP cuida da governança metropolitana. COHAPAR cuida de habitação social. PARANACIDADE apoia tecnicamente os municípios. São entidades distintas com orçamentos próprios — não trate como se fossem departamentos internos da Secretaria.'",
-    tags: ['AMEP', 'COHAPAR', 'PARANACIDADE', 'SAM', 'entidades vinculadas'],
+      "Veterano: 'AMEP cuida da governança metropolitana. COHAPAR cuida de habitação social. O serviço social autônomo apoia tecnicamente os municípios. São entidades distintas com orçamentos próprios — não trate como se fossem departamentos internos da Secretaria.'",
+    tags: ['AMEP', 'COHAPAR', 'serviço social autônomo', 'SAM', 'entidades vinculadas'],
   },
   {
     id: 4,
     categoria: 'Estrutura Organizacional',
     pergunta: 'Como é composta a estrutura organizacional básica da SECID?',
     resposta:
-      'A estrutura da SECID, definida no art. 2º do Regulamento, compreende 8 níveis: (I) Direção Superior — Secretário de Estado; (II) Decisão Colegiada — Concidades Paraná; (III) Assessoramento — Gabinete do Secretário e Assessoria Técnica; (IV) Gerência — Diretor-Geral, Diretores de área e Unidades Técnicas; (V) Atuação Sistêmica — 6 Núcleos Setoriais; (VI) Execução Programática — Coordenações subordinadas às Diretorias; (VII) Atuação Regional — Núcleos Regionais das Cidades; (VIII) Atuação Descentralizada — AMEP e COHAPAR.',
+      'A estrutura da SECID, definida no art. 2º do Regulamento, compreende 8 níveis: (I) Direção Superior — Secretário de Estado; (II) Decisão Colegiada — Concidades; (III) Assessoramento — Gabinete do Secretário e Assessoria Técnica; (IV) Gerência — Diretor-Geral, Diretores de área e Unidades Técnicas; (V) Atuação Sistêmica — 6 Núcleos Setoriais; (VI) Execução Programática — Coordenações subordinadas às Diretorias; (VII) Atuação Regional — Núcleos Regionais das Cidades; (VIII) Atuação Descentralizada — AMEP e COHAPAR.',
     dica:
       "Veterano: 'Antes de encaminhar qualquer demanda, saiba em qual nível ela se resolve. Assunto estratégico vai para o Secretário ou Diretor-Geral. Execução técnica vai para as Coordenações. Demanda regional vai para o NRC da sua área. Errar o nível é perder tempo.'",
     tags: ['art. 2º', '8 níveis hierárquicos', 'organograma', 'Decreto 4.497/2023'],
@@ -78,7 +78,7 @@ const faqData: FAQItem[] = [
     categoria: 'Processos e Competências Técnicas',
     pergunta: 'O que é o Sistema de Financiamento de Ações nos Municípios — SFM e quem o administra?',
     resposta:
-      'O SFM é o Sistema de Financiamento de Ações nos Municípios do Estado do Paraná, instituído pela Lei nº 17.655, de 07 de agosto de 2013. Sua administração compete à SECID, especificamente por meio da Coordenação de Desenvolvimento Urbano e Regional — CDUR, subordinada ao Diretor de Desenvolvimento e Integração. O SFM é um dos instrumentos de financiamento de infraestrutura urbana e desenvolvimento institucional dos municípios paranaenses.',
+      'O SFM é o Sistema de Financiamento de Ações nos Municípios do Estado, instituído pela Lei nº 17.655, de 07 de agosto de 2013. Sua administração compete à SECID, especificamente por meio da Coordenação de Desenvolvimento Urbano e Regional — CDUR, subordinada ao Diretor de Desenvolvimento e Integração. O SFM é um dos instrumentos de financiamento de infraestrutura urbana e desenvolvimento institucional dos municípios.',
     dica:
       "Veterano: 'O SFM é dinheiro real para municípios. Mas para acessar, o município precisa ter toda a documentação em ordem — certidões, plano de trabalho, sem inadimplência. A CCOR cuida da tramitação. Municípios que chegam sem documentação perdem a janela de repasse.'",
     tags: ['SFM', 'Lei 17.655/2013', 'CDUR', 'financiamento municipal', 'infraestrutura urbana'],
@@ -88,7 +88,7 @@ const faqData: FAQItem[] = [
     categoria: 'Processos e Competências Técnicas',
     pergunta: 'Qual é o papel da SECID nas obras de edificações públicas estaduais?',
     resposta:
-      'A SECID é o órgão central responsável por planejar, coordenar, fiscalizar e receber obras e serviços de engenharia de edificações de interesse estadual para toda a Administração Direta, Autárquica e Fundacional do Poder Executivo do Paraná. Isso inclui: elaborar Termos de Referência, definir parâmetros de BDI, manter a Tabela de Custos de Obras, credenciar profissionais e empresas, gerir contratos e fiscalizar a execução. Outros órgãos só podem realizar as próprias obras sem a SECID se houver autorização expressa do Governador.',
+      'A SECID é o órgão central responsável por planejar, coordenar, fiscalizar e receber obras e serviços de engenharia de edificações de interesse estadual para toda a Administração Direta, Autárquica e Fundacional do Poder Executivo do Estado. Isso inclui: elaborar Termos de Referência, definir parâmetros de BDI, manter a Tabela de Custos de Obras, credenciar profissionais e empresas, gerir contratos e fiscalizar a execução. Outros órgãos só podem realizar as próprias obras sem a SECID se houver autorização expressa do Governador.',
     dica:
       "Veterano: 'Se algum órgão do Estado quiser construir ou reformar sem passar pela SECID, precisa de autorização do Governador. Isso é letra da lei. Projetos que tentam contornar esse fluxo enfrentam problemas jurídicos na licitação. A SECID não é burocracia — é o guardião da legalidade das obras públicas.'",
     tags: ['edificações públicas', 'BDI', 'Tabela de Custos', 'fiscalização', 'TED', 'obras estaduais'],
@@ -98,7 +98,7 @@ const faqData: FAQItem[] = [
     categoria: 'Processos e Competências Técnicas',
     pergunta: 'O que é BDI e qual é o papel da SECID na sua definição?',
     resposta:
-      'BDI — Bonificações e Despesas Indiretas — é o percentual que incide sobre os custos diretos de obras para cobrir despesas como administração central, seguros, garantias e lucro. Compete à SECID definir os parâmetros aceitáveis de BDI para os projetos, obras e serviços de engenharia dos órgãos da administração direta e autárquica do Estado do Paraná, determinando os preços máximos admissíveis nas licitações públicas.',
+      'BDI — Bonificações e Despesas Indiretas — é o percentual que incide sobre os custos diretos de obras para cobrir despesas como administração central, seguros, garantias e lucro. Compete à SECID definir os parâmetros aceitáveis de BDI para os projetos, obras e serviços de engenharia dos órgãos da administração direta e autárquica do Estado, determinando os preços máximos admissíveis nas licitações públicas.',
     dica:
       "Veterano: 'BDI mal calculado é licitação impugnada. Já vi contratos inteiros serem questionados no TCE por BDI fora do padrão SECID. Antes de assinar qualquer orçamento de obra pública, confira se o BDI está dentro dos parâmetros vigentes da Tabela da SECID. Isso não é detalhe — é critério de validade.'",
     tags: ['BDI', 'Tabela de Custos', 'orçamento de obras', 'preço máximo', 'licitação'],
@@ -116,7 +116,7 @@ const faqData: FAQItem[] = [
   {
     id: 11,
     categoria: 'Apoio aos Municípios e Convênios',
-    pergunta: 'Como a SECID presta assistência técnica aos municípios paranaenses?',
+    pergunta: 'Como a SECID presta assistência técnica aos municípios?',
     resposta:
       'A assistência técnica aos municípios é coordenada pelo Diretor de Apoio aos Municípios — DAM, por meio de duas unidades: a Coordenação de Convênios e Repasses — CCOR (que administra a celebração e manutenção de convênios, instrui processos e avalia prestações de contas) e a Coordenação de Suporte Técnico aos Municípios — CSTM (que formula a política estadual de apoio municipal, organiza materiais técnicos, monitora convênios e realiza eventos técnicos junto aos municípios).',
     dica:
@@ -126,22 +126,22 @@ const faqData: FAQItem[] = [
   {
     id: 12,
     categoria: 'Apoio aos Municípios e Convênios',
-    pergunta: 'Quais são os Núcleos Regionais das Cidades e como estão distribuídos no Paraná?',
+    pergunta: 'Quais são os Núcleos Regionais das Cidades e como estão distribuídos pelo Estado?',
     resposta:
-      'Os Núcleos Regionais das Cidades — NRCs compõem o nível de atuação regional da SECID. Existem 11 núcleos, cada um com um município-sede: Campo Mourão, Cascavel, Curitiba, Guarapuava, Londrina, Maringá, Pato Branco, Ponta Grossa, Santo Antônio da Platina, Umuarama e União da Vitória. Cada NRC é responsável por promover e executar as atividades da Secretaria em sua região, fiscalizar obras locais, levantar necessidades de manutenção de prédios públicos e coletar informações regionais de interesse da SECID.',
+      'Os Núcleos Regionais das Cidades — NRCs compõem o nível de atuação regional da SECID. Existem 11 núcleos, cada um com um município-sede: Município 03, Município 04, Município 05, Município 08, Município 10, Município 11, Município 14, Município 16, Município 17, Município 20 e Município 21. Cada NRC é responsável por promover e executar as atividades da Secretaria em sua região, fiscalizar obras locais, levantar necessidades de manutenção de prédios públicos e coletar informações regionais de interesse da SECID.',
     dica:
-      "Veterano: 'O NRC é a SECID presente na região. Prefeitura com dúvida sobre obra, convênio ou edificação pública deve primeiro contatar o NRC da sua área, não ligar direto para Curitiba. O NRC tem a proximidade e o conhecimento local. Só escale para a sede quando o NRC não conseguir resolver.'",
-    tags: ['NRCs', '11 núcleos regionais', 'atuação regional', 'Campo Mourão', 'Cascavel', 'Curitiba', 'Londrina', 'Maringá'],
+      "Veterano: 'O NRC é a SECID presente na região. Prefeitura com dúvida sobre obra, convênio ou edificação pública deve primeiro contatar o NRC da sua área, não ligar direto para a sede central. O NRC tem a proximidade e o conhecimento local. Só escale para a sede quando o NRC não conseguir resolver.'",
+    tags: ['NRCs', '11 núcleos regionais', 'atuação regional', 'Município 03', 'Município 04', 'Município 05', 'Município 10', 'Município 11'],
   },
   {
     id: 13,
     categoria: 'Apoio aos Municípios e Convênios',
-    pergunta: 'O que é o Concidades Paraná e qual é o seu papel?',
+    pergunta: 'O que é o Concidades e qual é o seu papel?',
     resposta:
-      'O Conselho Estadual das Cidades do Paraná — Concidades Paraná é um órgão colegiado de natureza permanente, caráter consultivo e fiscalizatório, criado pela Lei nº 19.228/2017. É composto por 41 Conselheiros Titulares, com 60% de representantes da sociedade civil e 40% do poder público. Compete ao Concidades propor diretrizes de desenvolvimento urbano, acompanhar políticas públicas, propor normas de direito urbanístico, promover cooperação intergovernamental e convocar a Conferência Estadual das Cidades.',
+      'O Conselho Estadual das Cidades — Concidades é um órgão colegiado de natureza permanente, caráter consultivo e fiscalizatório, criado pela Lei nº 19.228/2017. É composto por 41 Conselheiros Titulares, com 60% de representantes da sociedade civil e 40% do poder público. Compete ao Concidades propor diretrizes de desenvolvimento urbano, acompanhar políticas públicas, propor normas de direito urbanístico, promover cooperação intergovernamental e convocar a Conferência Estadual das Cidades.',
     dica:
       "Veterano: 'O Concidades não é decorativo. Ele fiscaliza, propõe e emite resoluções que orientam a política urbana do Estado. Resolução do Concidades tem peso. Quando surgir questão sobre política habitacional ou desenvolvimento urbano, vale pesquisar o que o Conselho já deliberou sobre o tema.'",
-    tags: ['Concidades Paraná', 'Lei 19.228/2017', 'conselho estadual', 'desenvolvimento urbano', '41 conselheiros'],
+    tags: ['Concidades', 'Lei 19.228/2017', 'conselho estadual', 'desenvolvimento urbano', '41 conselheiros'],
   },
   {
     id: 14,
@@ -305,7 +305,7 @@ export default function FAQProcedimentos() {
       <header className={styles.header}>
         <h1 className={styles.title}>Perguntas Frequentes — SECID</h1>
         <p className={styles.subtitle}>
-          Secretaria de Estado das Cidades do Paraná — Regulamento aprovado pelo Decreto nº 4.497/2023
+          Secretaria de Estado das Cidades — Regulamento aprovado pelo Decreto nº 4.497/2023
         </p>
       </header>
 
