@@ -2,21 +2,15 @@ import styles from './InstBar.module.css';
 
 export default function InstBar() {
   return (
-    <div className={styles.instbar} role="banner" aria-label="Barra institucional do Governo do Paraná">
+    <div className={styles.instbar} role="banner" aria-label="Barra institucional">
       <div className={styles.inner}>
-        <a
-          href="https://www.parana.pr.gov.br"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.logoLink}
-          aria-label="Portal do Governo do Estado do Paraná"
-        >
+        <span className={styles.logoLink} aria-label="Portal institucional">
           <svg width="120" height="20" viewBox="0 0 120 20" fill="none" aria-hidden="true">
             <text x="0" y="15" fontFamily="Montserrat, sans-serif" fontSize="12" fontWeight="600" fill="white">
-              parana.pr.gov.br
+              Portal Institucional
             </text>
           </svg>
-        </a>
+        </span>
 
         <nav aria-label="Links de acessibilidade do governo" className={styles.links}>
           <button className={styles.link} aria-label="Ativar alto contraste">
